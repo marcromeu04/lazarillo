@@ -13,6 +13,9 @@ const dot = $('dot');
 const statusText = $('statusText');
 const warnbox = $('warnbox');
 const logEl = $('log');
+const siteFrame = $('site');
+const locEl = $('loc');
+let visitorUrl = '';
 
 function setStatus(kind, text) {
   dot.className = 'dot ' + kind;
@@ -206,14 +209,10 @@ async function handleToolCall(msg) {
     }
     if (tool_name === 'resaltar') {
       const texto = parameters && parameters.texto;
-      const r = await fetch('/api/highlight', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: texto }),
-      });
-      const data = await r.json().catch(() => ({}));
-      log('info', 'resaltar', `«${texto}» → ${data && data.found ? 'encontrado' : 'no encontrado'}`);
-      reply(JSON.stringify(data), false); // inofensivo si expects_response=false
+      // El resaltado ocurre DENTRO del iframe (visible en la misma ventana).
+      try { siteFrame.contentWindow.postMessage({ type: 'highlight', text: texto }, '*'); } catch {}
+      log('tool', 'resaltar', `«${texto}»`);
+      reply(JSON.stringify({ ok: true }), false);
       return;
     }
     // herramienta desconocida
@@ -342,6 +341,27 @@ function stop() {
 btnStart.addEventListener('click', start);
 btnStop.addEventListener('click', stop);
 
+// ---------- iframe del sitio (todo en una sola ventana) ----------
+async function initSite() {
+  let target = 'https://books.toscrape.com/';
+  try { const r = await fetch('/api/config'); const c = await r.json(); if (c && c.targetUrl) target = c.targetUrl; } catch {}
+  visitorUrl = target;
+  siteFrame.src = '/proxy?url=' + encodeURIComponent(target);
+}
+window.addEventListener('message', (ev) => {
+  const d = ev.data || {};
+  if (d.type === 'page' && d.url) {
+    visitorUrl = d.url;
+    locEl.innerHTML = '📍 Estás en: <b>' + (d.title || d.url) + '</b>';
+    fetch('/api/visitor-url', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: d.url }) }).catch(() => {});
+  } else if (d.type === 'highlight_result') {
+    log('info', 'resaltar', d.ok ? 'resaltado ✓' : 'no encontrado en pantalla');
+  } else if (d.type === 'click') {
+    log('evt', 'clic', d.text || '');
+  }
+});
+
 // estado inicial
 setStatus('idle', 'en reposo');
 log('info', 'listo', 'pulsa «Empezar demo» para hablar');
+initSite();
