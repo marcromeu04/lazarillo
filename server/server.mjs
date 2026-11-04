@@ -53,6 +53,12 @@ function serveStatic(req, res) {
 
 const server = http.createServer(async (req, res) => {
   const url = req.url.split('?')[0];
+  // Solo la propia app puede usar /api/*: otra web abierta en el navegador no puede mover el Chrome del visitante.
+  if (url.startsWith('/api/')) {
+    const origin = req.headers.origin;
+    const okOrigin = !origin || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+    if (!okOrigin || req.headers['sec-fetch-site'] === 'cross-site') return sendJson(res, 403, { error: 'origen no permitido' });
+  }
   try {
     if (url === '/api/token' && req.method === 'POST') {
       if (token.__missing || !token.createToken) return sendJson(res, 503, { error: 'token.mjs no disponible', detail: token.__err });
@@ -84,7 +90,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '127.0.0.1', () => {
   console.log(`\n  Lazarillo v2 → http://localhost:${PORT}  (Chrome)`);
   console.log(`  token.mjs: ${token.__missing ? '✗ (503)' : '✓'}   watcher.mjs: ${watcher.__missing ? '✗ (503)' : '✓'}`);
   if (!process.env.CARTESIA_API_KEY) console.log('  ⚠  Falta CARTESIA_API_KEY en .env — la voz no conectará (demo N1 = Playground).');
