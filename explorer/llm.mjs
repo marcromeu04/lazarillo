@@ -57,11 +57,15 @@ export async function callLLM(prompt, { maxTokens = 1800, timeoutMs = 25000, cfg
   let r;
   let pick;
   if (cfg.format === 'anthropic') {
+    // La API de Anthropic lee la clave de x-api-key; Authorization: Bearer es para tokens OAuth, no se manda.
+    const { Authorization, ...noBearer } = auth;
     r = await fetch(`${cfg.url}/messages`, {
       method: 'POST',
       signal,
-      headers: { 'Content-Type': 'application/json', 'anthropic-version': '2023-06-01', ...(cfg.key ? { 'x-api-key': cfg.key } : {}), ...auth },
-      body: JSON.stringify({ model: cfg.model, max_tokens: maxTokens, messages: [{ role: 'user', content: prompt }], ...(cfg.effort ? { output_config: { effort: cfg.effort } } : {}) }),
+      headers: { 'Content-Type': 'application/json', 'anthropic-version': '2023-06-01', ...(cfg.key ? { 'x-api-key': cfg.key } : {}), ...(/^https:\/\/api\.anthropic\.com\//.test(cfg.url) ? noBearer : auth) },
+      // Los Claude actuales (Haiku 5.5…) piensan por defecto y ese pensamiento cuenta en max_tokens:
+      // margen extra para que el JSON no salga cortado.
+      body: JSON.stringify({ model: cfg.model, max_tokens: maxTokens + 6000, messages: [{ role: 'user', content: prompt }], ...(cfg.effort ? { output_config: { effort: cfg.effort } } : {}) }),
     });
     pick = (j) => (j.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
   } else if (cfg.format === 'google') {
