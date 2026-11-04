@@ -1,0 +1,7478 @@
+{
+  "app": {
+    "name": "Deja que tu producto se venda solo se venda solo",
+    "startUrl": "https://karumi.ai/es",
+    "exploredAt": "2026-11-04T12:47:48.250Z",
+    "pages": 25,
+    "seconds": 30
+  },
+  "screens": [
+    {
+      "id": "s01",
+      "url": "https://karumi.ai/es",
+      "title": "Deja que tu producto se venda solo se venda solo",
+      "purpose": "Karumi es un agente de demos con IA que hace una demo en vivo de tu producto real, no una grabación, para visitantes, prospectos, usuarios y tu equipo.",
+      "headings": [
+        "Deja que tu producto se venda solo se ve",
+        "No muestres tu producto como si fuera 19",
+        "Potenciando a los mejores equipos",
+        "Es una videollamada, no un video",
+        "El conocimiento del producto es lo que n"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Probar demo con IA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "4.9/5 . Lee las reseñas de Karumi en G2 ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Dejas Navattic, Storylane o Arcade? Pás",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Caso de éxito →",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Mira la historia de Workday 1:16 →",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Ver el caso de uso",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ver el caso de uso",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Ver el caso de uso",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "5× Tasa de conversión frente a las demos",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "+23% Más leads Lee la historia completa",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "46% Aumento de demos realizadas Lee la h",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "21% Conversión de prueba a pago, frente ",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "85% Menos tiempo de onboarding manual Le",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "2 Semanas para lanzar el primer agente d",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "2× Cierre más rápido del comercial en op",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "21% Tasa de conversión a prueba gratuita",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "400 Demos de producto al mes, partiendo ",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "40+ Equipos enterprise incorporados en e",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "<3s Del correo electrónico a la platafor",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "200+ Demos en directo entregadas al mes ",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "~11 Minutos de duración media por demo L",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "2× Conversión de visitante a prueba Lee ",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "3× Uso activo semanal en los equipos inc",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "96% Preguntas de prospectos respondidas ",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Más sobre nuestro producto",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Marketing",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ventas",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Onboarding y soporte",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "01 El visitante hace clic en un enlace",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "02 En 2 segundos, ya comparte pantalla",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "03 Habla, escribe, interrumpe",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "04 Recibes un aviso y la grabación",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Chat con video en vivo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Videollamada",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Copiloto en la llamada de tu comercial",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s01.png"
+    },
+    {
+      "id": "s02",
+      "url": "https://karumi.ai/es/products/product-brain",
+      "title": "Convierte a tu agente en el mejor agente de soporte",
+      "purpose": "El Product Brain para agentes de IA: capturas, vídeos y cada función de tu producto, por API o MCP, para agentes de soporte, onboarding, ventas y docs.",
+      "headings": [
+        "Convierte a tu agente en el mejor agente",
+        "El conocimiento del producto es lo que n",
+        "Cada pantalla de tu producto, en un únic",
+        "El contexto marca la diferencia",
+        "El único límite de tu agente es tu imagi"
+      ],
+      "actions": [
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Solicitar acceso a la API",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Lanzar demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Más sobre nuestro producto",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Ver la documentación de MCP →",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Lee el caso de éxito de Re-Leased",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Lee el caso de éxito de Salesforge",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Hablar con ventas",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Ver la documentación de MCP",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soporte",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Onboarding",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ventas",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Documentación",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "API",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "MCP",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Webhooks",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s02.png"
+    },
+    {
+      "id": "s03",
+      "url": "https://karumi.ai/es/customers",
+      "title": "Equipos que crean con Karumi",
+      "purpose": "Descubre cómo Salesforge, StackAI y otros líderes del sector usan las demos interactivas con IA de Karumi para escalar su crecimiento.",
+      "headings": [
+        "Equipos que crean con Karumi",
+        "Los mejores confían en nosotros",
+        "Acelera tu crecimiento con demos agéntic"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "5× Tasa de conversión frente a las demos",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "+23% Más leads \"Hasta 40 minutos con el ",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "46% Aumento de demos realizadas \"Desde q",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "21% Conversión de prueba a pago, frente ",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "85% Menos tiempo de onboarding manual \"M",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s03.png"
+    },
+    {
+      "id": "s04",
+      "url": "https://karumi.ai/es/enterprise",
+      "title": "Tu demo de producto, a escala empresarial",
+      "purpose": "Agentes a medida, usuarios ilimitados y SLA empresariales, respaldados por SOC 2 Type II, ISO 27001 y GDPR. Descubre qué incluye el plan Karumi Enterprise.",
+      "headings": [
+        "Tu demo de producto, a escala empresaria",
+        "Probado con equipos enterprise, bajo con",
+        "Todo el recorrido del cliente, una sola ",
+        "Nada sale en vivo por accidente",
+        "Seguridad de nivel empresarial"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Habla con ventas",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Descubrimiento Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Evaluación Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Activación Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Adopción Soporte",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Preparación Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Visita el portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Integración con las mejores herramientas",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s04.png"
+    },
+    {
+      "id": "s05",
+      "url": "https://karumi.ai/es/contact-demo",
+      "title": "Hablemos de tu próxima demo.",
+      "purpose": "Reserva una llamada de 15 minutos con el equipo de ventas de Karumi y descubre cómo un agente de demo con IA hace demos de producto en vivo para tus prospectos.",
+      "headings": [
+        "Hablemos de tu próxima demo."
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Call copilot",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Knowledge graph",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "MCP",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Workflows",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s05.png"
+    },
+    {
+      "id": "s06",
+      "url": "https://karumi.ai/es/migrate",
+      "title": "Deja atrás el tour de clics",
+      "purpose": "¿Dejas Navattic, Storylane, Arcade, Supademo o Consensus? Karumi muestra tu producto real, no una grabación, responde en vivo y no hay que rehacer tours.",
+      "headings": [
+        "Deja atrás el tour de clics",
+        "Los tours hablan al comprador. Karumi ha",
+        "Qué cambia cuando te pasas",
+        "Una conversación en dos sentidos, datos ",
+        "Cómo funciona el cambio"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Hablemos de tu cambio",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Probar la demo con IA",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Karumi vs. Navattic",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Storylane",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Arcade",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Supademo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Consensus",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Walnut",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Reprise",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Guideflow",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs. Demoboost",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Todas las comparativas",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Tenemos que rehacer nuestros tours?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Podemos mantener nuestra herramienta ac",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Cuánto tarda una migración?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Qué pasa con nuestras analíticas de dem",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Dónde puede estar el agente?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Es seguro?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Lanzar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s06.png"
+    },
+    {
+      "id": "s07",
+      "url": "https://karumi.ai/es/customers/workday",
+      "title": "Cómo Workday convierte 5x más con demos en vivo con IA",
+      "purpose": "Workday cambió sus demos pregrabadas tras un formulario por un agente de demos con IA en vivo: los compradores exploran Workday en segundos y convierten 5x más.",
+      "headings": [
+        "Cómo Workday convierte 5x más con demos ",
+        "El reto:",
+        "Antes y después:",
+        "La solución",
+        "En vivo en dos semanas, listo para los m"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Compartir en Facebook",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en X",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en LinkedIn",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Reproducir vídeo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s07.png"
+    },
+    {
+      "id": "s08",
+      "url": "https://karumi.ai/es/website-demo",
+      "title": "Cada visitante recibe una demo. No un formulario",
+      "purpose": "Cada visitante recibe una demo en vivo de tu producto real, no una grabación. El agente se une en menos de dos segundos y se lo muestra.",
+      "headings": [
+        "Cada visitante recibe una demo. No un fo",
+        "Tus campañas funcionan día y noche. Ahor",
+        "Pide un email. Descubre todo lo demás en",
+        "Tu landing ya tiene algo",
+        "Es una videollamada, no un video"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Prueba la demo con IA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Caso de éxito",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Descubre cómo funciona la experiencia",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Ver todas las integraciones",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Google Analytics Analítica",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Segment Analítica",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Mixpanel Analítica",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Heap Analítica",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "HubSpot CRM",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Marketo Gestión de proyectos",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Mailchimp Marketing",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Salesforce CRM",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Zapier Automatización",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Lee el caso de éxito de Re-Leased",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Lee el caso de éxito de Salesforge",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Tu producto, explicado a tu manera",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cada pregunta, con sus palabras",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Posiciónate en lo que de verdad pregunta",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Genera tu agente",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "Introduce tu email corporativo",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s08.png"
+    },
+    {
+      "id": "s09",
+      "url": "https://karumi.ai/es/sales",
+      "title": "Devuélvele la agenda a tus SE",
+      "purpose": "El agente de Karumi se encarga de las demos sencillas: en tu outbound, a mitad del deal o junto a tu comercial en la llamada.",
+      "headings": [
+        "Devuélvele la agenda a tus SE",
+        "Qué pasa cuando la demo deja de ser el c",
+        "Tus SE tienen la agenda llena para tres ",
+        "Tres formas en que los equipos de ventas",
+        "Lo que eso cambia"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Prueba la demo con IA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Caso de éxito",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Caso de éxito",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Salesforce CRM",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "HubSpot CRM",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Pipedrive CRM",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Outreach Ventas",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Salesloft Ventas",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Gong Ventas",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Apollo Ventas",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack Comunicación",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Outlook Comunicación",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Ver todas las integraciones",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Descubre cómo funcionan las audiencias",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Lee el caso de éxito de Re-Leased",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Lee el caso de éxito de Salesforge",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Un enlace en un email",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "En la llamada de tu AE",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "En un portátil, en persona",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Integrado en su entorno",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Un canal de Slack compartido",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Genera tu agente",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Introduce tu email corporativo",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s09.png"
+    },
+    {
+      "id": "s10",
+      "url": "https://karumi.ai/es/onboarding",
+      "title": "Un CSM dedicado para cada usuario",
+      "purpose": "El agente de Karumi vive dentro de tu producto, lo conoce de principio a fin y acompaña a cada nuevo usuario durante su primera semana.",
+      "headings": [
+        "Un CSM dedicado para cada usuario",
+        "La IA lleva de la mano a tus usuarios pa",
+        "Ya tienes un proceso de onboarding",
+        "No solo explica. Lo hace",
+        "Donde sea más probable que un usuario se"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Prueba la demo con IA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Caso de éxito",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Caso de éxito",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "HubSpot CRM",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Intercom Atención al cliente",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Zendesk Atención al cliente",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Freshdesk Atención al cliente",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Segment Analítica",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Mixpanel Analítica",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack Comunicación",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Notion Productividad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Ver todas las integraciones",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Lee el caso de éxito de Re-Leased",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Lee el caso de éxito de Salesforge",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Genera tu agente",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Nunca desactualizado",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Los recuerda",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Dos segundos para empezar",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Todos tus mercados",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Funciona en móviles",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Más listo en cada sesión",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Acciones acotadas",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Observable",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Introduce tu email corporativo",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s10.png"
+    },
+    {
+      "id": "s11",
+      "url": "https://karumi.ai/es/customers/re-leased",
+      "title": "Cómo la IA de Re-Leased puede encargarse de los primeros 40 ",
+      "purpose": "Re-Leased puso un agente de demos con IA en cada punto de contacto: 200+ demos en directo al mes, 96% de preguntas respondidas en vivo y cierres 2x más rápidos.",
+      "headings": [
+        "Cómo la IA de Re-Leased puede encargarse",
+        "El reto:",
+        "Antes y después:",
+        "La solución",
+        "Una experiencia fiel a la marca y centra"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Mira en directo el agente de demos de Re",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en Facebook",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en X",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en LinkedIn",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s11.png"
+    },
+    {
+      "id": "s12",
+      "url": "https://karumi.ai/es/customers/salesforge",
+      "title": "Cómo Salesforge aumentó sus demos un 46 % sin ampliar el equ",
+      "purpose": "Salesforge escaló sus demos un 46 % sin ampliar el equipo: un agente de IA ofrece demos en vivo y fieles a su marca en 6 webs y 6 productos.",
+      "headings": [
+        "Cómo Salesforge aumentó sus demos un 46 ",
+        "El reto:",
+        "Antes y después:",
+        "La solución",
+        "Una experiencia fiel a la marca y centra"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Salesforge Demo Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en Facebook",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en X",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en LinkedIn",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Reproducir vídeo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s12.png"
+    },
+    {
+      "id": "s13",
+      "url": "https://karumi.ai/es/customers/goreminders",
+      "title": "Cómo GoReminders duplicó la conversión de visitante a prueba",
+      "purpose": "GoReminders llevó el agente de IA de Karumi a sus demos y su onboarding: 400 demos al mes, 2x de conversión a prueba y del 14 % al 21 % de prueba a pago.",
+      "headings": [
+        "Cómo GoReminders duplicó la conversión d",
+        "El reto",
+        "La solución",
+        "Los resultados",
+        "Acelera tu crecimiento con demos agéntic"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Mira Karumi en acción.",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en Facebook",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en X",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en LinkedIn",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s13.png"
+    },
+    {
+      "id": "s14",
+      "url": "https://karumi.ai/es/customers/stackai-onboarding",
+      "title": "Cómo StackAI triplicó la adopción en sus equipos automatizan",
+      "purpose": "StackAI sustituyó el onboarding manual por un agente de Karumi: 40+ equipos enterprise en el T1, 3x de uso semanal y 85 % menos de onboarding manual.",
+      "headings": [
+        "Cómo StackAI triplicó la adopción en sus",
+        "El reto",
+        "Antes vs. después",
+        "La solución",
+        "Entre bastidores:"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Mira Karumi en acción.",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en Facebook",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en X",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Compartir en LinkedIn",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s14.png"
+    },
+    {
+      "id": "s15",
+      "url": "https://karumi.ai/research",
+      "title": "Pioneering Research of Human interaction",
+      "purpose": "Karumi research on how humans interact with AI agents: reinforcement learning, LLM quantization, small language models and product knowledge.",
+      "headings": [
+        "Pioneering Research of Human interaction",
+        "An AI agent must communicate with the cl",
+        "Generic AI knowledge isn't enough.",
+        "Latest Publications",
+        "Accelerate your growth with Agentic Demo"
+      ],
+      "actions": [
+        {
+          "label": "New The Product Brain for AI agents: you",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi home",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Customers",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Talk to us",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Reinforcement Learning in Frontier LLMs:",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Quantizating LLMs, How it works and what",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "How Smaller Models Are Powering Agentic ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Y Combinator company",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "About",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Careers",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Live demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Media kit",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Sales",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Privacy Policy",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Terms of Service",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Security Portal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Call copilot",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Dismiss announcement",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Solutions",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Products",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Resources",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Watch Now",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cookie preferences",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "English",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Close demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "your@email.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s15.png"
+    },
+    {
+      "id": "s16",
+      "url": "https://karumi.ai/es/products/knowledge-graph",
+      "title": "Tu producto se explica solo",
+      "purpose": "Karumi recorre tu producto todo el día, lo arma como un grafo y lo deja listo para responder al instante. Sacas un release y ese mismo día todos tus agentes ya ",
+      "headings": [
+        "Tu producto se explica solo",
+        "El contexto que les falta a tus agentes ",
+        "Tres cosas, todo el tiempo",
+        "Lanzas el martes. El martes ya lo sabe",
+        "El cambio les llega a todos tus agentes "
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Probar la demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Ver precios",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Videocall Agent Ver la página",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website Qualifier Ver la página",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Call Copilot Ver la página",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation Agent Ver la página",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app Agent Ver la página",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack Product Expert Ver la página",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Hablar con ventas",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Probar la demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s16.png"
+    },
+    {
+      "id": "s17",
+      "url": "https://karumi.ai/es/products/mcp",
+      "title": "Todo tu producto, a un prompt",
+      "purpose": "Karumi corre como servidor MCP. Lo conectas una vez y cualquier cliente de IA puede crear agentes de Karumi sobre tu producto y leer lo que aprendieron en cada ",
+      "headings": [
+        "Todo tu producto, a un prompt",
+        "Una conexión, dos usos",
+        "Conecta tu cliente",
+        "Crea un agente para cada tarea",
+        "Lee lo que aprendieron"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Ver los docs",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Ver precios",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Videocall Agent Una demo en vivo por vid",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier Chatea, califica y le ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent Le muestra a tus usuarios c",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert Les responde a tus ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation agent Presenta tu deck y re",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Call copilot Toma notas en tus llamadas ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Hablar con ventas",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Copiar",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Probar la demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s17.png"
+    },
+    {
+      "id": "s18",
+      "url": "https://karumi.ai/es/yc",
+      "title": "Karumi está respaldada por Y Combinator.",
+      "purpose": "Karumi es la plataforma de demos agénticas, respaldada por Y Combinator (otoño de 2025). Agentes de IA que se unen a una videollamada en directo y hacen la demo",
+      "headings": [
+        "Karumi está respaldada por Y Combinator."
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Probar demo con IA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Karumi en Y Combinator",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Call copilot",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Knowledge graph",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Y Y Combinator F25 FUNDADORES Pablo Omen",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s18.png"
+    },
+    {
+      "id": "s19",
+      "url": "https://karumi.ai/es/about",
+      "title": "Arreglamos cómo comunican las empresas de software",
+      "purpose": "Karumi mapea todo tu producto y tu negocio para crear agentes de demo con IA para marketing, ventas, onboarding, enablement y soporte. Conoce al equipo.",
+      "headings": [
+        "Arreglamos cómo comunican las empresas d",
+        "Nuestra historia",
+        "Nuestros principios",
+        "Únete",
+        "Últimas publicaciones"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Product Engineer (Full-Stack) Nueva York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "AI/ML Harness Engineer Nueva York / Madr",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Forward Deployed Engineer (FDE) Nueva Yo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Account Executive Nueva York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Growth Nueva York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Marketing Nueva York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Customer Success Nueva York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Ver todas las ofertas en Y Combinator",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Reinforcement Learning in Frontier LLMs:",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Quantizating LLMs, How it works and what",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "How Smaller Models Are Powering Agentic ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Ver más",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s19.png"
+    },
+    {
+      "id": "s20",
+      "url": "https://karumi.ai/careers",
+      "title": "Build a category-defining company with us",
+      "purpose": "Join Karumi, a Y Combinator company building the first AI product brain in New York, Madrid and San Francisco. How we work, what we look for and open roles.",
+      "headings": [
+        "Build a category-defining company with u",
+        "A focused team doing hard things, fast",
+        "People who can expand",
+        "Operating principles",
+        "Join us"
+      ],
+      "actions": [
+        {
+          "label": "New The Product Brain for AI agents: you",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi home",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Customers",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Talk to us",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Write to the founders",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Product Engineer (Full-Stack) New York /",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "AI/ML Harness Engineer New York / Madrid",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Forward Deployed Engineer (FDE) New York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Account Executive New York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Growth New York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Marketing New York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Customer Success New York",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y See all roles on Y Combinator",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "founders@karumi.ai",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Hackspain",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Y Combinator company",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "About",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Live demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Research",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Media kit",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Sales",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Privacy Policy",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Dismiss announcement",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Solutions",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Products",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Resources",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cookie preferences",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "English",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Close demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s20.png"
+    },
+    {
+      "id": "s21",
+      "url": "https://karumi.ai/es/demo",
+      "title": "Prueba el agente de demos con IA en vivo",
+      "purpose": "Prueba en vivo el agente de demos con IA de Karumi: usa el producto real, no una grabación, y responde a tus preguntas en pantalla. Sin micro ni cámara.",
+      "headings": [
+        "Prueba el agente de demos con IA en vivo",
+        "La confianza de equipos líderes",
+        "Resultados de nuestros clientes",
+        "Cómo funciona",
+        "Lo que dicen de Karumi"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Lee el caso de éxito de Re-Leased",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Lee el caso de éxito de Salesforge",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": "s24"
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Privacidad",
+          "kind": "link",
+          "to": "s25"
+        },
+        {
+          "label": "Términos de uso",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Portal de seguridad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Call copilot",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Knowledge graph",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Qué es un agente de demos con IA?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿La demo de arriba es una grabación?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Cómo aprende nuestro producto?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Cómo empezamos?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Dónde podemos ponerlo?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Habla otros idiomas?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Funciona con nuestro CRM?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "¿Es seguro?",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s21.png"
+    },
+    {
+      "id": "s22",
+      "url": "https://karumi.ai/es/blog",
+      "title": "Blog",
+      "purpose": "Ideas prácticas, consejos y buenas prácticas para crear demos de producto que enganchan. Descubre estrategias centradas en el usuario y enfoques innovadores.",
+      "headings": [
+        "Blog",
+        "¿Deberías hacer tu propio agente de demo",
+        "Los tours de producto hablan a los compr",
+        "¿Qué es un agente inbound? Chatbots, age",
+        "¿Cómo funciona Karumi? La automatización"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Ventas con IA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Software",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Agentes de demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Demo de producto",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Novedades de producto",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Deberías hacer tu propio agente de demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Los tours de producto hablan a los compr",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Qué es un agente inbound? Chatbots, age",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Cómo funciona Karumi? La automatización",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentamos el Product Brain: conocimien",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Qué envía Karumi a HubSpot después de u",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Puede Karumi unirse a una llamada de Go",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Puede la demo con IA funcionar en españ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Cómo aprende mi producto el agente de d",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿La demo con IA es en directo o una grab",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs Hexus: ¿en qué se diferencian?",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "¿Cómo calcular el ROI de las herramienta",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Storylane vs Navattic: ¿cuáles son las d",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Los 6 mejores agentes de ventas con IA e",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Supademo vs Navattic: ¿cuáles son las di",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Agentes de ventas con IA: qué son, tipos",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Las 6 mejores alternativas a Howdygo en ",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi vs Howdygo: ¿en qué se diferencia",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cómo usar la IA en ventas en 2026 (con c",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver más",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s22.png"
+    },
+    {
+      "id": "s23",
+      "url": "https://karumi.ai/media-kit",
+      "title": "Karumi media kit",
+      "purpose": "Press assets for journalists covering Karumi: company boilerplate, logos in SVG and PNG, founder photos, fast facts and the press contact.",
+      "headings": [
+        "Karumi media kit",
+        "Company boilerplate",
+        "Logos",
+        "Founders",
+        "Questions from the press"
+      ],
+      "actions": [
+        {
+          "label": "New The Product Brain for AI agents: you",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi home",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Customers",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Talk to us",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Download all assets",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Contact press",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "karumi.ai",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "SVG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "PNG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "SVG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "PNG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "SVG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "PNG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "SVG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "PNG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Download JPG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Download JPG",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "LinkedIn",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "X",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "LinkedIn",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "X",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "founders@karumi.ai",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Email the team",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Y Combinator company",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "About",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Careers",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Live demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Research",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Dismiss announcement",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Solutions",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Products",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Resources",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Copy",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cookie preferences",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "English",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Close demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s23.png"
+    },
+    {
+      "id": "s24",
+      "url": "https://karumi.ai/es/internal-enablement",
+      "title": "Un agente de IA que forma a tu equipo en tu producto",
+      "purpose": "El agente de IA de Karumi conoce tu producto a fondo y forma a nuevos empleados, ventas, soporte y CS: respuestas al instante y recorridos en vivo en Slack.",
+      "headings": [
+        "Un agente de IA que forma a tu equipo en",
+        "Un experto en tu producto, disponible pa",
+        "Ya tienes documentación y formación",
+        "No solo lo explica. Lo muestra",
+        "En la herramienta que tu equipo ya tiene"
+      ],
+      "actions": [
+        {
+          "label": "Nuevo El Product Brain para agentes de I",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Inicio de Karumi",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Clientes",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Habla con nosotros",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Probar demo con IA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Caso de éxito",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Caso de éxito",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Slack Comunicación",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Microsoft Teams Comunicación",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Outlook Comunicación",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Notion Productividad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "GitBook Base de conocimiento",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Archbee Base de conocimiento",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "JIRA Desarrollo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Linear Gestión de proyectos",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Google Sheets Productividad",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Ver todas las integraciones",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Lee el caso de éxito de Re-Leased",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Lee el caso de éxito de Salesforge",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Y Empresa de Y Combinator",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Sobre nosotros",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Empleo",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Demo en vivo",
+          "kind": "link",
+          "to": "s21"
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": "s22"
+        },
+        {
+          "label": "Investigación",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Kit de prensa",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Ventas",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Cerrar anuncio",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Soluciones",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Productos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Recursos",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Genera tu agente",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Siempre actualizado",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Más listo en cada sesión",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Dos segundos para empezar",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "En todos tus mercados",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Acciones acotadas",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Observable",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Ver ahora",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Preferencias de cookies",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Español",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cerrar demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Introduce tu email corporativo",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "tu@empresa.com",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s24.png"
+    },
+    {
+      "id": "s25",
+      "url": "https://karumi.ai/privacy",
+      "title": "Privacy Policy",
+      "purpose": "How Karumi Inc. collects, uses, discloses and processes personal information across its websites, AI-powered demo experiences and services.",
+      "headings": [
+        "Privacy Policy",
+        "Who We Are",
+        "When Karumi Acts as a Controller",
+        "When Karumi Acts as a Processor",
+        "Information We Collect"
+      ],
+      "actions": [
+        {
+          "label": "New The Product Brain for AI agents: you",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Karumi home",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Customers",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Enterprise",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Talk to us",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Google API Services User Data Policy",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "privacy@karumi.ai",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Y Y Combinator company",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "About",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Careers",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "Live demo",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Blog",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Research",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Media kit",
+          "kind": "link",
+          "to": "s23"
+        },
+        {
+          "label": "Marketing",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Sales",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Onboarding",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Enablement",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Product Brain",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Terms of Service",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "DPA",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Security Portal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Videocall Agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Website qualifier",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "In-app agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Slack product expert",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Presentation agent",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Call copilot",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Knowledge graph",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Dismiss announcement",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Solutions",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Products",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Resources",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Cookie preferences",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "English",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "Close demo",
+          "kind": "button",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-reject",
+          "kind": "input",
+          "to": null
+        },
+        {
+          "label": "__framer-cookie-component-button-accept",
+          "kind": "input",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s25.png"
+    }
+  ],
+  "edges": [
+    {
+      "from": "s01",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s01",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s01",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s01",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s01",
+      "to": "s06",
+      "via": "¿Dejas Navattic, Storylane o Arcade? Pás"
+    },
+    {
+      "from": "s01",
+      "to": "s07",
+      "via": "Caso de éxito →"
+    },
+    {
+      "from": "s01",
+      "to": "s08",
+      "via": "Ver el caso de uso"
+    },
+    {
+      "from": "s01",
+      "to": "s09",
+      "via": "Ver el caso de uso"
+    },
+    {
+      "from": "s01",
+      "to": "s10",
+      "via": "Ver el caso de uso"
+    },
+    {
+      "from": "s01",
+      "to": "s11",
+      "via": "+23% Más leads Lee la historia completa"
+    },
+    {
+      "from": "s01",
+      "to": "s12",
+      "via": "46% Aumento de demos realizadas Lee la h"
+    },
+    {
+      "from": "s01",
+      "to": "s13",
+      "via": "21% Conversión de prueba a pago, frente "
+    },
+    {
+      "from": "s01",
+      "to": "s14",
+      "via": "85% Menos tiempo de onboarding manual Le"
+    },
+    {
+      "from": "s01",
+      "to": "s15",
+      "via": "Más sobre nuestro producto"
+    },
+    {
+      "from": "s02",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s02",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s02",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s02",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s02",
+      "to": "s16",
+      "via": "Más sobre nuestro producto"
+    },
+    {
+      "from": "s02",
+      "to": "s17",
+      "via": "Ver la documentación de MCP →"
+    },
+    {
+      "from": "s02",
+      "to": "s11",
+      "via": "Lee el caso de éxito de Re-Leased"
+    },
+    {
+      "from": "s02",
+      "to": "s12",
+      "via": "Lee el caso de éxito de Salesforge"
+    },
+    {
+      "from": "s02",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s02",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s02",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s02",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s02",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s02",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s02",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s02",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s02",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s02",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s02",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s02",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s03",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s03",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s03",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s03",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s03",
+      "to": "s07",
+      "via": "5× Tasa de conversión frente a las demos"
+    },
+    {
+      "from": "s03",
+      "to": "s11",
+      "via": "+23% Más leads \"Hasta 40 minutos con el "
+    },
+    {
+      "from": "s03",
+      "to": "s12",
+      "via": "46% Aumento de demos realizadas \"Desde q"
+    },
+    {
+      "from": "s03",
+      "to": "s13",
+      "via": "21% Conversión de prueba a pago, frente "
+    },
+    {
+      "from": "s03",
+      "to": "s14",
+      "via": "85% Menos tiempo de onboarding manual \"M"
+    },
+    {
+      "from": "s03",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s03",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s03",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s03",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s03",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s03",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s03",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s03",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s03",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s03",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s03",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s03",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s04",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s04",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s04",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s04",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s04",
+      "to": "s08",
+      "via": "Descubrimiento Marketing"
+    },
+    {
+      "from": "s04",
+      "to": "s09",
+      "via": "Evaluación Ventas"
+    },
+    {
+      "from": "s04",
+      "to": "s10",
+      "via": "Activación Onboarding"
+    },
+    {
+      "from": "s04",
+      "to": "s24",
+      "via": "Preparación Enablement"
+    },
+    {
+      "from": "s04",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s04",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s04",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s04",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s04",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s04",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s04",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s04",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s05",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s05",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s05",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s05",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s05",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s05",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s05",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s05",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s05",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s05",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s05",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s05",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s05",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s05",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s05",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s05",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s05",
+      "to": "s16",
+      "via": "Knowledge graph"
+    },
+    {
+      "from": "s05",
+      "to": "s17",
+      "via": "MCP"
+    },
+    {
+      "from": "s06",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s06",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s06",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s06",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s06",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s06",
+      "to": "s21",
+      "via": "Probar la demo con IA"
+    },
+    {
+      "from": "s06",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s06",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s06",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s06",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s06",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s06",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s06",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s06",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s06",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s06",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s06",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s07",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s07",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s07",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s07",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s07",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s07",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s07",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s07",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s07",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s07",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s07",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s07",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s07",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s07",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s07",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s07",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s07",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s08",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s08",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s08",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s08",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s08",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s08",
+      "to": "s12",
+      "via": "Caso de éxito"
+    },
+    {
+      "from": "s08",
+      "to": "s11",
+      "via": "Lee el caso de éxito de Re-Leased"
+    },
+    {
+      "from": "s08",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s08",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s08",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s08",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s08",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s08",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s08",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s08",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s08",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s09",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s09",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s09",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s09",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s09",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s09",
+      "to": "s14",
+      "via": "Caso de éxito"
+    },
+    {
+      "from": "s09",
+      "to": "s12",
+      "via": "Caso de éxito"
+    },
+    {
+      "from": "s09",
+      "to": "s11",
+      "via": "Lee el caso de éxito de Re-Leased"
+    },
+    {
+      "from": "s09",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s09",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s09",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s09",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s09",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s09",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s09",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s09",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s10",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s10",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s10",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s10",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s10",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s10",
+      "to": "s14",
+      "via": "Caso de éxito"
+    },
+    {
+      "from": "s10",
+      "to": "s12",
+      "via": "Caso de éxito"
+    },
+    {
+      "from": "s10",
+      "to": "s11",
+      "via": "Lee el caso de éxito de Re-Leased"
+    },
+    {
+      "from": "s10",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s10",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s10",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s10",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s10",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s10",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s10",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s10",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s10",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s10",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s11",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s11",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s11",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s11",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s11",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s11",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s11",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s11",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s11",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s11",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s11",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s11",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s11",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s11",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s11",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s11",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s11",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s12",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s12",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s12",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s12",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s12",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s12",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s12",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s12",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s12",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s12",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s12",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s12",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s12",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s12",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s12",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s12",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s12",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s13",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s13",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s13",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s13",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s13",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s13",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s13",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s13",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s13",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s13",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s13",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s13",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s13",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s13",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s13",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s13",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s13",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s14",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s14",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s14",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s14",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s14",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s14",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s14",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s14",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s14",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s14",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s14",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s14",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s14",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s14",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s14",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s14",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s14",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s15",
+      "to": "s20",
+      "via": "Careers"
+    },
+    {
+      "from": "s15",
+      "to": "s23",
+      "via": "Media kit"
+    },
+    {
+      "from": "s15",
+      "to": "s25",
+      "via": "Privacy Policy"
+    },
+    {
+      "from": "s16",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s16",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s16",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s16",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s16",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s16",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s16",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s16",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s16",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s16",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s16",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s16",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s16",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s16",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s16",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s16",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s16",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s17",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s17",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s17",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s17",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s17",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s17",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s17",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s17",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s17",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s17",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s17",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s17",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s17",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s17",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s17",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s17",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s17",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s18",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s18",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s18",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s18",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s18",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s18",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s18",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s18",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s18",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s18",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s18",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s18",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s18",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s18",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s18",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s18",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s18",
+      "to": "s16",
+      "via": "Knowledge graph"
+    },
+    {
+      "from": "s19",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s19",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s19",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s19",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s19",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s19",
+      "to": "s15",
+      "via": "Ver más"
+    },
+    {
+      "from": "s19",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s19",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s19",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s19",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s19",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s19",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s19",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s19",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s19",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s19",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s20",
+      "to": "s15",
+      "via": "Research"
+    },
+    {
+      "from": "s20",
+      "to": "s23",
+      "via": "Media kit"
+    },
+    {
+      "from": "s20",
+      "to": "s25",
+      "via": "Privacy Policy"
+    },
+    {
+      "from": "s21",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s21",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s21",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s21",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s21",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s21",
+      "to": "s11",
+      "via": "Lee el caso de éxito de Re-Leased"
+    },
+    {
+      "from": "s21",
+      "to": "s12",
+      "via": "Lee el caso de éxito de Salesforge"
+    },
+    {
+      "from": "s21",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s21",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s21",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s21",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s21",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s21",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s21",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s21",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s21",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s21",
+      "to": "s24",
+      "via": "Enablement"
+    },
+    {
+      "from": "s21",
+      "to": "s25",
+      "via": "Privacidad"
+    },
+    {
+      "from": "s21",
+      "to": "s16",
+      "via": "Knowledge graph"
+    },
+    {
+      "from": "s22",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s22",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s22",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s22",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s22",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s23",
+      "to": "s20",
+      "via": "Careers"
+    },
+    {
+      "from": "s23",
+      "to": "s15",
+      "via": "Research"
+    },
+    {
+      "from": "s24",
+      "to": "s02",
+      "via": "Nuevo El Product Brain para agentes de I"
+    },
+    {
+      "from": "s24",
+      "to": "s01",
+      "via": "Inicio de Karumi"
+    },
+    {
+      "from": "s24",
+      "to": "s03",
+      "via": "Clientes"
+    },
+    {
+      "from": "s24",
+      "to": "s04",
+      "via": "Enterprise"
+    },
+    {
+      "from": "s24",
+      "to": "s05",
+      "via": "Habla con nosotros"
+    },
+    {
+      "from": "s24",
+      "to": "s14",
+      "via": "Caso de éxito"
+    },
+    {
+      "from": "s24",
+      "to": "s12",
+      "via": "Caso de éxito"
+    },
+    {
+      "from": "s24",
+      "to": "s11",
+      "via": "Lee el caso de éxito de Re-Leased"
+    },
+    {
+      "from": "s24",
+      "to": "s18",
+      "via": "Y Empresa de Y Combinator"
+    },
+    {
+      "from": "s24",
+      "to": "s19",
+      "via": "Sobre nosotros"
+    },
+    {
+      "from": "s24",
+      "to": "s20",
+      "via": "Empleo"
+    },
+    {
+      "from": "s24",
+      "to": "s21",
+      "via": "Demo en vivo"
+    },
+    {
+      "from": "s24",
+      "to": "s22",
+      "via": "Blog"
+    },
+    {
+      "from": "s24",
+      "to": "s15",
+      "via": "Investigación"
+    },
+    {
+      "from": "s24",
+      "to": "s23",
+      "via": "Kit de prensa"
+    },
+    {
+      "from": "s24",
+      "to": "s08",
+      "via": "Marketing"
+    },
+    {
+      "from": "s24",
+      "to": "s09",
+      "via": "Ventas"
+    },
+    {
+      "from": "s24",
+      "to": "s10",
+      "via": "Onboarding"
+    },
+    {
+      "from": "s25",
+      "to": "s20",
+      "via": "Careers"
+    },
+    {
+      "from": "s25",
+      "to": "s15",
+      "via": "Research"
+    },
+    {
+      "from": "s25",
+      "to": "s23",
+      "via": "Media kit"
+    }
+  ]
+}
