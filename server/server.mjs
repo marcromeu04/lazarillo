@@ -8,7 +8,7 @@ import * as cheerio from 'cheerio';
 import * as graph from '../explorer/graph.mjs';
 import { cachedHtml } from '../explorer/deep.mjs';
 import * as tracker from '../insights/tracker.mjs';
-import { isPublicUrl } from '../explorer/netguard.mjs';
+import { isPublicUrl, safeFetch } from '../explorer/netguard.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -113,12 +113,13 @@ async function proxyHandler(req, res, target) {
   const hit = cachedHtml(target) || cachedHtml(target.replace(/\/$/, ''));
   if (hit) { html = hit.html; r = { url: hit.url }; }
   else {
-    try { r = await fetch(target, { redirect: 'follow', headers: { 'User-Agent': CHROME_UA, 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' } }); }
-    catch (e) { res.writeHead(502); return res.end('proxy fetch failed: ' + e.message); }
+    let finalUrl;
+    try { ({ res: r, url: finalUrl } = await safeFetch(target, { timeoutMs: 12000, headers: { 'User-Agent': CHROME_UA, 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' } })); }
+    catch (e) { res.writeHead(e && e.code === 'EBLOCKED' ? 403 : 502); return res.end(e && e.code === 'EBLOCKED' ? 'solo webs públicas' : 'proxy fetch failed'); }
     const ct = r.headers.get('content-type') || '';
-    if (!ct.includes('html')) { res.writeHead(302, { Location: r.url || target }); return res.end(); }
-    if (r.url && r.url !== target && !(await isPublicUrl(r.url))) { res.writeHead(403); return res.end('solo webs públicas'); }
+    if (!ct.includes('html')) { try { await r.body?.cancel(); } catch {} res.writeHead(302, { Location: finalUrl }); return res.end(); }
     html = await r.text();
+    r = { url: finalUrl };
   }
   const $ = cheerio.load(html);
   $('meta[http-equiv]').each((_, el) => {
@@ -207,7 +208,7 @@ const server = http.createServer(async (req, res) => {
       if (!/^https?:\/\//i.test(u || '')) return sendJson(res, 400, { error: 'La URL tiene que empezar por http:// o https://' });
       if (!(await isPublicUrl(u))) return sendJson(res, 400, { error: 'Solo se pueden explorar webs públicas (nada de localhost ni de tu red)' });
       if (graph.isExploring()) return sendJson(res, 409, { error: 'Ya hay una exploración en marcha' });
-      graph.explore(u, { max: Math.min(Number(max) || 30, 60) })
+      graph.explore(u, { max: Math.min(Number(max) || 40, 80) })
         .then(async ({ brain }) => broadcast({ type: 'pushed', ...(await pushToAgent(brain)) }))
         .catch(() => {});
       return sendJson(res, 202, { ok: true });

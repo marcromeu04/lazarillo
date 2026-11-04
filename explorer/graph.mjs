@@ -117,7 +117,7 @@ export function compactBrain(m = getMap()) {
 }
 
 // ---------- explorar una web nueva ----------
-export async function explore(url, { max = 30 } = {}) {
+export async function explore(url, { max = 40 } = {}) {
   if (exploring) throw new Error('Ya hay una exploración en marcha.');
   const host = hostOf(url);
   const dir = siteDir(host);
@@ -141,6 +141,11 @@ export async function explore(url, { max = 30 } = {}) {
       emit({ type: 'edge', edge: e });
     },
     onLog: (msg) => emit({ type: 'log', msg }),
+    onReset: () => {
+      live.screens.length = 0;
+      live.edges.length = 0;
+      emit({ type: 'explore_start', url, host });
+    },
   });
   try {
     const result = normalizeMap(await exploring);

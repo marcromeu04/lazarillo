@@ -4,7 +4,7 @@
 // casi vacía, la abre con Chrome. Cada página se investiga una sola vez.
 import * as cheerio from 'cheerio';
 import { chromium } from 'playwright-core';
-import { isPublicUrl } from './netguard.mjs';
+import { isPublicUrl, safeFetch } from './netguard.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -33,6 +33,13 @@ async function renderWithChrome(url) {
   browserP ||= chromium.launch({ channel: 'chrome', headless: true });
   const browser = await browserP;
   const page = await browser.newPage({ locale: 'es-ES' });
+  // Solo webs públicas en cada petición, y sin imágenes, vídeos ni fuentes.
+  await page.route('**/*', async (route) => {
+    const rq = route.request();
+    if (['image', 'media', 'font'].includes(rq.resourceType())) return route.abort();
+    if (!(await isPublicUrl(rq.url()))) return route.abort('blockedbyclient');
+    return route.continue();
+  });
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
     await page.waitForTimeout(1200);
@@ -50,20 +57,19 @@ export function cachedHtml(url) {
 
 async function investigate(url) {
   let html = '';
-  if (!(await isPublicUrl(url))) return { url, via: 'bloqueada', at: new Date().toISOString(), heads: [], text: '', items: [], buttons: [], forms: [], figures: [] };
+  const blockedResult = { url, via: 'bloqueada', at: new Date().toISOString(), heads: [], text: '', items: [], buttons: [], forms: [], figures: [] };
+  if (!(await isPublicUrl(url))) return blockedResult;
   try {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 10000);
-    const r = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: { 'User-Agent': UA, 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' } });
-    clearTimeout(t);
-    if (r.url && r.url !== url && !(await isPublicUrl(r.url))) throw new Error('redirección a una dirección interna');
+    const { res: r, url: finalUrl } = await safeFetch(url, { timeoutMs: 10000, headers: { 'User-Agent': UA, 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' } });
     html = await r.text();
     if ((r.headers.get('content-type') || '').includes('html')) {
-      const hit = { html, url: r.url || url, at: Date.now() };
+      const hit = { html, url: finalUrl, at: Date.now() };
       htmlCache.set(url, hit);
-      if (r.url && r.url !== url) htmlCache.set(r.url, hit);
+      if (finalUrl !== url) htmlCache.set(finalUrl, hit);
     }
-  } catch {}
+  } catch (e) {
+    if (e && e.code === 'EBLOCKED') return blockedResult; // apunta a una dirección interna: ni con Chrome
+  }
   let d = extract(html);
   let via = 'fetch';
   if (d.text.length < 200 && d.heads.length < 2) {

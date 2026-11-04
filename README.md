@@ -32,13 +32,14 @@ Chrome instalado (el agente de mapeo usa tu Chrome; no descarga navegadores).
 | Webs | karumi.ai | **cualquier web**: escribe la URL arriba y pulsa «Explorar» |
 | Contexto de la voz | cerebro de 37 KB (~9.300 tokens) en cada turno | **grafo compacto: ~1.300 tokens** para las 25 páginas de karumi.ai (7× menos) |
 | Detalle de cada página | todo de golpe en las instrucciones | **solo al entrar en ella y una vez por llamada** (~1 KB por herramienta) |
+| Mapeo | Chrome página a página: ~60 s para 30 páginas | **dos fases**: primero el mapa mental con HTML en paralelo y sitemap (**40 páginas de karumi.ai en ~7 s**), y el detalle después, según la probabilidad |
 | Velocidad | descarga cada página al navegar | **el agente de mapeo se adelanta**: investiga las vecinas y las que predice la conversación; la página prevista se abre en ~1,2 s (0,55 s son el resaltado, a propósito) |
 | Si algo falla | — | responde en **17 ms** con alternativas y la IA sigue sin darle importancia |
 | Tono | instrucciones básicas | prompt de **persona de producto con experiencia**: natural, segura, va al grano |
 | Panel | log | transcripción + **grafo en vivo en árbol** (principal → secundarias) con dónde está la IA, su recorrido, lo que se investiga y lo probable |
 | Ventas | — | **trazabilidad del interés**: tiempo y preguntas por página, problema (pain), señales de compra y perfil de cada visitante |
 
-Medido en local el 2026-11-04 con karumi.ai/es (25 páginas) y books.toscrape.com (30 páginas en 32 s).
+Medido en local el 2026-11-04 con karumi.ai/es (40 páginas en 6,8 s) y books.toscrape.com (40 páginas en 3,2 s).
 
 ### Cómo funciona: dos agentes que se pasan el contexto
 
