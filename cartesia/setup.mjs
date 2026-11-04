@@ -21,6 +21,9 @@ const readEnvFile = () => {
 };
 const getVar = (raw, k) => (raw.match(new RegExp(`^${k}=(.*)$`, 'm')) || [])[1]?.trim() || '';
 
+try {
+  process.loadEnvFile(envPath); // también el modelo del agente de mapeo (MAPEO_LLM_*)
+} catch {}
 let raw = readEnvFile();
 const key = getVar(raw, 'CARTESIA_API_KEY');
 if (!key) {
@@ -45,6 +48,7 @@ if (!agentId) {
 }
 
 graph.loadInitial();
+await graph.ensureFicha(); // qué es la web y sus funcionalidades, antes de cargarla en la voz
 const brain = graph.compactBrain();
 const { toolIds, instructionsLength } = await pushBrain(agentId, brain);
 console.log(`✓ ${toolIds.length} herramientas registradas y grafo de ${graph.getMap().app.host} cargado (${instructionsLength} caracteres de instrucciones, ~${Math.round(brain.length / 4)} tokens de grafo)`);

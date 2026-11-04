@@ -67,6 +67,42 @@
   .rep{color:var(--dim);text-decoration:none;margin-left:8px} .rep:hover{color:var(--txt)}
   .gprob{color:var(--blue);text-transform:none;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
   .sec>span:first-child{flex:none}
+
+  /* panel de KPIs */
+  .dash{position:fixed;inset:0;z-index:50;background:rgba(5,7,12,.72);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:16px}
+  .dash[hidden]{display:none}
+  .dcard{width:min(980px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .dhead{display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+  .dkicker{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+  .dtitle{font-size:18px;font-weight:700}
+  .dtabs{margin-left:auto;display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px}
+  .dtabs button{background:none;border:0;color:var(--dim);padding:6px 12px;border-radius:7px;font-size:13px}
+  .dtabs button[aria-selected=true]{background:var(--acc2);color:#fff}
+  .dclose{background:none;border:0;color:var(--dim);font-size:26px;line-height:1;padding:0 4px}
+  .dclose:hover{color:var(--txt)}
+  .dbody{padding:18px 20px 22px}
+  .dtiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .dtile{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .dlabel{font-size:12px;color:var(--dim)} .dvalue{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2;margin-top:2px}
+  .dsub{font-size:12px;color:var(--dim);font-weight:400}
+  .dtile .dsub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dresumen{margin:14px 0 4px;color:var(--txt);font-size:14px;line-height:1.55}
+  .dgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;margin-top:12px}
+  @media (max-width:760px){.dgrid{grid-template-columns:1fr}}
+  .dgrid h3{font-size:13px;margin:14px 0 8px;color:var(--txt)} .dgrid section>h3:first-child{margin-top:4px}
+  .dbars{display:flex;flex-direction:column;gap:2px}
+  .dbar{display:grid;grid-template-columns:minmax(0,38%) 1fr 34px;align-items:center;gap:10px;padding:4px 0;cursor:default}
+  .dbar:hover .dbl{color:var(--txt)} .dbar:hover .dfill{filter:brightness(1.15)}
+  .dbl{font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dtrack{height:14px;display:flex;align-items:center}
+  .dfill{height:12px;background:#8b5cf6;border-radius:0 4px 4px 0}
+  .dbv{font-size:12px;color:var(--txt);font-variant-numeric:tabular-nums;text-align:right}
+  .dquotes{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .dquotes li{font-size:13px;color:var(--txt);background:var(--panel2);border-left:3px solid var(--line);border-radius:6px;padding:7px 10px;line-height:1.45}
+  .dchips{display:flex;flex-wrap:wrap;gap:6px} .dchips span{font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+  .dnext{margin-top:16px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.35);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5}
+  .dempty{font-size:13px;color:var(--dim)}
+  .dtip{position:fixed;z-index:60;pointer-events:none;background:#0b0d12;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--txt);max-width:250px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 </style>
 </head>
 <body>
@@ -91,12 +127,12 @@
       </div>
     </div>
     <div id="warnbox"></div>
-    <div class="sec"><span>Llamada y agentes<a class="rep" href="/api/insights/todas" target="_blank" rel="noopener" title="Interés acumulado de todas las sesiones">informe ↗</a></span><span id="predict" class="gprob"></span></div>
+    <div class="sec"><span>Llamada y agentes<a class="rep" href="#" id="btnReport" title="Panel de interés: esta sesión y todas">informe ▸</a></span><span id="predict" class="gprob"></span></div>
     <div class="log" id="log"></div>
     <div class="graphBox">
       <div class="ghead" id="ghead"><b>Grafo</b></div>
       <svg id="graph" aria-label="Grafo de la web"></svg>
-      <div class="glegend"><span><i style="background:#a855f7"></i>IA aquí</span><span><i style="background:#6366f1"></i>visitada</span><span><i style="border:2px dashed #fbbf24"></i>investigando</span><span><i style="border:2px solid rgba(52,211,153,.7)"></i>detalle listo</span><span><i style="border:2px dashed #60a5fa"></i>probable</span><span><i style="background:#f59e0b"></i>interés alto</span></div>
+      <div class="glegend"><span><i style="background:#a855f7"></i>IA aquí</span><span><i style="background:#6366f1"></i>visitada</span><span><i style="border:2px dashed #fbbf24"></i>investigando</span><span><i style="border:2px solid rgba(52,211,153,.7)"></i>detalle listo</span><span><i style="border:2px dashed #60a5fa"></i>probable</span></div>
       <div id="ginfo"></div>
     </div>
   </div>

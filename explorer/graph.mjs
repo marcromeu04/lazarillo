@@ -11,6 +11,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { crawl, normUrl, hostOf } from './crawl.mjs';
 import { deepPage, resetDeep } from './deep.mjs';
+import { interpret, fichaText } from './interpret.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -92,6 +93,20 @@ export function loadInitial() {
   return map;
 }
 
+/** Si la web cargada aún no tiene ficha (qué es, funcionalidades), la saca y la guarda. */
+export async function ensureFicha() {
+  const m = getMap();
+  if (m.ficha || !m.screens.length) return m.ficha || null;
+  const it = await interpret(m, compactBrain(m));
+  m.ficha = it.ficha;
+  try {
+    const dir = siteDir(m.app.host);
+    if (fs.existsSync(path.join(dir, 'app-map.json'))) fs.writeFileSync(path.join(dir, 'app-map.json'), JSON.stringify(m, null, 2));
+  } catch {}
+  emit({ type: 'ficha', ficha: it.ficha, via: it.via, ms: it.ms, brainTokens: Math.round(compactBrain(m).length / 4) });
+  return m.ficha;
+}
+
 export function getMap() {
   return map || loadInitial();
 }
@@ -105,6 +120,7 @@ export function isExploring() {
 // ---------- memoria fija del agente de la demo ----------
 export function compactBrain(m = getMap()) {
   const out = [];
+  if (m.ficha) out.push(fichaText(m.ficha), '');
   out.push(`Web: ${clean(m.app.name, 60)} (${m.app.host}). ${m.screens.length} páginas. Formato: id · título · resumen · ruta.`);
   for (const s of m.screens) out.push(`${s.id} · ${clean(s.title, 50)} · ${clean(s.summary, 110)} · ${clean(s.path, 50)}`);
   const adj = new Map();
@@ -152,10 +168,15 @@ export async function explore(url, { max = 40 } = {}) {
     map = result;
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'app-map.json'), JSON.stringify(result, null, 2));
+    fs.writeFileSync(path.join(ROOT, 'sites', 'actual.json'), JSON.stringify({ host, url: result.app.startUrl }));
+    emit({ type: 'explore_done', app: result.app, brainChars: compactBrain(result).length, brainTokens: Math.round(compactBrain(result).length / 4) });
+    // Interpretación: qué es la web y sus funcionalidades (modelo configurable o ficha sin modelo).
+    const it = await interpret(result, compactBrain(result));
+    result.ficha = it.ficha;
+    fs.writeFileSync(path.join(dir, 'app-map.json'), JSON.stringify(result, null, 2));
     const brain = compactBrain(result);
     fs.writeFileSync(path.join(dir, 'brain.md'), brain);
-    fs.writeFileSync(path.join(ROOT, 'sites', 'actual.json'), JSON.stringify({ host, url: result.app.startUrl }));
-    emit({ type: 'explore_done', app: result.app, brainChars: brain.length, brainTokens: Math.round(brain.length / 4) });
+    emit({ type: 'ficha', ficha: it.ficha, via: it.via, ms: it.ms, brainTokens: Math.round(brain.length / 4) });
     return { map: result, brain };
   } catch (e) {
     emit({ type: 'explore_error', error: String(e.message || e) });
@@ -290,6 +311,7 @@ export async function context({ waitMs = 1500 } = {}) {
 export function resetSession() {
   sentDetail = new Set();
   convo = new Map();
+  interestNow = {};
 }
 
 /** Para ir_a cuando el destino no es un botón visible: id, título o ruta de una página del grafo. */
@@ -374,6 +396,11 @@ function buildIndex() {
 }
 
 let convo = new Map(); // id → puntuación acumulada
+let interestNow = {}; // id → interés 0-100 de esta llamada (lo calcula insights/tracker)
+/** El interés de la llamada entra en la predicción: lo que cuelga de donde más interés hay, sube. */
+export function setInterestScores(scores) {
+  interestNow = scores || {};
+}
 export function predict(text, role = 'user') {
   const q = [...new Set(stems(text))];
   if (!q.length) return [];
@@ -386,6 +413,10 @@ export function predict(text, role = 'user') {
     for (const st of q) sc += (bag.get(st) || 0) * (idf.get(st) || 0);
     if (!sc) continue;
     if (role === 'assistant') sc *= 1.5;
+    let lift = 0;
+    for (const e of m.edges) if (e.to === id && interestNow[e.from]) lift = Math.max(lift, interestNow[e.from] / 100);
+    sc *= 1 + 0.6 * lift;
+    if ((interestNow[id] || 0) >= 50) sc *= 1.2;
     if (near.has(id)) sc *= 1.3;
     if (visited.has(id)) sc *= 0.6;
     convo.set(id, (convo.get(id) || 0) + sc);

@@ -32,6 +32,7 @@ const PORT = process.env.PORT || 3000;
 const AGENT_MEJORAS = process.env.CARTESIA_AGENT_ID_MEJORAS || '';
 if (AGENT_MEJORAS) process.env.CARTESIA_AGENT_ID = AGENT_MEJORAS;
 graph.loadInitial();
+graph.ensureFicha().catch(() => {}); // si la web cargada no tiene ficha, se interpreta en segundo plano
 const TARGET_URL = () => graph.targetUrl() || process.env.TARGET_URL || 'https://books.toscrape.com/';
 const CHROME_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 
@@ -80,6 +81,111 @@ function bridge(originalUrl, proxyOrigin) {
       el.click();
     },550);
   }
+  // Avisos de cookies: se rechazan (o «solo necesarias»); si no hay botón de rechazar, se oculta
+  // el aviso. Nunca se acepta. Se repite unos segundos porque muchos avisos llegan tarde.
+  var CMP_REJECT=['#onetrust-reject-all-handler','#CybotCookiebotDialogBodyButtonDecline','#didomi-notice-disagree-button','.cky-btn-reject','.cmplz-deny','#cookiescript_reject','.osano-cm-denyAll','[data-testid=uc-deny-all-button]','.fc-cta-do-not-consent','#axeptio_btn_dismiss','.iubenda-cs-reject-btn','#tarteaucitronAllDenied2','.cc-deny'];
+  var REJECT_RX=/^(rechazar( todo| todas| todas las cookies| cookies)?|denegar( todo)?|no acepto|no aceptar|solo (las )?(cookies )?(necesarias|esenciales|tecnicas)|usar solo (las )?(cookies )?necesarias|continuar sin aceptar|reject( all)?( cookies)?|decline( all)?|deny( all)?|only (necessary|essential)( cookies)?|use necessary cookies only|refuse( all)?|continue without accepting|necessary only|tout refuser|refuser)$/i;
+  var cookieDone=false;
+  function looksLikeBanner(el){ var t=norm((el.innerText||'').slice(0,600)); return /cookie|consent|privacidad|privacy|rgpd|gdpr/.test(t); }
+  function dismissCookies(){
+    if(cookieDone) return;
+    for(var i=0;i<CMP_REJECT.length;i++){ var b=document.querySelector(CMP_REJECT[i]); if(b&&b.getBoundingClientRect().width>0){ b.click(); cookieDone=true; post({type:'cookies',how:'rechazadas'}); return; } }
+    var btns=document.querySelectorAll('button,a,[role=button],input[type=button],input[type=submit]');
+    for(var j=0;j<btns.length;j++){ var el=btns[j], r=el.getBoundingClientRect(); if(r.width===0||r.height===0) continue;
+      var t=norm(el.innerText||el.value||el.getAttribute('aria-label')).normalize('NFD').replace(/[̀-ͯ]/g,'');
+      if(!t||t.length>45||!REJECT_RX.test(t)) continue;
+      var box=el.parentElement, ok=false; for(var up=0; box&&up<8; up++, box=box.parentElement){ if(looksLikeBanner(box)){ ok=true; break; } if(box===document.body) break; }
+      if(ok){ el.click(); cookieDone=true; post({type:'cookies',how:'rechazadas'}); return; } }
+    // Sin botón de rechazar: se oculta el aviso (fijo o pegado a la pantalla) sin aceptar nada.
+    var all=document.querySelectorAll('body *');
+    for(var k=0;k<all.length&&k<4000;k++){ var e=all[k], cs=getComputedStyle(e);
+      if((cs.position==='fixed'||cs.position==='sticky')&&e.getBoundingClientRect().height>40&&looksLikeBanner(e)&&e.querySelector('button,a,[role=button]')){
+        e.style.setProperty('display','none','important'); cookieDone=true; post({type:'cookies',how:'ocultado'}); return; } }
+  }
+  [0,500,1200,2500,4500].forEach(function(ms){ setTimeout(dismissCookies,ms); });
+  try{ var mo=new MutationObserver(function(){ if(!cookieDone) dismissCookies(); }); mo.observe(document.documentElement,{childList:true,subtree:true}); setTimeout(function(){ mo.disconnect(); },7000); }catch(e){}
+  // Recorrido: la página baja sección a sección mientras habla la IA.
+  var TOUR={i:-1,items:null};
+  function tourItems(){
+    if(TOUR.items) return TOUR.items;
+    var els=document.querySelectorAll('h1,h2,h3,[role=heading]'), out=[], last=-1e9;
+    for(var i=0;i<els.length;i++){ var r=els[i].getBoundingClientRect(); if(r.width===0||r.height===0) continue;
+      var y=r.top+window.scrollY; if(y-last<140) continue; last=y; out.push({el:els[i],y:y}); }
+    out.sort(function(a,b){return a.y-b.y;}); TOUR.items=out; return out;
+  }
+  function soft(el,ms){
+    var r=document.createElement('div');
+    r.style.cssText='position:fixed;z-index:2147483646;pointer-events:none;border-radius:10px;box-shadow:0 0 0 2px rgba(168,85,247,.55),0 0 18px 4px rgba(168,85,247,.25);transition:opacity .4s';
+    function place(){ var rr=el.getBoundingClientRect(); r.style.left=(rr.left-8)+'px';r.style.top=(rr.top-6)+'px';r.style.width=(rr.width+16)+'px';r.style.height=(rr.height+12)+'px'; }
+    place(); document.body.appendChild(r); var iv=setInterval(place,100);
+    setTimeout(function(){ r.style.opacity='0'; setTimeout(function(){ clearInterval(iv); r.remove(); },400); },ms);
+  }
+  function tourStep(){
+    var items=tourItems(), y=window.scrollY, next=null;
+    for(var k=0;k<items.length;k++){ if(items[k].y>y+innerHeight*0.30){ next=items[k]; TOUR.i=k; break; } }
+    if(next){ window.scrollTo({top:Math.max(0,next.y-innerHeight*0.18),behavior:'smooth'}); soft(next.el,1600); post({type:'tour_result',ok:true,text:(next.el.innerText||'').trim().slice(0,60)}); }
+    else if(y+innerHeight<document.documentElement.scrollHeight-40){ window.scrollBy({top:innerHeight*0.6,behavior:'smooth'}); post({type:'tour_result',ok:true,text:''}); }
+    else post({type:'tour_result',ok:false,end:true});
+  }
+  // La pantalla sigue a la voz: dada una frase de la IA, va a la parte de la página que coincide.
+  var FSTOP={'para':1,'como':1,'esta':1,'este':1,'esto':1,'pero':1,'porque':1,'donde':1,'cuando':1,'tambien':1,'tienes':1,'puedes':1,'aqui':1,'mira':1,'fijate':1,'vale':1,'sobre':1,'entre':1,'todo':1,'toda':1,'todos':1,'cada':1,'muy':1,'mucho':1,'mas':1,'menos':1,'tu':1,'tus':1,'nos':1,'les':1,'una':1,'unos':1,'unas':1,'que':1,'con':1,'los':1,'las':1,'del':1,'pagina':1,'web':1,'seccion':1,'parte':1,'abajo':1,'arriba':1,'ves':1,'ver':1,'vamos':1};
+  function fstems(t){ return norm(t).normalize('NFD').replace(/[̀-ͯ]/g,'').split(/[^a-z0-9ñ]+/).filter(function(w){ return w.length>=4&&!FSTOP[w]; }).map(function(w){ return w.slice(0,6); }); }
+  var FOLLOW={el:null,at:0,idx:null};
+  function followIndex(){
+    if(FOLLOW.idx) return FOLLOW.idx;
+    var els=document.querySelectorAll('h1,h2,h3,h4,p,li,blockquote,figcaption,td,dt,dd,[class*=card] span,[class*=stat],[class*=metric]'), out=[], df={};
+    for(var i=0;i<els.length;i++){ var el=els[i], r=el.getBoundingClientRect(); if(r.width===0||r.height===0) continue;
+      var t=(el.innerText||'').trim(); if(t.length<3||t.length>320) continue;
+      var st=fstems(t); if(!st.length) continue; var set={}; st.forEach(function(s){ set[s]=1; });
+      Object.keys(set).forEach(function(s){ df[s]=(df[s]||0)+1; });
+      out.push({el:el,set:set,head:/^H[1-4]$/.test(el.tagName)}); }
+    FOLLOW.idx={items:out,df:df,n:Math.max(1,out.length)}; return FOLLOW.idx;
+  }
+  function followText(text){
+    var q=fstems(text); if(!q.length) return;
+    var ix=followIndex(), best=null, bs=0;
+    for(var i=0;i<ix.items.length;i++){ var it=ix.items[i], sc=0, hits=0;
+      if(HOLD.on){ var ir=it.el.getBoundingClientRect(); if(ir.top<0||ir.bottom>innerHeight) continue; } // parada: solo lo que ya se ve
+      for(var k=0;k<q.length;k++) if(it.set[q[k]]){ hits++; sc+=Math.log(1+ix.n/ix.df[q[k]]); }
+      if(!hits) continue; if(it.head) sc*=1.35; if(hits>=2) sc*=1.25;
+      if(sc>bs){ bs=sc; best=it.el; } }
+    if(!best||bs<2.2||best===FOLLOW.el) return;
+    FOLLOW.el=best; FOLLOW.at=Date.now();
+    var r=best.getBoundingClientRect();
+    if(!HOLD.on&&(r.top<innerHeight*0.12||r.bottom>innerHeight*0.80)) best.scrollIntoView({behavior:'smooth',block:'center'});
+    soft(best,1800);
+    post({type:'follow_result',ok:true,text:(best.innerText||'').trim().slice(0,50)});
+  }
+  // Foco: el visitante ha dicho «párate aquí»: la pantalla se queda en esta zona.
+  var HOLD={on:false,y:0};
+  function centerBlock(){
+    var el=document.elementFromPoint(innerWidth/2, innerHeight*0.45);
+    while(el&&el!==document.body){ var t=(el.innerText||'').trim(); if(t.length>=40&&t.length<=900) return el; el=el.parentElement; }
+    return null;
+  }
+  function setHold(on){
+    HOLD.on=!!on;
+    if(on){ var f=(FOLLOW.el&&FOLLOW.el.getBoundingClientRect().bottom>0&&FOLLOW.el.getBoundingClientRect().top<innerHeight)?FOLLOW.el:centerBlock();
+      HOLD.y=f?f.getBoundingClientRect().top+window.scrollY:window.scrollY+innerHeight*0.4; if(f) soft(f,1400); }
+  }
+  function peek(){
+    var f=(FOLLOW.el&&FOLLOW.el.getBoundingClientRect().bottom>0&&FOLLOW.el.getBoundingClientRect().top<innerHeight)?FOLLOW.el:centerBlock();
+    var heads=[].slice.call(document.querySelectorAll('h1,h2,h3')).filter(function(h){ var r=h.getBoundingClientRect(); return r.height>0&&r.top>=0&&r.bottom<=innerHeight; }).slice(0,4).map(function(h){ return (h.innerText||'').trim().slice(0,90); });
+    post({type:'peek_result',foco:f?(f.innerText||'').trim().replace(/\\s+/g,' ').slice(0,320):'',titulares_visibles:heads,parado:HOLD.on});
+  }
+  function showText(text){
+    var want=norm(text), els=document.querySelectorAll('h1,h2,h3,h4,p,li,a,button,blockquote,figcaption,td,th,span'), best=null, bs=0;
+    for(var i=0;i<els.length;i++){ var el=els[i], r=el.getBoundingClientRect(); if(r.width===0||r.height===0) continue;
+      var t=norm(el.innerText||el.textContent); if(!t||t.length>220) continue;
+      var sc=0; if(t===want)sc=100; else if(t.indexOf(want)>=0)sc=70-Math.min(30,t.length/10); else{ var w=want.split(' '),h=0; for(var k=0;k<w.length;k++) if(w[k].length>3&&t.indexOf(w[k])>=0)h++; sc=h*15; }
+      if(/^H[1-4]$/.test(el.tagName)) sc+=8;
+      if(sc>bs){bs=sc;best=el;} }
+    if(!best||bs<15){ post({type:'show_result',ok:false,text:text}); return; }
+    best.scrollIntoView({behavior:'smooth',block:'center'}); soft(best,2200);
+    var y=best.getBoundingClientRect().top+window.scrollY, items=tourItems();
+    for(var k=0;k<items.length;k++) if(items[k].y<=y+5) TOUR.i=k;
+    post({type:'show_result',ok:true,text:(best.innerText||'').trim().slice(0,60)});
+  }
   function hi(text){
     var want=norm(text), els=document.querySelectorAll('a,button,[role=button],h1,h2,h3,label,li,input'), best=null,bs=0;
     for(var i=0;i<els.length;i++){ var el=els[i], r=el.getBoundingClientRect(); if(r.width===0||r.height===0) continue;
@@ -98,7 +204,7 @@ function bridge(originalUrl, proxyOrigin) {
     var iv=setInterval(place,200); setTimeout(function(){ clearInterval(iv); ring.remove(); chip.remove(); },4000);
     post({type:'highlight_result',ok:true});
   }
-  window.addEventListener('message',function(e){ var d=e.data||{}; if(d.type==='highlight') hi(d.text); else if(d.type==='click') clickText(d.text); else if(d.type==='go'&&d.url){ var p=prox(d.url); if(p) location.href=p; } });
+  window.addEventListener('message',function(e){ var d=e.data||{}; if(d.type==='highlight') hi(d.text); else if(d.type==='click') clickText(d.text); else if(d.type==='tour_step') tourStep(); else if(d.type==='show') showText(d.text||''); else if(d.type==='follow') followText(d.text||''); else if(d.type==='hold') setHold(d.on); else if(d.type==='peek') peek(); else if(d.type==='go'&&d.url){ var p=prox(d.url); if(p) location.href=p; } });
 })();`;
 }
 
@@ -161,7 +267,7 @@ const pageOf = (id) => graph.graphView().nodes.find((n) => n.id === id);
 graph.onEvent((ev) => {
   if (ev.type !== 'current') return;
   const n = pageOf(ev.id);
-  if (n) { tracker.enterPage({ id: n.id, title: n.title, path: n.path }); broadcast({ type: 'interest', scores: tracker.liveInterest() }); }
+  if (n) { tracker.enterPage({ id: n.id, title: n.title, path: n.path }); graph.setInterestScores(tracker.liveInterest()); }
 });
 
 async function pushToAgent(brain) {
@@ -223,7 +329,7 @@ const server = http.createServer(async (req, res) => {
       const { text, role } = await body(req);
       const r = role === 'assistant' ? 'assistant' : 'user';
       tracker.addTurn(r, String(text || ''));
-      broadcast({ type: 'interest', scores: tracker.liveInterest() });
+      graph.setInterestScores(tracker.liveInterest()); // por detrás: solo para predecir
       return sendJson(res, 200, { probables: graph.predict(String(text || '').slice(0, 600), r) });
     }
     if (url === '/api/session-end' && req.method === 'POST') {

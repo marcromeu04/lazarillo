@@ -129,24 +129,31 @@ export async function hardenedContext(browser, options = {}, pinnedHosts = new S
   await ctx.route('**/*', async (route) => {
     const rq = route.request();
     if (['image', 'media', 'font'].includes(rq.resourceType())) return route.abort();
-    let host;
+    if (rq.method() !== 'GET' && rq.method() !== 'HEAD') return route.abort();
+    // Chrome nunca se conecta por su cuenta: cada petición (también las del dominio fijado) la hace
+    // fetchOnce, que valida la IP al conectar. Las redirecciones se devuelven a Chrome tal cual y,
+    // al seguirlas, la nueva petición vuelve a pasar por aquí y se valida de nuevo.
     try {
-      host = new URL(rq.url()).hostname;
-    } catch {
-      return route.abort();
-    }
-    if (!(await isPublicUrl(rq.url()))) return route.abort('blockedbyclient');
-    if (pinnedHosts.has(host)) return route.continue();
-    if (rq.method() !== 'GET') return route.abort();
-    try {
-      const { res } = await safeFetch(rq.url(), { timeoutMs: 8000, headers: { 'User-Agent': rq.headers()['user-agent'] || 'Mozilla/5.0', Accept: rq.headers()['accept'] || '*/*' } });
-      const headers = Object.fromEntries([...res.headers].filter(([k]) => !['content-encoding', 'content-length', 'transfer-encoding', 'connection'].includes(k)));
+      const h = rq.headers();
+      const res = await fetchOnce(rq.url(), { timeoutMs: 10000, method: rq.method(), headers: Object.fromEntries(Object.entries({ 'user-agent': h['user-agent'], accept: h['accept'], 'accept-language': h['accept-language'], referer: h['referer'] }).filter(([, v]) => v)) });
+      const headers = Object.fromEntries([...res.headers].filter(([k]) => !['content-encoding', 'content-length', 'transfer-encoding', 'connection', 'set-cookie'].includes(k)));
       return route.fulfill({ status: res.status, headers, body: Buffer.from(await res.arrayBuffer()) });
     } catch {
-      return route.abort();
+      return route.abort('blockedbyclient');
     }
   });
   return ctx;
+}
+
+/** Una sola petición, sin seguir redirecciones (quien llama decide si seguirlas). */
+export async function fetchOnce(url, { headers = {}, timeoutMs = 10_000, method = 'GET' } = {}) {
+  if (!(await isPublicUrl(url))) throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
+  try {
+    return await ufetch(url, { method, headers, redirect: 'manual', dispatcher: agent, signal: AbortSignal.timeout(timeoutMs) });
+  } catch (e) {
+    if (e?.code === 'EBLOCKED' || e?.cause?.code === 'EBLOCKED') throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
+    throw e;
+  }
 }
 
 /**

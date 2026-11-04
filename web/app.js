@@ -3,6 +3,7 @@
 // micro (AudioWorklet) → audio_input; audio_output → altavoz; client tools.
 
 import { createGraph } from './graph.js';
+import { showDashboard } from './dashboard.js';
 
 const SR = 16000;
 const CARTESIA_VERSION = '2026-08-14';
@@ -21,7 +22,9 @@ let visitorUrl = '';
 const graphUi = createGraph($('graph'), $('ginfo'), $('ghead'));
 const predictEl = $('predict');
 
+let statusKind = 'idle';
 function setStatus(kind, text) {
+  statusKind = kind;
   dot.className = 'dot ' + kind;
   statusText.textContent = text;
 }
@@ -245,15 +248,29 @@ async function handleToolCall(msg) {
 
   try {
     if (tool_name === 'ir_a') {
+      setHold(false);
       const destino = (parameters && parameters.destino) || '';
       const data = await irA(destino);
       log(data.ok ? 'tool' : 'err', 'ir_a', data.ok ? `«${destino}» → ${data.pagina || 'ok'}` : `«${destino}» → ${data.motivo}`);
       reply(JSON.stringify(data), false); // ok:false va dentro: la IA pasa a otra cosa sin drama
       return;
     }
+    if (tool_name === 'mostrar') {
+      setHold(false);
+      const texto = (parameters && parameters.texto) || '';
+      lastDirectedAt = Date.now();
+      try { siteFrame.contentWindow.postMessage({ type: 'show', text: texto }, '*'); } catch {}
+      log('tool', 'mostrar', `«${texto}»`);
+      reply(JSON.stringify({ ok: true }), false);
+      return;
+    }
     if (tool_name === 'pantalla_actual') {
+      const peekP = waitFor('peek_result', 600);
+      try { siteFrame.contentWindow.postMessage({ type: 'peek' }, '*'); } catch {}
       const r = await fetch('/api/current');
       const data = await r.json().catch(() => ({}));
+      const pk = await peekP;
+      if (pk) data.en_pantalla = { foco: pk.foco, titulares_visibles: pk.titulares_visibles, parado: pk.parado };
       if (!r.ok) { reply(JSON.stringify(data), true); log('err', 'pantalla_actual', 'HTTP ' + r.status); return; }
       reply(JSON.stringify(data), false);
       log('info', 'pantalla_actual', data && data.pantalla ? data.pantalla.title : 'ok');
@@ -293,11 +310,13 @@ function onWsMessage(ev) {
       });
       break;
     case 'audio_output':
-      if (msg.audio) playAudioOutput(msg.audio);
+      if (msg.audio) { if (follow.audioStart == null) follow.audioStart = Date.now(); playAudioOutput(msg.audio); }
       break;
     case 'audio_output_clear':
       log('evt', 'audio_clear', 'interrupción');
       clearAudioOutput();
+      followReset();
+      if (!holding) { holdByBargeIn = true; setHold(true, 'te ha interrumpido'); }
       break;
     case 'client_tool_call':
       handleToolCall(msg);
@@ -306,9 +325,17 @@ function onWsMessage(ev) {
       log('err', 'error', msg.message || JSON.stringify(msg));
       break;
     case 'turn_started':
+      if (msg.role === 'assistant') followReset();
+      break;
     case 'turn_output_text_delta':
-      break; // telemetría: solo usamos el texto final del turno
+      if (msg.text) followDelta(msg.text); // la pantalla sigue a lo que va diciendo
+      break;
     case 'turn_ended':
+      if (msg.role === 'assistant' && follow.buf.trim()) { followPush(follow.buf); follow.buf = ''; }
+      if (msg.role === 'user' && msg.text) {
+        if (HOLD_RX.test(msg.text)) { holdByBargeIn = false; setHold(true, 'lo ha pedido'); }
+        else if (GO_RX.test(msg.text) || holdByBargeIn) { holdByBargeIn = false; setHold(false); }
+      }
       if (msg.text) {
         say(msg.role === 'user' ? 'you' : 'ia', msg.role === 'user' ? 'tú' : 'lazarillo', msg.text);
         api('/api/hint', { text: msg.text, role: msg.role });
@@ -413,7 +440,14 @@ async function initSite() {
 window.addEventListener('message', (ev) => {
   const d = ev.data || {};
   wake(d);
+  if (d.type === 'tour_result') { tourEnded = !!d.end; return; }
+  if (d.type === 'cookies') { log('info', 'cookies', d.how === 'rechazadas' ? 'aviso de cookies rechazado' : 'aviso de cookies ocultado'); return; }
+  if (d.type === 'show_result') { if (!d.ok) log('info', 'mostrar', 'no está en esta página'); return; }
   if (d.type === 'page' && d.url) {
+    lastPageAt = Date.now();
+    tourEnded = false;
+    holding = false;
+    holdByBargeIn = false;
     visitorUrl = d.url;
     locEl.textContent = '📍 Estás en: '; const b = document.createElement('b'); b.textContent = d.title || d.url; locEl.appendChild(b);
     fetch('/api/visitor-url', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: d.url, title: d.title, via: d.via }) }).catch(() => {});
@@ -423,6 +457,51 @@ window.addEventListener('message', (ev) => {
     log('evt', 'clic', d.text || '');
   }
 });
+
+// ---------- la pantalla sigue a la voz ----------
+// Cartesia manda el texto de la IA según lo genera (turn_output_text_delta), algo antes de que suene.
+// Se parte en frases y cada una se manda a la web cuando le toca sonar, estimado por caracteres desde
+// que empezó el audio del turno. La web va a la parte que coincide con lo que dice y la ilumina.
+let lastDirectedAt = 0;
+let lastPageAt = 0;
+// Foco: «párate aquí», «explícame esto»… → la pantalla se queda; «sigue», «adelante» → la suelta.
+const HOLD_RX = /\b(para(te)?|parate|espera|detente|quieto|stop|un momento|aqu[ií])\b|expl[ií]ca(me)?\s+(m[aá]s|esto|eso|bien)|qu[eé] es esto|esto (de|que)|m[aá]s (en )?detalle/i;
+const GO_RX = /\b(sigue|seguimos|contin[uú]a|adelante|siguiente|vale,? (sigue|vamos)|vamos|pasa(mos)? a)\b/i;
+let holding = false;
+let holdByBargeIn = false;
+function setHold(on, why) {
+  if (holding === on) return;
+  holding = on;
+  try { siteFrame.contentWindow.postMessage({ type: 'hold', on }, '*'); } catch {}
+  log('info', 'pantalla', on ? `parada aquí (${why})` : 'sigue a la voz');
+}
+let tourEnded = false;
+const CHARS_PER_SEC = 15; // ritmo aproximado de la voz en español
+const follow = { buf: '', chars: 0, queue: [], audioStart: null };
+function followReset() { follow.buf = ''; follow.chars = 0; follow.queue = []; follow.audioStart = null; }
+function followPush(sentence) {
+  const s = sentence.trim();
+  if (s.length < 4) return;
+  follow.queue.push({ text: s, offset: follow.chars });
+  follow.chars += s.length + 1;
+}
+function followDelta(text) {
+  follow.buf += text;
+  let m;
+  while ((m = follow.buf.match(/^([\s\S]*?[.!?…:;])(\s+|$)/)) || follow.buf.length > 110) {
+    if (m) { followPush(m[1]); follow.buf = follow.buf.slice(m[0].length); }
+    else { const cut = follow.buf.lastIndexOf(',', 100); const n = cut > 30 ? cut + 1 : 100; followPush(follow.buf.slice(0, n)); follow.buf = follow.buf.slice(n); }
+  }
+}
+setInterval(() => {
+  if (!running || follow.audioStart == null || !follow.queue.length) return;
+  const heard = ((Date.now() - follow.audioStart) / 1000) * CHARS_PER_SEC;
+  while (follow.queue.length && follow.queue[0].offset <= heard + 8) {
+    const item = follow.queue.shift();
+    if (Date.now() - lastDirectedAt < 2500) continue; // acaba de usar «mostrar»: manda la IA
+    try { siteFrame.contentWindow.postMessage({ type: 'follow', text: item.text }, '*'); } catch {}
+  }
+}, 200);
 
 // ---------- transcripción ----------
 function say(kind, who, text) {
@@ -444,10 +523,15 @@ function onGraphEvent(ev) {
       siteFrame.src = '/proxy?url=' + encodeURIComponent(ev.app.startUrl);
       btnExplore.disabled = false;
       break;
+    case 'ficha': {
+      const f = ev.ficha || {};
+      log('map', 'interpreta', `${f.que_es || '—'} · ${(f.funcionalidades || []).length} funcionalidades · ${ev.via}${ev.ms ? ` (${(ev.ms / 1000).toFixed(1)} s)` : ''}`);
+      graphUi.setTokens(ev.brainTokens);
+      break;
+    }
     case 'explore_error': log('err', 'mapeo', ev.error); btnExplore.disabled = false; break;
     case 'pushed': log(ev.ok ? 'map' : 'err', 'voz', ev.ok ? 'grafo cargado en el agente de la demo' : (ev.skipped || ev.error)); break;
     case 'current': graphUi.setCurrent(ev.id); break;
-    case 'interest': graphUi.setInterest(ev.scores || {}); break;
     case 'insights': {
       const r = ev.report || {};
       log('map', 'interés', r.resumen || 'sin datos');
@@ -455,6 +539,7 @@ function onGraphEvent(ev) {
       if (tops) log('map', 'páginas', tops);
       if ((r.pain || []).length) log('map', 'pain', r.pain.slice(0, 2).join(' | '));
       if (r.perfil && Object.keys(r.perfil).length) log('map', 'perfil', Object.entries(r.perfil).map(([k, v]) => `${k}: ${v.join(', ')}`).join(' · '));
+      showDashboard(r); // al colgar, el panel de KPIs
       break;
     }
     case 'deep': graphUi.setDeep(ev.id, ev.state); break;
@@ -468,6 +553,7 @@ const events = new EventSource('/api/events');
 events.onmessage = (m) => { try { onGraphEvent(JSON.parse(m.data)); } catch {} };
 
 const btnExplore = $('btnExplore');
+$('btnReport').addEventListener('click', (e) => { e.preventDefault(); showDashboard(); });
 $('siteForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const url = $('siteUrl').value.trim();

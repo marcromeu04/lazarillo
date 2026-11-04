@@ -7,7 +7,11 @@
     "execution_mode": "sync",
     "expects_response": true,
     "response_timeout_secs": 4,
-    "parameters": { "type": "object", "properties": {}, "required": [] }
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
   },
   {
     "type": "client",
@@ -20,9 +24,14 @@
     "parameters": {
       "type": "object",
       "properties": {
-        "destino": { "type": "string", "description": "Texto exacto del botón o enlace, o id de la página del mapa (s01, s02…)." }
+        "destino": {
+          "type": "string",
+          "description": "Texto exacto del botón o enlace, o id de la página del mapa (s01, s02…)."
+        }
       },
-      "required": ["destino"]
+      "required": [
+        "destino"
+      ]
     }
   },
   {
@@ -35,9 +44,34 @@
     "parameters": {
       "type": "object",
       "properties": {
-        "texto": { "type": "string", "description": "Texto exacto del botón o enlace a señalar." }
+        "texto": {
+          "type": "string",
+          "description": "Texto exacto del botón o enlace a señalar."
+        }
       },
-      "required": ["texto"]
+      "required": [
+        "texto"
+      ]
+    }
+  },
+  {
+    "type": "client",
+    "name": "mostrar",
+    "description": "Baja la página hasta la parte de la que vas a hablar (un titular, un cliente, una cifra, un apartado) y la ilumina un momento. Pasa el texto tal como aparece en el detalle de la página. Úsala justo antes de hablar de esa parte.",
+    "pre_tool_speech": "off",
+    "execution_mode": "async",
+    "expects_response": false,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "texto": {
+          "type": "string",
+          "description": "Texto del titular o de la parte de la página que vas a enseñar."
+        }
+      },
+      "required": [
+        "texto"
+      ]
     }
   }
 ]
