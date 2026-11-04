@@ -61,10 +61,13 @@ visitante, y las prepara antes. Se configura en `.env` con cualquier proveedor e
 Google (ver `.env.example`):
 
 ```
-MAPEO_LLM_URL=https://opencode.ai/inference/go/google/v1beta
-MAPEO_LLM_MODEL=gemini-4-argon
+MAPEO_LLM_URL=https://opencode.ai/inference/go/openai/v1
+MAPEO_LLM_MODEL=glm-5.3-flash
 MAPEO_LLM_KEY=<tu clave>
 ```
+
+**En la demo usamos GLM-5.3-Flash** (OpenCode Go): rápido y barato. Para más inteligencia, cambia a uno de la
+tabla de abajo.
 
 Compruébalo con `npm run probar-modelo`.
 
