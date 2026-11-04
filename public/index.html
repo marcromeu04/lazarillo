@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lazarillo</title>
+<style>
+  :root{ --bg:#0b0d12; --panel:#13161f; --panel2:#1a1e2b; --line:#262b3a; --txt:#e7e9f0; --dim:#8a90a6; --acc:#a855f7; --acc2:#6366f1; --green:#34d399; --amber:#fbbf24; --red:#f87171; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; height:100%; background:var(--bg); color:var(--txt); font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  button{ font:inherit; cursor:pointer; }
+  input{ font:inherit; }
+  .top{ display:flex; gap:10px; align-items:center; padding:10px 14px; background:var(--panel); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .brand{ font-weight:800; letter-spacing:.3px; font-size:18px; margin-right:6px; background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  #url{ flex:1; min-width:240px; background:var(--panel2); border:1px solid var(--line); color:var(--txt); padding:9px 12px; border-radius:10px; }
+  .btn{ background:var(--acc2); color:#fff; border:none; padding:9px 14px; border-radius:10px; font-weight:600; }
+  .btn:hover{ filter:brightness(1.1); }
+  .btn.ghost{ background:var(--panel2); border:1px solid var(--line); color:var(--dim); font-weight:500; }
+  .chip{ font-size:12px; color:var(--dim); }
+  .switch{ display:inline-flex; gap:6px; align-items:center; font-size:12px; color:var(--dim); }
+  .main{ display:flex; height:calc(100% - 55px); }
+  .left{ width:68%; display:flex; flex-direction:column; border-right:1px solid var(--line); }
+  .right{ width:32%; display:flex; flex-direction:column; background:var(--panel); }
+  .loc{ padding:10px 14px; background:var(--panel2); border-bottom:1px solid var(--line); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .loc b{ color:var(--acc); }
+  #frameWrap{ position:relative; flex:1; background:#fff; }
+  iframe{ width:100%; height:100%; border:0; }
+  #frameMsg{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#555; background:#f6f7fb; text-align:center; padding:30px; }
+  .orbWrap{ display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 10px 10px; border-bottom:1px solid var(--line); }
+  .orb{ width:90px; height:90px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #c4b5fd, var(--acc2)); box-shadow:0 0 40px rgba(99,102,241,.5); transition:transform .12s ease; }
+  .orb.listening{ background:radial-gradient(circle at 35% 30%, #86efac, #059669); box-shadow:0 0 40px rgba(52,211,153,.6); animation:breathe 1.4s infinite; }
+  .orb.thinking{ background:radial-gradient(circle at 35% 30%, #fde68a, #d97706); animation:spin 1.1s linear infinite; }
+  .orb.speaking{ background:radial-gradient(circle at 35% 30%, #c4b5fd, var(--acc)); animation:breathe .7s infinite; }
+  @keyframes breathe{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.08);} }
+  @keyframes spin{ to{ transform:rotate(360deg);} }
+  .state{ font-size:12px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+  .hint{ font-size:11px; color:var(--dim); text-align:center; }
+  .transcript{ padding:10px 14px; max-height:150px; overflow:auto; border-bottom:1px solid var(--line); font-size:13px; }
+  .transcript .me{ color:var(--green); }
+  .transcript .lz{ color:var(--txt); }
+  .transcript .interim{ color:var(--dim); font-style:italic; }
+  .maplist{ flex:1; overflow:auto; padding:8px 10px; }
+  .pageItem{ padding:8px 10px; border-radius:8px; border:1px solid transparent; cursor:pointer; margin-bottom:4px; }
+  .pageItem:hover{ background:var(--panel2); }
+  .pageItem.cur{ background:rgba(168,85,247,.15); border-color:var(--acc); }
+  .pageItem .t{ font-weight:600; font-size:13px; }
+  .pageItem .p{ font-size:11px; color:var(--dim); }
+  .hud{ display:flex; gap:10px; padding:10px 14px; border-top:1px solid var(--line); font-size:12px; color:var(--dim); flex-wrap:wrap; }
+  .hud b{ font-variant-numeric:tabular-nums; }
+  .dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:4px; }
+  .g{ background:var(--green);} .a{ background:var(--amber);} .r{ background:var(--red);}
+  select{ background:var(--panel2); color:var(--txt); border:1px solid var(--line); border-radius:8px; padding:6px; }
+</style>
+</head>
+<body>
+<div class="top">
+  <span class="brand">Lazarillo</span>
+  <input id="url" placeholder="https://..." value="https://karumi.ai">
+  <button class="btn" id="go">Explorar</button>
+  <button class="btn ghost" data-ex="https://karumi.ai">karumi.ai</button>
+  <button class="btn ghost" data-ex="https://news.ycombinator.com">Hacker News</button>
+  <span class="chip" id="ready"></span>
+  <label class="switch"><input type="checkbox" id="staticMode"> modo estático</label>
+  <select id="lang"><option value="es-ES">ES</option><option value="en-US">EN</option></select>
+  <label class="switch"><input type="checkbox" id="handsfree"> manos libres</label>
+  <label class="switch"><input type="checkbox" id="comment" checked> comentar mis clics</label>
+  <button class="btn ghost" id="tour">Ruta sugerida</button>
+</div>
+<div class="main">
+  <div class="left">
+    <div class="loc" id="loc">📍 Estás en: <b>—</b></div>
+    <div id="frameWrap">
+      <div id="frameMsg">Pega una URL y pulsa <b>Explorar</b>. Luego mantén <b>ESPACIO</b> para hablar.</div>
+      <iframe id="frame" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </div>
+  <div class="right">
+    <div class="orbWrap">
+      <div class="orb" id="orb"></div>
+      <div class="state" id="state">en espera</div>
+      <div class="hint">Mantén <b>ESPACIO</b> para hablar</div>
+    </div>
+    <div class="transcript" id="transcript"></div>
+    <div class="maplist" id="maplist"></div>
+    <div class="hud">
+      <span>1er token <b id="hudTok">—</b></span>
+      <span>1er audio <b id="hudAud">—</b></span>
+      <span>media <b id="hudAvg">—</b></span>
+    </div>
+  </div>
+</div>
+<script>
+const $ = (id)=>document.getElementById(id);
+const frame = $('frame');
+let MAP=null, RAW={}, ORIGIN='', DOMAIN='';
+let currentPath='/', currentSection='';
+let history=[], events=[];
+let fillers={}; // text -> blob url
+
+// ---------------- UI helpers ----------------
+function setState(s){
+  const o=$('orb'); o.className='orb '+(s==='en espera'?'':s);
+  $('state').textContent = s==='en espera'?'en espera':(s==='listening'?'escuchando':s==='thinking'?'pensando':'hablando');
+}
+function updateLoc(){
+  const page = MAP && MAP.pages.find(p=>p.path===currentPath);
+  const title = page? page.title : (RAW[currentPath]?RAW[currentPath].title:currentPath);
+  $('loc').innerHTML = `📍 Estás en: <b>${esc(title||currentPath)}</b> · ${esc(currentPath)}${currentSection?' › '+esc(currentSection):''}`;
+  renderMap();
+}
+function esc(s){ return (s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
+function addTranscript(who,text){
+  const d=document.createElement('div'); d.className=who==='me'?'me':'lz';
+  d.textContent=(who==='me'?'Tú: ':'Lazarillo: ')+text; $('transcript').appendChild(d);
+  $('transcript').scrollTop=1e9;
+}
+let interimEl=null;
+function setInterim(text){
+  if(!interimEl){ interimEl=document.createElement('div'); interimEl.className='interim'; $('transcript').appendChild(interimEl);}
+  interimEl.textContent='Tú: '+text; $('transcript').scrollTop=1e9;
+}
+function clearInterim(){ if(interimEl){interimEl.remove(); interimEl=null;} }
+
+function renderMap(){
+  if(!MAP) return;
+  const host=$('maplist'); host.innerHTML='';
+  MAP.pages.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='pageItem'+(p.path===currentPath||bestPrefix(currentPath)===p.path?' cur':'');
+    d.innerHTML=`<div class="t">${esc(p.title)}</div><div class="p">${esc(p.path)} — ${esc(p.purpose||'')}</div>`;
+    d.onclick=()=>navigate(p.path);
+    host.appendChild(d);
+  });
+}
+function bestPrefix(path){
+  if(!MAP) return path;
+  let best=null;
+  for(const p of MAP.pages){ if(path===p.path) return p.path; if(path.startsWith(p.path)&&(!best||p.path.length>best.length)) best=p.path; }
+  return best||path;
+}
+
+// ---------------- Crawl (SSE) ----------------
+$('go').onclick=()=>crawl($('url').value);
+document.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>{ $('url').value=b.dataset.ex; crawl(b.dataset.ex); });
+
+function crawl(url){
+  if(!url) return;
+  MAP=null; RAW={}; history=[]; events=[];
+  $('maplist').innerHTML='<div class="chip" style="padding:8px">Explorando…</div>';
+  $('ready').textContent='Explorando…';
+  const es=new EventSource('/api/crawl?url='+encodeURIComponent(url));
+  const liveTitles={};
+  es.addEventListener('page',e=>{
+    const d=JSON.parse(e.data); liveTitles[d.path]=d.title;
+    const host=$('maplist');
+    if(!host.querySelector('.live')){ host.innerHTML='<div class="chip live" style="padding:6px">Páginas encontradas:</div>'; }
+    const row=document.createElement('div'); row.className='pageItem'; row.innerHTML=`<div class="t">${esc(d.title)}</div><div class="p">${esc(d.path)}</div>`;
+    host.appendChild(row);
+  });
+  es.addEventListener('status',e=>{ $('ready').textContent=JSON.parse(e.data).msg; });
+  es.addEventListener('done',e=>{
+    const d=JSON.parse(e.data); MAP=d.map; RAW=d.raw; ORIGIN=d.origin; DOMAIN=d.domain;
+    $('ready').textContent='Mapa listo en '+((d.ms/1000).toFixed(1))+' s'+(d.cached?' (caché)':'');
+    es.close();
+    const first = (MAP.suggested_tour&&MAP.suggested_tour[0]) || (MAP.pages[0]&&MAP.pages[0].path) || '/';
+    navigate(first, true);
+    renderMap();
+    setTimeout(()=>autoTurn('[inicio]'), 600);
+  });
+  es.addEventListener('error',e=>{
+    try{ const d=JSON.parse(e.data); $('ready').textContent='Error: '+d.message; }catch{ $('ready').textContent='Error al explorar'; }
+    es.close();
+  });
+}
+
+// ---------------- iframe navigation ----------------
+function absFor(path){ try{ return new URL(path, ORIGIN).href; }catch{ return ORIGIN+path; } }
+function navigate(path, isHome){
+  if(!ORIGIN) return;
+  $('frameMsg').style.display='none';
+  const abs=absFor(path);
+  const js = $('staticMode').checked ? '&js=0':'';
+  frame.src='/proxy?url='+encodeURIComponent(abs)+js;
+  currentPath=path; currentSection=''; updateLoc();
+}
+
+// ---------------- postMessage bridge ----------------
+let navigatingByGo=false, pendingHighlight=null, pendingGoPath=null;
+window.addEventListener('message',ev=>{
+  const d=ev.data||{}; if(!d.type) return;
+  if(d.type==='page'){
+    let p='/'; try{ const u=new URL(d.url); p=u.pathname+u.search||'/'; }catch{}
+    const matched = MAP? (MAP.pages.find(x=>x.path===p)?p:bestPrefix(p)) : p;
+    const was=currentPath; currentPath=p; currentSection=''; updateLoc();
+    if(pendingHighlight){ tryHighlight(pendingHighlight); pendingHighlight=null; }
+    if(!navigatingByGo && p!==was && $('comment').checked){
+      pushEvent('el visitante ha ido a '+ (MAP&&MAP.pages.find(x=>x.path===matched)?MAP.pages.find(x=>x.path===matched).title:p) +' por su cuenta');
+      if(!speaking && !listening){ clearTimeout(window._autoNav); window._autoNav=setTimeout(()=>autoTurn('[evento] el visitante ha ido a '+p+' por su cuenta'),600); }
+    }
+    navigatingByGo=false; pendingGoPath=null;
+  } else if(d.type==='click'){
+    pushEvent('clic en "'+(d.text||'').slice(0,40)+'"');
+  } else if(d.type==='section'){
+    currentSection=d.heading; updateLoc();
+  } else if(d.type==='highlight_result'){
+    // noop (could log)
+  }
+});
+function pushEvent(txt){ events.push(txt); if(events.length>5) events.shift(); }
+
+let highlightTry=0;
+function tryHighlight(text){
+  highlightTry=0;
+  const attempt=()=>{
+    frame.contentWindow && frame.contentWindow.postMessage({type:'highlight',text},'*');
+  };
+  attempt();
+  // retry window handled when a 'page' event lands (pendingHighlight)
+}
+function doGo(path){
+  navigatingByGo=true; navigate(path);
+}
+
+// ---------------- Speech recognition ----------------
+let recog=null, listening=false, interimText='', finalText='';
+function initRecog(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ $('hint')&&0; return null; }
+  const r=new SR(); r.lang=$('lang').value; r.interimResults=true; r.continuous=true;
+  r.onresult=e=>{
+    interimText='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const t=e.results[i][0].transcript;
+      if(e.results[i].isFinal) finalText+=t; else interimText+=t;
+    }
+    setInterim((finalText+' '+interimText).trim());
+    if(handsfreeActive){ clearTimeout(window._hf); window._hf=setTimeout(endTurn,700); }
+  };
+  r.onerror=()=>{};
+  r.onend=()=>{ if(listening) try{ r.start(); }catch{} };
+  return r;
+}
+function startListening(){
+  if(listening) return;
+  if(!recog) recog=initRecog();
+  if(!recog){ addTranscript('lz','(Este navegador no soporta reconocimiento de voz; usa Chrome.)'); return; }
+  interruptSpeaking();
+  finalText=''; interimText=''; listening=true; recog.lang=$('lang').value;
+  setState('listening');
+  try{ recog.start(); }catch{}
+}
+function endTurn(){
+  if(!listening) return;
+  listening=false; handsfreeActive=false;
+  try{ recog.stop(); }catch{}
+  const text=(finalText+' '+interimText).trim();
+  clearInterim();
+  if(text){ addTranscript('me',text); sendTurn(text); }
+  else setState('en espera');
+  finalText=''; interimText='';
+}
+
+// push-to-talk
+let handsfreeActive=false;
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space' && !e.repeat && document.activeElement.tagName!=='INPUT' && document.activeElement.tagName!=='SELECT' && document.activeElement.tagName!=='TEXTAREA'){
+    e.preventDefault();
+    if($('handsfree').checked){ handsfreeActive=true; startListening(); }
+    else startListening();
+  }
+});
+document.addEventListener('keyup',e=>{
+  if(e.code==='Space' && !$('handsfree').checked && listening){ e.preventDefault(); endTurn(); }
+});
+
+// ---------------- Turn → LLM stream → chunk → TTS ----------------
+let speaking=false, curAbort=null;
+let audioQueue=[], playing=false, latencies=[];
+let tSpaceUp=0, firstTokenLogged=false, firstAudioLogged=false, fillerUsed=false;
+
+function autoTurn(text){ if(speaking||listening) return; addTranscript('me', text==='[inicio]'?'(entrando)':text); sendTurn(text, true); }
+
+async function sendTurn(userText, isAuto){
+  interruptSpeaking();
+  setState('thinking');
+  tSpaceUp = performance.now(); firstTokenLogged=false; firstAudioLogged=false; fillerUsed=false;
+  // filler if nothing plays in 900ms
+  clearTimeout(window._filler);
+  window._filler=setTimeout(()=>{ if(!playing && !fillerUsed){ fillerUsed=true; playFiller(); } },900);
+
+  curAbort=new AbortController();
+  let res;
+  try{
+    res=await fetch('/api/turn',{method:'POST',headers:{'Content-Type':'application/json'},signal:curAbort.signal,
+      body:JSON.stringify({history:history.slice(-12),userText,currentPath,events:events.slice(-5),lang:$('lang').value,map:MAP,raw:RAW})});
+  }catch(e){ setState('en espera'); return; }
+
+  const reader=res.body.getReader(); const dec=new TextDecoder();
+  let full='', buf='', spoken='', prevSpoken='', wordsSince=0, firstChunk=true;
+  let pendingTags=[]; // tags to attach to next chunk
+
+  const flushChunk=(force)=>{
+    let text=buf.trim();
+    if(!text) { buf=''; return; }
+    emitChunk(text, pendingTags.slice()); pendingTags=[];
+    prevSpoken=text; buf=''; wordsSince=0;
+  };
+
+  while(true){
+    let r; try{ r=await reader.read(); }catch{ break; }
+    if(r.done) break;
+    if(!firstTokenLogged){ firstTokenLogged=true; logHud('tok', performance.now()-tSpaceUp); setState('speaking'); }
+    full+=dec.decode(r.value,{stream:true});
+    // extract control tags from the tail we haven't processed
+    let text=full.slice(spoken.length);
+    // pull tags out, remember them for the next chunk
+    let m;
+    const tagRe=/\[\[(go|highlight):([^\]]+)\]\]/;
+    while((m=text.match(tagRe))){
+      const before=text.slice(0,m.index);
+      buf+=before;
+      pendingTags.push({kind:m[1],arg:m[2].trim()});
+      spoken+=before+m[0];
+      text=text.slice(m.index+m[0].length);
+    }
+    // add plain text up to any trailing partial tag
+    const partial=text.lastIndexOf('[[');
+    const safe = partial>=0 && text.indexOf(']]',partial)<0 ? text.slice(0,partial) : text;
+    buf+=safe; spoken+=safe;
+    // chunk on sentence boundaries
+    chunkLoop:
+    while(true){
+      const minWords = firstChunk?3:6;
+      // hard boundary . ? ! …
+      let idx=-1, hard=false;
+      for(let i=0;i<buf.length;i++){
+        const c=buf[i];
+        if(c==='.'||c==='?'||c==='!'||c==='…'){ idx=i; hard=true; break; }
+      }
+      if(idx<0){
+        // soft boundary , : - if enough words
+        const w=buf.trim().split(/\s+/).filter(Boolean).length;
+        if(w>=minWords){
+          for(let i=0;i<buf.length;i++){ const c=buf[i]; if(c===','||c===':'||c==='-'){ idx=i; break; } }
+        }
+      }
+      if(idx<0) break chunkLoop;
+      const piece=buf.slice(0,idx+1).trim();
+      const w=piece.split(/\s+/).filter(Boolean).length;
+      if(w<minWords && !hard) break chunkLoop;
+      buf=buf.slice(idx+1);
+      if(piece){ emitChunk(piece, pendingTags.slice()); pendingTags=[]; prevSpoken=piece; firstChunk=false; }
+    }
+  }
+  // leftover
+  const tail=buf.trim();
+  if(tail){ emitChunk(tail, pendingTags.slice()); pendingTags=[]; }
+  else if(pendingTags.length){ // tags with no following speech → run now
+    pendingTags.forEach(runTag);
+  }
+  history.push({role:'user',content:userText});
+  const clean=full.replace(/\[\[(go|highlight):[^\]]+\]\]/g,'').trim();
+  history.push({role:'assistant',content:clean});
+  if(clean) addTranscript('lz',clean);
+}
+
+// ---------------- audio queue ----------------
+let prevTtsText='';
+function emitChunk(text, tags){
+  if(!text) return;
+  const item={text, tags, audio:null, ready:false};
+  // kick off TTS download immediately (parallel), play in order
+  const url='/api/tts?text='+encodeURIComponent(text)+'&prev='+encodeURIComponent(prevTtsText);
+  prevTtsText=(prevTtsText+' '+text).slice(-300);
+  const a=new Audio(); a.preload='auto';
+  item.audio=a;
+  // probe TTS: if 204 (no key) fall back to speechSynthesis
+  fetch(url,{method:'HEAD'}).catch(()=>{}); // warm (optional)
+  a.src=url;
+  a.onerror=()=>{ item.err=true; };
+  item.url=url;
+  audioQueue.push(item);
+  if(!playing) playNext();
+}
+function playNext(){
+  if(audioQueue.length===0){ playing=false; if(!listening) setState('en espera'); return; }
+  playing=true; speaking=true;
+  const item=audioQueue.shift();
+  const runTags=()=>item.tags&&item.tags.forEach(runTag);
+  // Try ElevenLabs audio; if it errors or is 204, fall back to TTS voice
+  let started=false, done=false;
+  const finish=()=>{ if(done) return; done=true; curSpeakViz(null); playNext(); };
+  const onPlaying=()=>{ if(started) return; started=true;
+    if(!firstAudioLogged){ firstAudioLogged=true; logHud('aud', performance.now()-tSpaceUp); }
+    runTags(); curSpeakViz(item.audio);
+  };
+  item.audio.addEventListener('playing',onPlaying,{once:true});
+  item.audio.addEventListener('ended',finish,{once:true});
+  // detect 204 / error → browser speech
+  fetch(item.url,{method:'GET'}).then(r=>{
+    if(r.status===204 || !(r.headers.get('content-type')||'').includes('audio')){
+      // browser fallback
+      speakBrowser(item.text, onPlaying, finish);
+    } else {
+      item.audio.play().catch(()=>{ speakBrowser(item.text,onPlaying,finish); });
+    }
+  }).catch(()=>{ item.audio.play().catch(()=>speakBrowser(item.text,onPlaying,finish)); });
+}
+function speakBrowser(text, onStart, onEnd){
+  try{
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=$('lang').value;
+    const voices=speechSynthesis.getVoices();
+    const v=voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith($('lang').value==='en-US'?'en':'es'));
+    if(v) u.voice=v;
+    u.rate=1.05;
+    u.onstart=onStart; u.onend=onEnd; u.onerror=onEnd;
+    speechSynthesis.speak(u);
+  }catch{ onEnd&&onEnd(); }
+}
+function runTag(tag){
+  if(!tag) return;
+  if(tag.kind==='go'){
+    if(MAP && MAP.pages.some(p=>p.path===tag.arg)){ doGo(tag.arg); }
+  } else if(tag.kind==='highlight'){
+    // if iframe mid-navigation, wait for page event
+    if(pendingGoPath){ pendingHighlight=tag.arg; setTimeout(()=>{ if(pendingHighlight===tag.arg){ tryHighlight(tag.arg); pendingHighlight=null; } },3000); }
+    else tryHighlight(tag.arg);
+  }
+}
+function interruptSpeaking(){
+  if(curAbort){ try{ curAbort.abort(); }catch{} curAbort=null; }
+  try{ speechSynthesis.cancel(); }catch{}
+  audioQueue.forEach(it=>{ try{ it.audio && it.audio.pause(); }catch{} });
+  audioQueue=[]; playing=false; speaking=false;
+}
+
+// ---------------- orb volume viz ----------------
+let ac=null, raf=null;
+function curSpeakViz(audio){
+  cancelAnimationFrame(raf);
+  if(!audio){ $('orb').style.transform=''; return; }
+  try{
+    ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    const src=ac.createMediaElementSource(audio);
+    const an=ac.createAnalyser(); an.fftSize=256;
+    src.connect(an); an.connect(ac.destination);
+    const data=new Uint8Array(an.frequencyBinCount);
+    const tick=()=>{ an.getByteFrequencyData(data); let s=0; for(const v of data)s+=v; const avg=s/data.length;
+      $('orb').style.transform='scale('+(1+Math.min(avg/300,.35))+')'; raf=requestAnimationFrame(tick); };
+    tick();
+  }catch{}
+}
+
+// ---------------- HUD ----------------
+function logHud(kind,ms){
+  ms=Math.round(ms);
+  const cls=ms<1000?'g':ms<1600?'a':'r';
+  if(kind==='tok'){ $('hudTok').innerHTML=`<span class="dot ${cls}"></span>${ms}ms`; }
+  if(kind==='aud'){ $('hudAud').innerHTML=`<span class="dot ${cls}"></span>${ms}ms`; latencies.push(ms);
+    const avg=Math.round(latencies.reduce((a,b)=>a+b,0)/latencies.length);
+    const ac2=avg<1000?'g':avg<1600?'a':'r';
+    $('hudAvg').innerHTML=`<span class="dot ${ac2}"></span>${avg}ms`; }
+}
+
+// ---------------- fillers ----------------
+const FILLERS=['Vale…','A ver…','Mmm, vale.'];
+let fillerBlobs=[];
+async function prepFillers(){
+  for(const t of FILLERS){
+    try{
+      const r=await fetch('/api/tts?text='+encodeURIComponent(t));
+      if(r.status===204 || !(r.headers.get('content-type')||'').includes('audio')) return; // no key
+      const b=await r.blob(); fillerBlobs.push(URL.createObjectURL(b));
+    }catch{}
+  }
+}
+let fillerIdx=0;
+function playFiller(){
+  if(fillerBlobs.length){
+    const a=new Audio(fillerBlobs[fillerIdx%fillerBlobs.length]); fillerIdx++;
+    a.play().catch(()=>{});
+  } else {
+    speakBrowser(FILLERS[fillerIdx++%FILLERS.length]);
+  }
+}
+
+// ---------------- suggested tour ----------------
+$('tour').onclick=()=>{
+  if(!MAP||!MAP.suggested_tour) return;
+  autoTurn('[tour] haz la ruta sugerida: '+MAP.suggested_tour.join(' , ')+'. Empieza llevándome a la primera página y cuéntamela en una frase.');
+};
+
+// init
+window.speechSynthesis && speechSynthesis.getVoices();
+setState('en espera');
+prepFillers();
+</script>
+</body>
+</html>

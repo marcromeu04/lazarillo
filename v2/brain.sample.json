@@ -1,0 +1,86 @@
+{
+  "product": {
+    "name": "Nimbus",
+    "one_liner": "Convierte tus facturas en asientos contables automáticamente con IA.",
+    "audience": "Pequeñas empresas y autónomos que llevan su propia contabilidad."
+  },
+  "screens": [
+    {
+      "id": "home",
+      "path": "/",
+      "title": "Nimbus — Contabilidad automática",
+      "purpose": "Presentar el producto y dejar que el visitante empiece una prueba gratis en segundos.",
+      "functionalities": [
+        "Empezar una prueba gratuita de 14 días sin tarjeta",
+        "Ver una demo en vídeo de cómo se procesa una factura",
+        "Ir a Precios para comparar los planes",
+        "Iniciar sesión si ya eres cliente"
+      ],
+      "key_elements": [
+        "Empieza gratis",
+        "Ver demo",
+        "Precios",
+        "Iniciar sesión",
+        "Tus facturas, contabilizadas solas"
+      ],
+      "wow": "Subes una foto de una factura y en 3 segundos tienes el asiento contable listo.",
+      "how_to_get_here": "es la página de inicio, lo primero que ves al entrar",
+      "reachable_from": ["pricing"]
+    },
+    {
+      "id": "pricing",
+      "path": "/precios",
+      "title": "Precios — Nimbus",
+      "purpose": "Comparar los tres planes y elegir el que mejor encaja antes de contratar.",
+      "functionalities": [
+        "Comparar los planes Autónomo, Pyme y Despacho lado a lado",
+        "Cambiar entre facturación mensual y anual para ver el descuento",
+        "Empezar la prueba desde el plan elegido",
+        "Calcular el precio según el número de facturas al mes"
+      ],
+      "key_elements": [
+        "Autónomo",
+        "Pyme",
+        "Despacho",
+        "Mensual",
+        "Anual",
+        "Elegir plan",
+        "Facturas al mes"
+      ],
+      "wow": "El plan Pyme sale gratis el primer mes y procesa facturas ilimitadas.",
+      "how_to_get_here": "arriba a la derecha, en Precios",
+      "reachable_from": ["home"]
+    },
+    {
+      "id": "demo",
+      "path": "/demo",
+      "title": "Solicita una demo — Nimbus",
+      "purpose": "Reservar una demostración personalizada con el equipo de Nimbus.",
+      "functionalities": [
+        "Rellenar el formulario con tu nombre, email y empresa",
+        "Elegir un hueco en el calendario para la llamada",
+        "Indicar cuántas facturas gestionas al mes para personalizar la demo"
+      ],
+      "key_elements": [
+        "Solicitar demo",
+        "Nombre",
+        "Email de trabajo",
+        "Empresa",
+        "Reservar hueco",
+        "Enviar"
+      ],
+      "wow": "Te enseñan tu propia contabilidad procesada en vivo durante la llamada.",
+      "how_to_get_here": "en el menú de arriba, en Solicita una demo, o desde el botón del pie de página",
+      "reachable_from": ["home", "pricing"]
+    }
+  ],
+  "edges": [
+    { "from": "home", "to": "pricing", "via": "Precios" },
+    { "from": "home", "to": "demo", "via": "Ver demo" },
+    { "from": "pricing", "to": "home", "via": "Nimbus" },
+    { "from": "pricing", "to": "demo", "via": "Hablar con ventas" }
+  ],
+  "suggested_tour": ["home", "pricing", "demo"],
+  "main_nav": ["Producto", "Precios", "Solicita una demo", "Iniciar sesión"],
+  "degraded": false
+}

@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "Books to Scrape",
+    "startUrl": "https://books.toscrape.com/",
+    "exploredAt": "2026-11-04T13:20:00Z",
+    "pages": 3
+  },
+  "screens": [
+    {
+      "id": "s01",
+      "url": "https://books.toscrape.com/",
+      "title": "Inicio",
+      "purpose": "Catálogo de libros con categorías a la izquierda",
+      "headings": ["All products"],
+      "actions": [
+        { "label": "Travel", "kind": "link", "selector": "a[href*='travel_2']", "to": "s02" },
+        { "label": "A Light in the Attic", "kind": "link", "selector": "a[title='A Light in the Attic']", "to": "s03" }
+      ],
+      "screenshot": "brain/shots/s01.png"
+    },
+    {
+      "id": "s02",
+      "url": "https://books.toscrape.com/catalogue/category/books/travel_2/index.html",
+      "title": "Travel",
+      "purpose": "Listado de libros de viajes",
+      "headings": ["Travel"],
+      "actions": [
+        { "label": "Home", "kind": "link", "selector": "a[href$='index.html']", "to": "s01" }
+      ],
+      "screenshot": "brain/shots/s02.png"
+    },
+    {
+      "id": "s03",
+      "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+      "title": "A Light in the Attic",
+      "purpose": "Ficha de un libro: precio, stock y botón de añadir a la cesta",
+      "headings": ["A Light in the Attic", "Product Description"],
+      "actions": [
+        { "label": "Add to basket", "kind": "button", "selector": "button.btn-primary", "to": null },
+        { "label": "Home", "kind": "link", "selector": "ul.breadcrumb a", "to": "s01" }
+      ],
+      "screenshot": "brain/shots/s03.png"
+    }
+  ],
+  "edges": [
+    { "from": "s01", "to": "s02", "via": "Travel" },
+    { "from": "s01", "to": "s03", "via": "A Light in the Attic" },
+    { "from": "s02", "to": "s01", "via": "Home" },
+    { "from": "s03", "to": "s01", "via": "Home" }
+  ]
+}
