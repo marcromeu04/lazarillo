@@ -1,0 +1,5148 @@
+{
+  "app": {
+    "name": "All products",
+    "startUrl": "https://books.toscrape.com/",
+    "exploredAt": "2026-11-04T12:30:54.607Z",
+    "pages": 20,
+    "seconds": 15
+  },
+  "screens": [
+    {
+      "id": "s01",
+      "url": "https://books.toscrape.com/",
+      "title": "All products",
+      "purpose": "",
+      "headings": [
+        "All products"
+      ],
+      "actions": [
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s01.png"
+    },
+    {
+      "id": "s02",
+      "url": "https://books.toscrape.com/catalogue/category/books_1/",
+      "title": "Books",
+      "purpose": "",
+      "headings": [
+        "Books"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s02.png"
+    },
+    {
+      "id": "s03",
+      "url": "https://books.toscrape.com/catalogue/category/books/travel_2/",
+      "title": "Travel",
+      "purpose": "",
+      "headings": [
+        "Travel"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s03.png"
+    },
+    {
+      "id": "s04",
+      "url": "https://books.toscrape.com/catalogue/category/books/mystery_3/",
+      "title": "Mystery",
+      "purpose": "",
+      "headings": [
+        "Mystery"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s04.png"
+    },
+    {
+      "id": "s05",
+      "url": "https://books.toscrape.com/catalogue/category/books/historical-fiction_4/",
+      "title": "Historical Fiction",
+      "purpose": "",
+      "headings": [
+        "Historical Fiction"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s05.png"
+    },
+    {
+      "id": "s06",
+      "url": "https://books.toscrape.com/catalogue/category/books/sequential-art_5/",
+      "title": "Sequential Art",
+      "purpose": "",
+      "headings": [
+        "Sequential Art"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s06.png"
+    },
+    {
+      "id": "s07",
+      "url": "https://books.toscrape.com/catalogue/category/books/classics_6/",
+      "title": "Classics",
+      "purpose": "",
+      "headings": [
+        "Classics"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s07.png"
+    },
+    {
+      "id": "s08",
+      "url": "https://books.toscrape.com/catalogue/category/books/philosophy_7/",
+      "title": "Philosophy",
+      "purpose": "",
+      "headings": [
+        "Philosophy"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s08.png"
+    },
+    {
+      "id": "s09",
+      "url": "https://books.toscrape.com/catalogue/category/books/romance_8/",
+      "title": "Romance",
+      "purpose": "",
+      "headings": [
+        "Romance"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s09.png"
+    },
+    {
+      "id": "s10",
+      "url": "https://books.toscrape.com/catalogue/category/books/womens-fiction_9/",
+      "title": "Womens Fiction",
+      "purpose": "",
+      "headings": [
+        "Womens Fiction"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s10.png"
+    },
+    {
+      "id": "s11",
+      "url": "https://books.toscrape.com/catalogue/category/books/fiction_10/",
+      "title": "Fiction",
+      "purpose": "",
+      "headings": [
+        "Fiction"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s11.png"
+    },
+    {
+      "id": "s12",
+      "url": "https://books.toscrape.com/catalogue/category/books/childrens_11/",
+      "title": "Childrens",
+      "purpose": "",
+      "headings": [
+        "Childrens"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s12.png"
+    },
+    {
+      "id": "s13",
+      "url": "https://books.toscrape.com/catalogue/category/books/religion_12/",
+      "title": "Religion",
+      "purpose": "",
+      "headings": [
+        "Religion"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s13.png"
+    },
+    {
+      "id": "s14",
+      "url": "https://books.toscrape.com/catalogue/category/books/nonfiction_13/",
+      "title": "Nonfiction",
+      "purpose": "",
+      "headings": [
+        "Nonfiction"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s14.png"
+    },
+    {
+      "id": "s15",
+      "url": "https://books.toscrape.com/catalogue/category/books/music_14/",
+      "title": "Music",
+      "purpose": "",
+      "headings": [
+        "Music"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s15.png"
+    },
+    {
+      "id": "s16",
+      "url": "https://books.toscrape.com/catalogue/category/books/default_15/",
+      "title": "Default",
+      "purpose": "",
+      "headings": [
+        "Default"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s16.png"
+    },
+    {
+      "id": "s17",
+      "url": "https://books.toscrape.com/catalogue/category/books/science-fiction_16/",
+      "title": "Science Fiction",
+      "purpose": "",
+      "headings": [
+        "Science Fiction"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s17.png"
+    },
+    {
+      "id": "s18",
+      "url": "https://books.toscrape.com/catalogue/category/books/sports-and-games_17/",
+      "title": "Sports and Games",
+      "purpose": "",
+      "headings": [
+        "Sports and Games"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s18.png"
+    },
+    {
+      "id": "s19",
+      "url": "https://books.toscrape.com/catalogue/category/books/add-a-comment_18/",
+      "title": "Add a comment",
+      "purpose": "",
+      "headings": [
+        "Add a comment"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Fantasy",
+          "kind": "link",
+          "to": "s20"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s19.png"
+    },
+    {
+      "id": "s20",
+      "url": "https://books.toscrape.com/catalogue/category/books/fantasy_19/",
+      "title": "Fantasy",
+      "purpose": "",
+      "headings": [
+        "Fantasy"
+      ],
+      "actions": [
+        {
+          "label": "Books to Scrape",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Home",
+          "kind": "link",
+          "to": "s01"
+        },
+        {
+          "label": "Books",
+          "kind": "link",
+          "to": "s02"
+        },
+        {
+          "label": "Travel",
+          "kind": "link",
+          "to": "s03"
+        },
+        {
+          "label": "Mystery",
+          "kind": "link",
+          "to": "s04"
+        },
+        {
+          "label": "Historical Fiction",
+          "kind": "link",
+          "to": "s05"
+        },
+        {
+          "label": "Sequential Art",
+          "kind": "link",
+          "to": "s06"
+        },
+        {
+          "label": "Classics",
+          "kind": "link",
+          "to": "s07"
+        },
+        {
+          "label": "Philosophy",
+          "kind": "link",
+          "to": "s08"
+        },
+        {
+          "label": "Romance",
+          "kind": "link",
+          "to": "s09"
+        },
+        {
+          "label": "Womens Fiction",
+          "kind": "link",
+          "to": "s10"
+        },
+        {
+          "label": "Fiction",
+          "kind": "link",
+          "to": "s11"
+        },
+        {
+          "label": "Childrens",
+          "kind": "link",
+          "to": "s12"
+        },
+        {
+          "label": "Religion",
+          "kind": "link",
+          "to": "s13"
+        },
+        {
+          "label": "Nonfiction",
+          "kind": "link",
+          "to": "s14"
+        },
+        {
+          "label": "Music",
+          "kind": "link",
+          "to": "s15"
+        },
+        {
+          "label": "Default",
+          "kind": "link",
+          "to": "s16"
+        },
+        {
+          "label": "Science Fiction",
+          "kind": "link",
+          "to": "s17"
+        },
+        {
+          "label": "Sports and Games",
+          "kind": "link",
+          "to": "s18"
+        },
+        {
+          "label": "Add a comment",
+          "kind": "link",
+          "to": "s19"
+        },
+        {
+          "label": "New Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Young Adult",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Science",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Poetry",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Paranormal",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Art",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Psychology",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Autobiography",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Parenting",
+          "kind": "link",
+          "to": null
+        },
+        {
+          "label": "Add to basket",
+          "kind": "button",
+          "to": null
+        }
+      ],
+      "screenshot": "brain/shots/s20.png"
+    }
+  ],
+  "edges": [
+    {
+      "from": "s01",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s01",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s01",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s01",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s01",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s01",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s01",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s01",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s01",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s01",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s01",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s01",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s01",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s01",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s01",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s01",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s01",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s01",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s01",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s02",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s02",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s02",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s02",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s02",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s02",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s02",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s02",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s02",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s02",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s02",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s02",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s02",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s02",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s02",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s02",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s02",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s02",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s02",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s03",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s03",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s03",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s03",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s03",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s03",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s03",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s03",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s03",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s03",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s03",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s03",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s03",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s03",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s03",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s03",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s03",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s03",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s03",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s04",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s04",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s04",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s04",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s04",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s04",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s04",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s04",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s04",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s04",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s04",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s04",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s04",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s04",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s04",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s04",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s04",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s04",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s04",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s05",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s05",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s05",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s05",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s05",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s05",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s05",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s05",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s05",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s05",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s05",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s05",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s05",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s05",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s05",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s05",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s05",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s05",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s05",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s06",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s06",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s06",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s06",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s06",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s06",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s06",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s06",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s06",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s06",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s06",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s06",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s06",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s06",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s06",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s06",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s06",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s06",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s06",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s07",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s07",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s07",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s07",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s07",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s07",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s07",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s07",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s07",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s07",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s07",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s07",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s07",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s07",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s07",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s07",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s07",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s07",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s07",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s08",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s08",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s08",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s08",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s08",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s08",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s08",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s08",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s08",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s08",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s08",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s08",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s08",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s08",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s08",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s08",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s08",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s08",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s08",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s09",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s09",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s09",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s09",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s09",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s09",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s09",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s09",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s09",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s09",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s09",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s09",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s09",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s09",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s09",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s09",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s09",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s09",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s09",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s10",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s10",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s10",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s10",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s10",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s10",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s10",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s10",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s10",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s10",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s10",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s10",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s10",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s10",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s10",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s10",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s10",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s10",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s10",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s11",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s11",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s11",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s11",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s11",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s11",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s11",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s11",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s11",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s11",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s11",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s11",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s11",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s11",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s11",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s11",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s11",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s11",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s11",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s12",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s12",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s12",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s12",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s12",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s12",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s12",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s12",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s12",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s12",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s12",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s12",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s12",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s12",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s12",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s12",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s12",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s12",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s12",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s13",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s13",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s13",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s13",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s13",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s13",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s13",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s13",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s13",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s13",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s13",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s13",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s13",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s13",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s13",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s13",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s13",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s13",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s13",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s14",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s14",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s14",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s14",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s14",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s14",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s14",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s14",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s14",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s14",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s14",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s14",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s14",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s14",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s14",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s14",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s14",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s14",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s14",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s15",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s15",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s15",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s15",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s15",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s15",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s15",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s15",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s15",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s15",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s15",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s15",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s15",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s15",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s15",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s15",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s15",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s15",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s15",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s16",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s16",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s16",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s16",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s16",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s16",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s16",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s16",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s16",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s16",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s16",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s16",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s16",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s16",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s16",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s16",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s16",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s16",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s16",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s17",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s17",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s17",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s17",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s17",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s17",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s17",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s17",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s17",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s17",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s17",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s17",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s17",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s17",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s17",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s17",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s17",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s17",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s17",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s18",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s18",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s18",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s18",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s18",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s18",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s18",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s18",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s18",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s18",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s18",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s18",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s18",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s18",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s18",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s18",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s18",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s18",
+      "to": "s19",
+      "via": "Add a comment"
+    },
+    {
+      "from": "s18",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s19",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s19",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s19",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s19",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s19",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s19",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s19",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s19",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s19",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s19",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s19",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s19",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s19",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s19",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s19",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s19",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s19",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s19",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s19",
+      "to": "s20",
+      "via": "Fantasy"
+    },
+    {
+      "from": "s20",
+      "to": "s01",
+      "via": "Books to Scrape"
+    },
+    {
+      "from": "s20",
+      "to": "s02",
+      "via": "Books"
+    },
+    {
+      "from": "s20",
+      "to": "s03",
+      "via": "Travel"
+    },
+    {
+      "from": "s20",
+      "to": "s04",
+      "via": "Mystery"
+    },
+    {
+      "from": "s20",
+      "to": "s05",
+      "via": "Historical Fiction"
+    },
+    {
+      "from": "s20",
+      "to": "s06",
+      "via": "Sequential Art"
+    },
+    {
+      "from": "s20",
+      "to": "s07",
+      "via": "Classics"
+    },
+    {
+      "from": "s20",
+      "to": "s08",
+      "via": "Philosophy"
+    },
+    {
+      "from": "s20",
+      "to": "s09",
+      "via": "Romance"
+    },
+    {
+      "from": "s20",
+      "to": "s10",
+      "via": "Womens Fiction"
+    },
+    {
+      "from": "s20",
+      "to": "s11",
+      "via": "Fiction"
+    },
+    {
+      "from": "s20",
+      "to": "s12",
+      "via": "Childrens"
+    },
+    {
+      "from": "s20",
+      "to": "s13",
+      "via": "Religion"
+    },
+    {
+      "from": "s20",
+      "to": "s14",
+      "via": "Nonfiction"
+    },
+    {
+      "from": "s20",
+      "to": "s15",
+      "via": "Music"
+    },
+    {
+      "from": "s20",
+      "to": "s16",
+      "via": "Default"
+    },
+    {
+      "from": "s20",
+      "to": "s17",
+      "via": "Science Fiction"
+    },
+    {
+      "from": "s20",
+      "to": "s18",
+      "via": "Sports and Games"
+    },
+    {
+      "from": "s20",
+      "to": "s19",
+      "via": "Add a comment"
+    }
+  ]
+}
