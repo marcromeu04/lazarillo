@@ -68,7 +68,10 @@ function b64ToBytes(b64) {
 // ---------- reproducción de audio_output ----------
 function ensurePlayCtx() {
   if (!playCtx) {
-    playCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SR });
+    // NO forzamos sampleRate: muchos equipos no reproducen un contexto a 16 kHz
+    // y se oye silencio. Dejamos el rate del dispositivo; createBuffer(...,16000)
+    // hace que el navegador remuestree al vuelo.
+    playCtx = new (window.AudioContext || window.webkitAudioContext)();
     nextStartTime = 0;
   }
   if (playCtx.state === 'suspended') playCtx.resume();

@@ -10,17 +10,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 const WEB = path.join(ROOT, 'web');
 
-// Cargar .env sin dependencias (Node 20.12+/22). Fallback manual.
-try { process.loadEnvFile(path.join(ROOT, '.env')); }
-catch {
+// Cargar entorno sin dependencias. Prueba .env y, si no, .env.demo (clave de
+// demo incluida para que arranque en cualquier ordenador sin configurar nada).
+function loadEnv(file) {
   try {
-    const raw = fs.readFileSync(path.join(ROOT, '.env'), 'utf8');
+    const raw = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    let n = 0;
     for (const line of raw.split('\n')) {
       const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
-      if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
+      if (m && !process.env[m[1]]) { process.env[m[1]] = m[2].trim(); n++; }
     }
-  } catch {}
+    return n;
+  } catch { return 0; }
 }
+loadEnv('.env');
+loadEnv('.env.demo'); // relleno: solo pone las que falten
 
 const PORT = process.env.PORT || 3000;
 
