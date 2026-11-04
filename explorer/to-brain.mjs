@@ -11,11 +11,13 @@ for (const s of map.screens) {
   s.actions = s.actions.map((a) => ({ ...a, label: safe(a.label, 40) }));
 }
 map.app.name = safe(map.app.name, 60);
+map.app.startUrl = safe(map.app.startUrl, 120);
+map.edges = map.edges.map((e) => ({ ...e, via: safe(e.via, 40) }));
 const short = (u) => {
   try {
-    return new URL(u).pathname;
+    return safe(new URL(u).pathname, 80);
   } catch {
-    return u;
+    return safe(u, 80);
   }
 };
 const start = map.screens[0];

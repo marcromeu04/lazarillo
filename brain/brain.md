@@ -3,25 +3,25 @@ Aplicación: All products (https://books.toscrape.com/). Explorada sola: 20 pant
 
 ## Pantallas (id · nombre · para qué sirve · ruta)
 - s01 · All products · — · /
-- s02 · Books · — · /catalogue/category/books_1/
-- s03 · Travel · — · /catalogue/category/books/travel_2/
-- s04 · Mystery · — · /catalogue/category/books/mystery_3/
-- s05 · Historical Fiction · — · /catalogue/category/books/historical-fiction_4/
-- s06 · Sequential Art · — · /catalogue/category/books/sequential-art_5/
-- s07 · Classics · — · /catalogue/category/books/classics_6/
-- s08 · Philosophy · — · /catalogue/category/books/philosophy_7/
-- s09 · Romance · — · /catalogue/category/books/romance_8/
-- s10 · Womens Fiction · — · /catalogue/category/books/womens-fiction_9/
-- s11 · Fiction · — · /catalogue/category/books/fiction_10/
-- s12 · Childrens · — · /catalogue/category/books/childrens_11/
-- s13 · Religion · — · /catalogue/category/books/religion_12/
-- s14 · Nonfiction · — · /catalogue/category/books/nonfiction_13/
-- s15 · Music · — · /catalogue/category/books/music_14/
-- s16 · Default · — · /catalogue/category/books/default_15/
-- s17 · Science Fiction · — · /catalogue/category/books/science-fiction_16/
-- s18 · Sports and Games · — · /catalogue/category/books/sports-and-games_17/
-- s19 · Add a comment · — · /catalogue/category/books/add-a-comment_18/
-- s20 · Fantasy · — · /catalogue/category/books/fantasy_19/
+- s02 · Books · — · /catalogue/category/books1/
+- s03 · Travel · — · /catalogue/category/books/travel2/
+- s04 · Mystery · — · /catalogue/category/books/mystery3/
+- s05 · Historical Fiction · — · /catalogue/category/books/historical-fiction4/
+- s06 · Sequential Art · — · /catalogue/category/books/sequential-art5/
+- s07 · Classics · — · /catalogue/category/books/classics6/
+- s08 · Philosophy · — · /catalogue/category/books/philosophy7/
+- s09 · Romance · — · /catalogue/category/books/romance8/
+- s10 · Womens Fiction · — · /catalogue/category/books/womens-fiction9/
+- s11 · Fiction · — · /catalogue/category/books/fiction10/
+- s12 · Childrens · — · /catalogue/category/books/childrens11/
+- s13 · Religion · — · /catalogue/category/books/religion12/
+- s14 · Nonfiction · — · /catalogue/category/books/nonfiction13/
+- s15 · Music · — · /catalogue/category/books/music14/
+- s16 · Default · — · /catalogue/category/books/default15/
+- s17 · Science Fiction · — · /catalogue/category/books/science-fiction16/
+- s18 · Sports and Games · — · /catalogue/category/books/sports-and-games17/
+- s19 · Add a comment · — · /catalogue/category/books/add-a-comment18/
+- s20 · Fantasy · — · /catalogue/category/books/fantasy19/
 
 ## Cómo llegar desde All products (s01)
 - Books (s02): pulsa «Books»
