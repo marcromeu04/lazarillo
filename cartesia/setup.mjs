@@ -50,7 +50,12 @@ const { toolIds, instructionsLength } = await pushBrain(agentId, brain);
 console.log(`✓ ${toolIds.length} herramientas registradas y grafo de ${graph.getMap().app.host} cargado (${instructionsLength} caracteres de instrucciones, ~${Math.round(brain.length / 4)} tokens de grafo)`);
 
 raw = readEnvFile();
-const line = `CARTESIA_AGENT_ID_MEJORAS=${agentId}`;
-raw = /^CARTESIA_AGENT_ID_MEJORAS=.*$/m.test(raw) ? raw.replace(/^CARTESIA_AGENT_ID_MEJORAS=.*$/m, line) : raw.replace(/\n?$/, '\n') + line + '\n';
+// El id va en las dos variables: CARTESIA_AGENT_ID_MEJORAS (la que usa el servidor) y
+// CARTESIA_AGENT_ID (para que tu .env no herede el agente de demo de .env.demo).
+for (const k of ['CARTESIA_AGENT_ID_MEJORAS', 'CARTESIA_AGENT_ID']) {
+  const line = `${k}=${agentId}`;
+  const rx = new RegExp(`^${k}=.*$`, 'm');
+  raw = rx.test(raw) ? raw.replace(rx, line) : raw.replace(/\r?\n?$/, '\n') + line + '\n';
+}
 fs.writeFileSync(envPath, raw);
 console.log('✓ Guardado en .env\n\nListo. Arranca con:  npm start   →  http://localhost:3000\n');
