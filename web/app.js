@@ -2,6 +2,8 @@
 // Flujo: POST /api/token → WS Cartesia → session_create → session_ready →
 // micro (AudioWorklet) → audio_input; audio_output → altavoz; client tools.
 
+import { createGraph } from './graph.js';
+
 const SR = 16000;
 const CARTESIA_VERSION = '2026-08-14';
 
@@ -16,6 +18,8 @@ const logEl = $('log');
 const siteFrame = $('site');
 const locEl = $('loc');
 let visitorUrl = '';
+const graphUi = createGraph($('graph'), $('ginfo'), $('ghead'));
+const predictEl = $('predict');
 
 function setStatus(kind, text) {
   dot.className = 'dot ' + kind;
@@ -182,6 +186,47 @@ function startMicFallback() {
   log('info', 'mic', 'captura vía ScriptProcessor (fallback)');
 }
 
+// ---------- esperas por mensajes del iframe ----------
+const waiters = [];
+function waitFor(type, ms) {
+  return new Promise((resolve) => {
+    const w = { type, resolve };
+    waiters.push(w);
+    setTimeout(() => { const i = waiters.indexOf(w); if (i >= 0) { waiters.splice(i, 1); resolve(null); } }, ms);
+  });
+}
+function wake(d) {
+  for (let i = waiters.length - 1; i >= 0; i--) if (waiters[i].type === d.type) { waiters[i].resolve(d); waiters.splice(i, 1); }
+}
+const api = (u, body) => fetch(u, body === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then((r) => r.json()).catch(() => ({}));
+
+// La IA navega: resalta y pulsa un botón visible; si no lo hay, salta a la página del grafo.
+// Siempre responde en menos de ~6 s, con ok:false y alternativas si algo falla.
+async function irA(destino) {
+  const fail = async (motivo) => ({ ok: false, motivo, siguientes: (await api('/api/suggest')).siguientes || [] });
+  if (!destino) return fail('falta el destino');
+  const before = visitorUrl;
+  let nav = false;
+  if (!/^s\d+$/i.test(destino.trim())) {
+    const pageP = waitFor('page', 5000);
+    try { siteFrame.contentWindow.postMessage({ type: 'click', text: destino }, '*'); } catch {}
+    const clicked = await waitFor('click_result', 1500);
+    if (clicked && clicked.ok) {
+      if (clicked.nav) { nav = !!(await pageP); if (!nav) return fail('la página no ha cargado a tiempo'); }
+      else { await new Promise((r) => setTimeout(r, 600)); nav = true; }
+    }
+  }
+  if (!nav) {
+    const t = await api('/api/resolve', { destino });
+    if (!t.ok) return fail('no encuentro ese botón ni esa página');
+    const pageP = waitFor('page', 5000);
+    siteFrame.src = '/proxy?url=' + encodeURIComponent(t.url);
+    if (!(await pageP)) return fail('la página no ha cargado a tiempo');
+  }
+  const ctx = await api('/api/current');
+  return { ok: true, ...(visitorUrl === before ? { aviso: 'sigues en la misma página' } : {}), ...ctx };
+}
+
 // ---------- client tools ----------
 async function handleToolCall(msg) {
   const { tool_call_id, tool_name, parameters, expects_response } = msg;
@@ -199,6 +244,13 @@ async function handleToolCall(msg) {
   };
 
   try {
+    if (tool_name === 'ir_a') {
+      const destino = (parameters && parameters.destino) || '';
+      const data = await irA(destino);
+      log(data.ok ? 'tool' : 'err', 'ir_a', data.ok ? `«${destino}» → ${data.pagina || 'ok'}` : `«${destino}» → ${data.motivo}`);
+      reply(JSON.stringify(data), false); // ok:false va dentro: la IA pasa a otra cosa sin drama
+      return;
+    }
     if (tool_name === 'pantalla_actual') {
       const r = await fetch('/api/current');
       const data = await r.json().catch(() => ({}));
@@ -252,6 +304,15 @@ function onWsMessage(ev) {
       break;
     case 'error':
       log('err', 'error', msg.message || JSON.stringify(msg));
+      break;
+    case 'turn_started':
+    case 'turn_output_text_delta':
+      break; // telemetría: solo usamos el texto final del turno
+    case 'turn_ended':
+      if (msg.text) {
+        say(msg.role === 'user' ? 'you' : 'ia', msg.role === 'user' ? 'tú' : 'lazarillo', msg.text);
+        api('/api/hint', { text: msg.text, role: msg.role });
+      }
       break;
     default:
       // transcripciones / eventos de turno / etc.
@@ -336,6 +397,7 @@ function stop() {
   workletNode = scriptNode = micSource = micStream = micCtx = null;
 
   log('info', 'fin', 'demo colgada');
+  api('/api/session-end', {});
 }
 
 btnStart.addEventListener('click', start);
@@ -350,16 +412,79 @@ async function initSite() {
 }
 window.addEventListener('message', (ev) => {
   const d = ev.data || {};
+  wake(d);
   if (d.type === 'page' && d.url) {
     visitorUrl = d.url;
-    locEl.innerHTML = '📍 Estás en: <b>' + (d.title || d.url) + '</b>';
-    fetch('/api/visitor-url', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: d.url }) }).catch(() => {});
+    locEl.textContent = '📍 Estás en: '; const b = document.createElement('b'); b.textContent = d.title || d.url; locEl.appendChild(b);
+    fetch('/api/visitor-url', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: d.url, title: d.title, via: d.via }) }).catch(() => {});
   } else if (d.type === 'highlight_result') {
     log('info', 'resaltar', d.ok ? 'resaltado ✓' : 'no encontrado en pantalla');
   } else if (d.type === 'click') {
     log('evt', 'clic', d.text || '');
   }
 });
+
+// ---------- transcripción ----------
+function say(kind, who, text) {
+  log(kind, who, text);
+  logEl.lastChild.classList.add('say');
+}
+
+// ---------- grafo en vivo (agente de mapeo) ----------
+function onGraphEvent(ev) {
+  switch (ev.type) {
+    case 'hello': graphUi.reset(ev.graph); break;
+    case 'explore_start': graphUi.reset({ app: { host: ev.host } }); predictEl.textContent = ''; log('map', 'mapeo', `explorando ${ev.url}…`); break;
+    case 'node': graphUi.addNode(ev.node); break;
+    case 'edge': graphUi.addEdge(ev.edge); break;
+    case 'log': break;
+    case 'explore_done':
+      graphUi.setTokens(ev.brainTokens);
+      log('map', 'mapeo', `${ev.app.pages} páginas en ${ev.app.seconds} s · grafo para la voz: ~${ev.brainTokens} tokens`);
+      siteFrame.src = '/proxy?url=' + encodeURIComponent(ev.app.startUrl);
+      btnExplore.disabled = false;
+      break;
+    case 'explore_error': log('err', 'mapeo', ev.error); btnExplore.disabled = false; break;
+    case 'pushed': log(ev.ok ? 'map' : 'err', 'voz', ev.ok ? 'grafo cargado en el agente de la demo' : (ev.skipped || ev.error)); break;
+    case 'current': graphUi.setCurrent(ev.id); break;
+    case 'interest': graphUi.setInterest(ev.scores || {}); break;
+    case 'insights': {
+      const r = ev.report || {};
+      log('map', 'interés', r.resumen || 'sin datos');
+      const tops = (r.paginas || []).slice(0, 3).map((p) => `${p.title.slice(0, 22)} ${p.interes}`).join(' · ');
+      if (tops) log('map', 'páginas', tops);
+      if ((r.pain || []).length) log('map', 'pain', r.pain.slice(0, 2).join(' | '));
+      if (r.perfil && Object.keys(r.perfil).length) log('map', 'perfil', Object.entries(r.perfil).map(([k, v]) => `${k}: ${v.join(', ')}`).join(' · '));
+      break;
+    }
+    case 'deep': graphUi.setDeep(ev.id, ev.state); break;
+    case 'predict':
+      graphUi.setProbable(ev.items.map((i) => i.id));
+      predictEl.textContent = ev.items.length ? 'probable: ' + ev.items.map((i) => `${graphUi.title(i.id).slice(0, 18)} ${i.p}%`).join(' · ') : '';
+      break;
+  }
+}
+const events = new EventSource('/api/events');
+events.onmessage = (m) => { try { onGraphEvent(JSON.parse(m.data)); } catch {} };
+
+const btnExplore = $('btnExplore');
+$('siteForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = $('siteUrl').value.trim();
+  if (!/^https?:\/\//i.test(url)) { log('err', 'mapeo', 'escribe una URL que empiece por https://'); return; }
+  btnExplore.disabled = true;
+  const r = await fetch('/api/explore', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }) });
+  if (!r.ok) { const j = await r.json().catch(() => ({})); log('err', 'mapeo', j.error || 'no se pudo explorar'); btnExplore.disabled = false; }
+});
+
+// Para probar sin voz: await lazarilloTool('ir_a', { destino: 'Clientes' })
+window.lazarilloTool = async (name, parameters = {}) => {
+  if (name === 'ir_a') return irA(parameters.destino || '');
+  if (name === 'pantalla_actual') return api('/api/current');
+  if (name === 'resaltar') { siteFrame.contentWindow.postMessage({ type: 'highlight', text: parameters.texto }, '*'); return { ok: true }; }
+  return { error: 'desconocida' };
+};
+window.lazarilloHint = (text, role = 'user') => api('/api/hint', { text, role });
 
 // estado inicial
 setStatus('idle', 'en reposo');

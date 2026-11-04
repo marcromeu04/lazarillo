@@ -8,7 +8,7 @@ import { cartesia } from "./lib.mjs";
 export const MODEL_ID = "gpt-5.4-mini";
 export const VOICE_ID = "35b2cfc1-e6fb-4d69-a598-c1780612be4a"; // Darío, es-ES masc.
 export const INITIAL_MESSAGE =
-  "Hola, soy Lazarillo. Acabo de aprenderme esta aplicación. ¿Qué te gustaría conseguir con ella?";
+  "¡Hola! Soy Lazarillo, te enseño la web en un par de minutos. Cuéntame, ¿qué te trae por aquí?";
 
 export async function createAgent() {
   const body = {

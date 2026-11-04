@@ -4,7 +4,72 @@ Le das una URL que **nunca ha visto** → un agente explorador la recorre y cons
 (mapa de pantallas y rutas) → un **agente guía de voz** (Cartesia) te hace la demo hablando, sabe en qué
 pantalla estás y te **resalta dónde pulsar**. (Track 1 · Hackathon Karumi × Comillas.)
 
-## Arrancar en cualquier ordenador (30 s)
+## ⭐ Recomendado: usa la rama `mejoras`
+
+La rama `main` es la entrega del hackathon (14:00) y se queda tal cual. **Recomendamos usar el repo con las
+mejoras de la rama `mejoras`: mejoran muchísimo la experiencia de usuario.** El visitante dice «quiero ver
+esto» y la IA va ella misma a esa página, se la explica con datos concretos y propone el siguiente paso, con
+una conversación natural y sin esperas. Y funciona con cualquier web, no solo con karumi.ai.
+
+### Arrancar con tu propia cuenta de Cartesia (2 minutos)
+
+```bash
+git clone https://github.com/marcromeu04/lazarillo && cd lazarillo && git checkout mejoras
+npm i
+cp .env.example .env      # pon tu CARTESIA_API_KEY (https://play.cartesia.ai/keys)
+npm run setup             # crea tu agente de voz, registra las herramientas y le carga el grafo
+npm start                 # http://localhost:3000 en Chrome
+```
+
+No hay que tocar nada más: `npm run setup` deja el id de tu agente en `.env`. Necesitas Node 22 y Google
+Chrome instalado (el agente de mapeo usa tu Chrome; no descarga navegadores).
+
+### Qué cambia respecto a la entrega
+
+| | Entrega (`main`) | Mejoras (`mejoras`) |
+|---|---|---|
+| Quién navega | el visitante, la IA solo señala | **la IA pulsa y navega ella misma** (`ir_a`) y narra mientras carga |
+| Webs | karumi.ai | **cualquier web**: escribe la URL arriba y pulsa «Explorar» |
+| Contexto de la voz | cerebro de 37 KB (~9.300 tokens) en cada turno | **grafo compacto: ~1.300 tokens** para las 25 páginas de karumi.ai (7× menos) |
+| Detalle de cada página | todo de golpe en las instrucciones | **solo al entrar en ella y una vez por llamada** (~1 KB por herramienta) |
+| Velocidad | descarga cada página al navegar | **el agente de mapeo se adelanta**: investiga las vecinas y las que predice la conversación; la página prevista se abre en ~1,2 s (0,55 s son el resaltado, a propósito) |
+| Si algo falla | — | responde en **17 ms** con alternativas y la IA sigue sin darle importancia |
+| Tono | instrucciones básicas | prompt de **persona de producto con experiencia**: natural, segura, va al grano |
+| Panel | log | transcripción + **grafo en vivo en árbol** (principal → secundarias) con dónde está la IA, su recorrido, lo que se investiga y lo probable |
+| Ventas | — | **trazabilidad del interés**: tiempo y preguntas por página, problema (pain), señales de compra y perfil de cada visitante |
+
+Medido en local el 2026-11-04 con karumi.ai/es (25 páginas) y books.toscrape.com (30 páginas en 32 s).
+
+### Cómo funciona: dos agentes que se pasan el contexto
+
+1. **Agente de mapeo** (`explorer/`): recorre la web con Chrome y construye el grafo, con todas las
+   direcciones y un resumen de una frase de cada una. Durante la demo se adelanta:
+   - al entrar en una página, investiga a fondo esa y sus vecinas (`deep.mjs`);
+   - por la conversación, predice a qué páginas querrá ir el visitante y las prepara (`graph.mjs → predict`).
+     Lo hace sin LLM, en menos de 5 ms por turno.
+2. **Agente de la demo** (Cartesia): lleva en la memoria solo el grafo compacto. Al entrar en una página
+   recibe su detalle ampliado (`pantalla_actual` / `ir_a`), pulsa por su cuenta y, si algo falla, pasa a
+   otra cosa.
+
+### Trazabilidad del interés (`insights/`)
+
+Cada llamada se parte en tramos, uno por página. En cada tramo se mide el tiempo, las preguntas, las señales
+de interés y de compra, las frases en las que el visitante cuenta su problema y su perfil (tamaño, área). Al
+colgar se guarda un informe en `sites/<web>/sesiones/`. El enlace «informe ↗» del panel suma todas las
+sesiones: qué páginas interesan más y qué problemas se repiten, para afinar la venta.
+
+> **Privacidad:** el informe guarda frases literales del visitante. Avísale de que la demo se analiza. Los
+> informes se quedan en tu ordenador: `sites/` no se sube al repo.
+
+### Seguridad
+
+El servidor solo escucha en `127.0.0.1` y rechaza llamadas de otras webs. El proxy que muestra la web
+dentro de la página solo carga el dominio que se está explorando. Las claves van en `.env`, que nunca se
+sube.
+
+---
+
+## Arrancar la entrega (rama `main`) en cualquier ordenador (30 s)
 ```bash
 npm i
 npm start          # http://localhost:3000  (ábrelo en Chrome)

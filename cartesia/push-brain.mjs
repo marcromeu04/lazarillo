@@ -8,7 +8,7 @@ import { cartesia, getEnv, ROOT } from "./lib.mjs";
 import { MODEL_ID, VOICE_ID, INITIAL_MESSAGE } from "./create-agent.mjs";
 import { setupTools } from "./setup-tools.mjs";
 
-export async function pushBrain(agentId) {
+export async function pushBrain(agentId, brainText) {
   const id = agentId || (await getEnv("CARTESIA_AGENT_ID"));
   if (!id) throw new Error("CARTESIA_AGENT_ID ausente en .env");
 
@@ -16,7 +16,7 @@ export async function pushBrain(agentId) {
     resolve(ROOT, "cartesia/instructions.md"),
     "utf8",
   );
-  const brain = await readFile(resolve(ROOT, "brain/brain.md"), "utf8");
+  const brain = brainText || (await readFile(resolve(ROOT, "brain/brain.md"), "utf8"));
   const instructions = template.replace("{{BRAIN}}", brain.trim());
 
   const toolIds = await setupTools();

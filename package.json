@@ -10,7 +10,8 @@
     "brain": "node explorer/to-brain.mjs",
     "push": "node cartesia/push-brain.mjs",
     "setup-tools": "node cartesia/setup-tools.mjs",
-    "eval": "node eval/run.mjs"
+    "eval": "node eval/run.mjs",
+    "setup": "node cartesia/setup.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.30.0",

@@ -2,24 +2,40 @@
   {
     "type": "client",
     "name": "pantalla_actual",
-    "description": "Devuelve en qué pantalla está ahora el usuario, qué puede pulsar y cómo llegar desde ahí a otras pantallas. Úsala antes de dar una indicación y cada vez que el usuario diga que ha pulsado algo o que se ha perdido.",
+    "description": "Dice en qué página estás, qué se puede pulsar (texto exacto→id de destino) y, la primera vez que entras en una página, su detalle (titulares, texto, cifras). Llámala al empezar y cuando el visitante diga que se ha perdido.",
     "pre_tool_speech": "auto",
     "execution_mode": "sync",
     "expects_response": true,
-    "response_timeout_secs": 5,
+    "response_timeout_secs": 4,
     "parameters": { "type": "object", "properties": {}, "required": [] }
   },
   {
     "type": "client",
+    "name": "ir_a",
+    "description": "Navegas TÚ: resalta y pulsa un botón o enlace de la página actual, o salta a otra página del mapa. Pasa el texto exacto de un botón (de pantalla_actual) o el id de una página (s03). Devuelve la página de llegada con su detalle. Si devuelve ok:false, no insistas: elige otra de 'siguientes'.",
+    "pre_tool_speech": "auto",
+    "execution_mode": "sync",
+    "expects_response": true,
+    "response_timeout_secs": 8,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "destino": { "type": "string", "description": "Texto exacto del botón o enlace, o id de la página del mapa (s01, s02…)." }
+      },
+      "required": ["destino"]
+    }
+  },
+  {
+    "type": "client",
     "name": "resaltar",
-    "description": "Resalta en la pantalla del usuario el botón o enlace que tiene que pulsar. Pasa el texto exacto del botón, tal como aparece en pantalla_actual.",
+    "description": "Señala en la pantalla un botón o texto sin pulsarlo, para que el visitante lo vea. Pasa el texto exacto.",
     "pre_tool_speech": "auto",
     "execution_mode": "async",
     "expects_response": false,
     "parameters": {
       "type": "object",
       "properties": {
-        "texto": { "type": "string", "description": "Texto exacto del botón o enlace a resaltar." }
+        "texto": { "type": "string", "description": "Texto exacto del botón o enlace a señalar." }
       },
       "required": ["texto"]
     }

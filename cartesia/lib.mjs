@@ -10,12 +10,15 @@ export const BASE = "https://api.cartesia.ai";
 export const CARTESIA_VERSION = "2026-08-14";
 
 async function readEnv() {
-  const raw = await readFile(resolve(ROOT, ".env"), "utf8");
+  // .env si existe; si no trae el valor, el que ya cargó el servidor (p. ej. desde .env.demo).
+  let raw = "";
+  try { raw = await readFile(resolve(ROOT, ".env"), "utf8"); } catch {}
   const env = {};
   for (const line of raw.split("\n")) {
     const m = line.match(/^([A-Z0-9_]+)=(.*)$/);
     if (m) env[m[1]] = m[2];
   }
+  for (const k of ["CARTESIA_API_KEY", "CARTESIA_AGENT_ID", "CARTESIA_AGENT_ID_MEJORAS"]) if (!env[k] && process.env[k]) env[k] = process.env[k];
   return env;
 }
 

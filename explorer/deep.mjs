@@ -1,0 +1,89 @@
+// Agente de mapeo, segunda pasada: el detalle de una página (titulares, texto
+// principal, listas, botones, formularios y cifras) para ampliar el contexto del
+// agente de la demo. Rápido con fetch; si la página se pinta con JavaScript y llega
+// casi vacía, la abre con Chrome. Cada página se investiga una sola vez.
+import * as cheerio from 'cheerio';
+import { chromium } from 'playwright-core';
+
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
+const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
+const uniq = (arr) => [...new Set(arr.filter(Boolean))];
+
+function extract(html) {
+  const $ = cheerio.load(html || '');
+  $('script,style,noscript,svg,iframe,template').remove();
+  const root = $('main').length ? $('main') : $('body');
+  const heads = uniq(root.find('h1,h2,h3').map((_, el) => clean($(el).text(), 90)).get()).slice(0, 12);
+  const paras = uniq(root.find('p').map((_, el) => clean($(el).text(), 400)).get().filter((t) => t.length > 40));
+  let text = '';
+  for (const p of paras) {
+    if (text.length + p.length > 1600) break;
+    text += (text ? ' ' : '') + p;
+  }
+  const items = uniq(root.find('li').map((_, el) => clean($(el).text(), 90)).get().filter((t) => t.length > 8 && t.length < 90)).slice(0, 15);
+  const buttons = uniq($('a,button,[role=button]').map((_, el) => clean($(el).text() || $(el).attr('aria-label'), 40)).get()).slice(0, 30);
+  const forms = uniq($('input:not([type=hidden]),textarea,select').map((_, el) => clean($(el).attr('aria-label') || $(el).attr('placeholder') || $(el).attr('name'), 40)).get()).slice(0, 10);
+  const figures = uniq((root.text().match(/(?:\d[\d.,]*\s?(?:%|€|\$|x|k|M)\b|(?:€|\$)\s?\d[\d.,]*)/g) || []).map((x) => x.trim())).slice(0, 10);
+  return { heads, text, items, buttons, forms, figures };
+}
+
+let browserP = null;
+async function renderWithChrome(url) {
+  browserP ||= chromium.launch({ channel: 'chrome', headless: true });
+  const browser = await browserP;
+  const page = await browser.newPage({ locale: 'es-ES' });
+  try {
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    await page.waitForTimeout(1200);
+    return await page.content();
+  } finally {
+    await page.close().catch(() => {});
+  }
+}
+
+const htmlCache = new Map(); // url → {html, url final, at}: el proxy lo reutiliza al navegar
+export function cachedHtml(url) {
+  const c = htmlCache.get(url);
+  return c && Date.now() - c.at < 5 * 60 * 1000 ? c : null;
+}
+
+async function investigate(url) {
+  let html = '';
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 10000);
+    const r = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: { 'User-Agent': UA, 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' } });
+    clearTimeout(t);
+    html = await r.text();
+    if ((r.headers.get('content-type') || '').includes('html')) {
+      const hit = { html, url: r.url || url, at: Date.now() };
+      htmlCache.set(url, hit);
+      if (r.url && r.url !== url) htmlCache.set(r.url, hit);
+    }
+  } catch {}
+  let d = extract(html);
+  let via = 'fetch';
+  if (d.text.length < 200 && d.heads.length < 2) {
+    try {
+      d = extract(await renderWithChrome(url));
+      via = 'chrome';
+    } catch {}
+  }
+  return { url, via, at: new Date().toISOString(), ...d };
+}
+
+const cache = new Map(); // url → Promise<detalle>
+
+/** Detalle de una página. La primera vez la investiga; después sale de la caché. */
+export function deepPage(url) {
+  if (!cache.has(url)) cache.set(url, investigate(url));
+  return cache.get(url);
+}
+
+export function deepState(url) {
+  return cache.has(url) ? 'listo-o-en-curso' : 'pendiente';
+}
+
+export function resetDeep() {
+  cache.clear();
+}
