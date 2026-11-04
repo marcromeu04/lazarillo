@@ -36,6 +36,8 @@ Chrome instalado (el agente de mapeo usa tu Chrome; no descarga navegadores).
 | Velocidad | descarga cada página al navegar | **el agente de mapeo se adelanta**: investiga las vecinas y las que predice la conversación; la página prevista se abre en ~1,2 s (0,55 s son el resaltado, a propósito) |
 | Si algo falla | — | responde en **17 ms** con alternativas y la IA sigue sin darle importancia |
 | Tono | instrucciones básicas | prompt de **persona de producto con experiencia**: natural, segura, va al grano |
+| Cómo empieza | pregunta qué le trae | **descubre el problema del visitante** (qué le duele, cómo lo hace hoy, qué quiere ver) y va directo a la página que más valor le aporta; si no lo tiene claro, le enseña el mayor problema que resuelve el software |
+| Pantalla | `scrollIntoView` a la primera coincidencia | **la pantalla sigue a la voz en el orden de la página** (`server/bridge.js`): un solo movimiento a la vez, encuadra la sección bajo la cabecera fija, fundido en los saltos largos, no toca carruseles, respeta scroll-snap y Lenis, y si el visitante mueve la página o dice «párate aquí», se queda quieta. En karumi.ai, la misma narración de 10 frases antes saltaba a las preguntas frecuentes y volvía; ahora avanza siempre en el orden de la página |
 | Panel | log | transcripción + **grafo en vivo en árbol** (principal → secundarias) con dónde está la IA, su recorrido, lo que se investiga y lo probable |
 | Ventas | — | **trazabilidad del interés**: tiempo y preguntas por página, problema (pain), señales de compra y perfil de cada visitante |
 
