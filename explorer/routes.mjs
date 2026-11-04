@@ -20,19 +20,27 @@ export function matchScreen(map, url) {
   const target = strip(url);
   const exact = map.screens.find((s) => strip(s.url) === target);
   if (exact) return exact;
-  // Si no hay coincidencia exacta, la pantalla con el prefijo de ruta más largo en común.
+  // Sin coincidencia exacta: la pantalla que comparte más segmentos de ruta enteros (no letras).
+  const segs = (u) => {
+    try {
+      return new URL(u).pathname.split("/").filter(Boolean);
+    } catch {
+      return [];
+    }
+  };
+  const t = segs(url);
   let best = null;
-  let bestLen = 0;
+  let bestN = 0;
   for (const s of map.screens) {
-    const a = strip(s.url);
+    const a = segs(s.url);
     let i = 0;
-    while (i < a.length && i < target.length && a[i] === target[i]) i++;
-    if (i > bestLen) {
-      bestLen = i;
+    while (i < a.length && i < t.length && a[i] === t[i]) i++;
+    if (i > bestN) {
+      bestN = i;
       best = s;
     }
   }
-  return bestLen > new URL(map.app.startUrl).origin.length + 1 ? best : null;
+  return best;
 }
 
 export function routesFrom(map, fromId) {

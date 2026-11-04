@@ -7,9 +7,10 @@ const args = process.argv.slice(2);
 const startUrl = args.find((a) => /^https?:\/\//.test(a)) || process.env.TARGET_URL;
 const max = Number(args[args.indexOf("--max") + 1]) || 25;
 const MAX_DEPTH = 3;
+const locale = args[args.indexOf("--locale") + 1]?.match(/^[a-z]{2}(-[A-Z]{2})?$/) ? args[args.indexOf("--locale") + 1] : "es-ES";
 if (!startUrl) throw new Error("Uso: node explorer/explore.mjs <url> [--max 25]");
 
-const SKIP = /logout|log-out|signout|sign-out|delete|borrar|eliminar|salir|unsubscribe/i;
+const SKIP = /\/meet\/|logout|log-out|signout|sign-out|delete|borrar|eliminar|salir|unsubscribe/i;
 const FILES = /\.(pdf|jpe?g|png|gif|svg|zip|rar|mp4|mp3|webp|ico|xml|json|csv|docx?|xlsx?)(\?|$)/i;
 
 const origin = new URL(startUrl).origin;
@@ -32,7 +33,7 @@ mkdirSync("brain/shots", { recursive: true });
 
 const t0 = Date.now();
 const browser = await chromium.launch({ channel: "chrome", headless: true });
-const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+const page = await browser.newPage({ viewport: { width: 1280, height: 800 }, locale });
 
 const queue = [{ url: norm(startUrl), depth: 0 }];
 const seen = new Set([norm(startUrl)]);
