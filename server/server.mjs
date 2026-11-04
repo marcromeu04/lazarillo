@@ -55,9 +55,12 @@ const server = http.createServer(async (req, res) => {
   const url = req.url.split('?')[0];
   // Solo la propia app puede usar /api/*: otra web abierta en el navegador no puede mover el Chrome del visitante.
   if (url.startsWith('/api/')) {
+    const allowed = [`localhost:${PORT}`, `127.0.0.1:${PORT}`];
+    const host = req.headers.host || '';
     const origin = req.headers.origin;
-    const okOrigin = !origin || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
-    if (!okOrigin || req.headers['sec-fetch-site'] === 'cross-site') return sendJson(res, 403, { error: 'origen no permitido' });
+    const okHost = allowed.includes(host);
+    const okOrigin = !origin || allowed.some((h) => origin === `http://${h}`);
+    if (!okHost || !okOrigin || req.headers['sec-fetch-site'] === 'cross-site') return sendJson(res, 403, { error: 'origen no permitido' });
   }
   try {
     if (url === '/api/token' && req.method === 'POST') {
@@ -67,6 +70,7 @@ const server = http.createServer(async (req, res) => {
     if (url === '/api/open' && req.method === 'POST') {
       if (watcher.__missing || !watcher.open) return sendJson(res, 503, { error: 'watcher.mjs no disponible', detail: watcher.__err });
       const { url: target } = await body(req);
+      if (target && !/^https?:\/\//i.test(target)) return sendJson(res, 400, { error: 'solo http(s)' });
       return sendJson(res, 200, await watcher.open(target));
     }
     if (url === '/api/current' && req.method === 'GET') {
