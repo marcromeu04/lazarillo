@@ -4,7 +4,7 @@
 // casi vacía, la abre con Chrome. Cada página se investiga una sola vez.
 import * as cheerio from 'cheerio';
 import { chromium } from 'playwright-core';
-import { isPublicUrl, safeFetch } from './netguard.mjs';
+import { isPublicUrl, safeFetch, pinnedChromeArgs, hardenedContext } from './netguard.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -28,11 +28,11 @@ function extract(html) {
   return { heads, text, items, buttons, forms, figures };
 }
 
-let browserP = null;
 async function renderWithChrome(url) {
-  browserP ||= chromium.launch({ channel: 'chrome', headless: true });
-  const browser = await browserP;
-  const page = await browser.newPage({ locale: 'es-ES' });
+  // Un Chrome por página (es el caso raro): con su dominio fijado a la IP ya validada.
+  const browser = await chromium.launch({ channel: 'chrome', headless: true, args: await pinnedChromeArgs(url) });
+  const ctx = await hardenedContext(browser, { locale: 'es-ES' });
+  const page = await ctx.newPage();
   // Solo webs públicas en cada petición, y sin imágenes, vídeos ni fuentes.
   await page.route('**/*', async (route) => {
     const rq = route.request();
@@ -45,7 +45,7 @@ async function renderWithChrome(url) {
     await page.waitForTimeout(1200);
     return await page.content();
   } finally {
-    await page.close().catch(() => {});
+    await browser.close().catch(() => {});
   }
 }
 
@@ -68,11 +68,12 @@ async function investigate(url) {
       if (finalUrl !== url) htmlCache.set(finalUrl, hit);
     }
   } catch (e) {
-    if (e && e.code === 'EBLOCKED') return blockedResult; // apunta a una dirección interna: ni con Chrome
+    if (e?.code === 'EBLOCKED' || e?.cause?.code === 'EBLOCKED') return blockedResult; // apunta a tu red: ni con Chrome
+    return { ...blockedResult, via: 'no-carga' }; // error de red: no se reintenta con Chrome
   }
   let d = extract(html);
   let via = 'fetch';
-  if (d.text.length < 200 && d.heads.length < 2) {
+  if (d.text.length < 200 && d.heads.length < 2) { // descarga buena pero casi vacía: web pintada con JavaScript
     try {
       d = extract(await renderWithChrome(url));
       via = 'chrome';

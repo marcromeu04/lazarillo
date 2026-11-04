@@ -11,7 +11,7 @@
 // No envía formularios, no pulsa nada destructivo, no sale del dominio y solo va a webs públicas.
 import * as cheerio from 'cheerio';
 import { chromium } from 'playwright-core';
-import { isPublicUrl, safeFetch } from './netguard.mjs';
+import { isPublicUrl, safeFetch, pinnedChromeArgs, hardenedContext } from './netguard.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 const SKIP = /\/meet\/|logout|log-out|signout|sign-out|delete|borrar|eliminar|salir|unsubscribe|cart\/add|checkout|\/wp-admin|\/cdn-cgi\//i;
@@ -159,6 +159,7 @@ async function crawlFast(startUrl, opts) {
     try {
       got = await fetchHtml(item.url, locale);
     } catch (e) {
+      if (e?.code === 'EBLOCKED' && item.depth === 0) throw e; // la portada apunta a tu red: se aborta, sin Chrome
       onLog(`no carga: ${item.url}`);
       return;
     }
@@ -243,16 +244,10 @@ async function crawlChrome(startUrl, opts) {
   const host = hostOf(startUrl);
   const sameSite = (u) => hostOf(u) === host;
   const t0 = Date.now();
-  const browser = await chromium.launch({ channel: 'chrome', headless: true });
-  const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, locale, extraHTTPHeaders: { 'Accept-Language': `${locale},es;q=0.9,en;q=0.8` } });
+  const browser = await chromium.launch({ channel: 'chrome', headless: true, args: await pinnedChromeArgs(startUrl) });
+  // Sin service workers ni WebSockets, cada petición filtrada y sin imágenes, vídeos ni fuentes.
+  const ctx = await hardenedContext(browser, { viewport: { width: 1280, height: 800 }, locale, extraHTTPHeaders: { 'Accept-Language': `${locale},es;q=0.9,en;q=0.8` } });
   const page = await ctx.newPage();
-  // Solo webs públicas en CADA petición, y sin descargar lo que no sirve para el mapa.
-  await page.route('**/*', async (route) => {
-    const rq = route.request();
-    if (['image', 'media', 'font'].includes(rq.resourceType())) return route.abort();
-    if (!(await isPublicUrl(rq.url()))) return route.abort('blockedbyclient');
-    return route.continue();
-  });
 
   const queue = [{ url: normUrl(startUrl), depth: 0, from: null, via: null }];
   const seen = new Set([normUrl(startUrl)]);

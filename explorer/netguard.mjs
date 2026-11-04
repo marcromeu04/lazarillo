@@ -95,6 +95,37 @@ const agent = new Agent({
 });
 
 /**
+ * Argumentos para lanzar Chrome con el dominio de la web FIJADO a sus IP ya validadas: Chrome no
+ * vuelve a resolver el DNS, así que un cambio de DNS a última hora no le lleva a tu red.
+ */
+export async function pinnedChromeArgs(url) {
+  const host = new URL(url).hostname.replace(/^\[|\]$/g, '');
+  if (!(await isPublicUrl(url))) throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
+  if (net.isIP(host)) return [];
+  const addrs = await dns.promises.lookup(host, { all: true });
+  const ip = addrs.find((a) => a.family === 4) || addrs[0];
+  if (!ip || addrs.some((a) => isBlockedIp(a.address))) throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
+  const target = ip.family === 6 ? `[${ip.address}]` : ip.address;
+  const bare = host.replace(/^www\./, '');
+  return [`--host-resolver-rules=MAP ${bare} ${target}, MAP www.${bare} ${target}`];
+}
+
+/** Contexto de Chrome sin service workers ni WebSockets y con cada petición filtrada. */
+export async function hardenedContext(browser, options = {}) {
+  const ctx = await browser.newContext({ ...options, serviceWorkers: 'block' });
+  try {
+    await ctx.routeWebSocket(/.*/, (ws) => ws.close());
+  } catch {}
+  await ctx.route('**/*', async (route) => {
+    const rq = route.request();
+    if (['image', 'media', 'font'].includes(rq.resourceType())) return route.abort();
+    if (!(await isPublicUrl(rq.url()))) return route.abort('blockedbyclient');
+    return route.continue();
+  });
+  return ctx;
+}
+
+/**
  * Descarga solo webs públicas. Devuelve { res, url } con la URL final tras redirecciones.
  * Lanza un error si algún salto apunta a una dirección interna.
  */
@@ -102,7 +133,14 @@ export async function safeFetch(url, { headers = {}, timeoutMs = 10_000, maxHops
   let current = url;
   for (let hop = 0; hop <= maxHops; hop++) {
     if (!(await isPublicUrl(current))) throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
-    const res = await ufetch(current, { headers, redirect: 'manual', dispatcher: agent, signal: AbortSignal.timeout(timeoutMs) });
+    let res;
+    try {
+      res = await ufetch(current, { headers, redirect: 'manual', dispatcher: agent, signal: AbortSignal.timeout(timeoutMs) });
+    } catch (e) {
+      // undici envuelve el error de conexión en un «fetch failed»: lo desenvolvemos.
+      if (e?.code === 'EBLOCKED' || e?.cause?.code === 'EBLOCKED') throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
+      throw e;
+    }
     const loc = res.status >= 300 && res.status < 400 ? res.headers.get('location') : null;
     if (!loc) return { res, url: current };
     try {
