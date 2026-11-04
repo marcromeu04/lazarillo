@@ -4,11 +4,38 @@
 //   Google      …/models/<m>:generateContent (OpenCode Go para Gemini, la API de Gemini…)
 // Configuración en .env:
 //   MAPEO_LLM_URL       base de la API, p. ej. https://opencode.ai/inference/go/google/v1beta
-//   MAPEO_LLM_KEY       la clave de ese proveedor
+//   MAPEO_LLM_KEY       la clave de ese proveedor, o «opencode» para usar la que ya tiene OpenCode
 //   MAPEO_LLM_MODEL     el modelo, p. ej. gemini-4-argon
 //   MAPEO_LLM_ESFUERZO  opcional: low | medium | high … (razonamiento, si el modelo lo admite)
 //   MAPEO_LLM_ESFUERZO_PREDICCION  opcional, para la predicción en tiempo real (por defecto low)
 //   MAPEO_LLM_FORMATO   opcional: openai | anthropic | google (si la URL no lo deja claro)
+import { readFileSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { join } from 'node:path';
+import { randomUUID } from 'node:crypto';
+
+// OpenCode Go pide que cada cliente se identifique con su propio nombre y mande un id de sesión
+// estable por conversación (x-opencode-session). Lazarillo: uno por llamada de voz y uno por web.
+export const USER_AGENT = 'lazarillo/1.0';
+let convSession = randomUUID();
+export function newLlmSession() {
+  convSession = randomUUID();
+  return convSession;
+}
+
+// MAPEO_LLM_KEY=opencode → se usa la clave que OpenCode ya tiene guardada (auth.json), leída en el
+// momento y solo para direcciones de opencode.ai. No se copia a ningún sitio ni se muestra.
+function opencodeKey(url) {
+  if (!/^https:\/\/opencode\.ai\//.test(url)) return '';
+  const base = process.env.XDG_DATA_HOME || join(homedir(), '.local', 'share');
+  try {
+    const auth = JSON.parse(readFileSync(join(base, 'opencode', 'auth.json'), 'utf8'));
+    const order = /\/inference\/go\//.test(url) ? ['opencode-go', 'opencode'] : ['opencode', 'opencode-go'];
+    for (const p of order) if (auth[p]?.type === 'api' && auth[p]?.key) return auth[p].key;
+  } catch {}
+  return '';
+}
+
 export function llmConfig() {
   const url = (process.env.MAPEO_LLM_URL || '').replace(/\/+$/, '');
   const model = process.env.MAPEO_LLM_MODEL || '';
@@ -16,13 +43,16 @@ export function llmConfig() {
   // Sin clave no se usa (fallaría en cada turno), salvo un modelo local sin clave (Ollama…).
   if (!process.env.MAPEO_LLM_KEY && !/\/\/(localhost|127\.0\.0\.1)(:|\/)/.test(url)) return null;
   const format = process.env.MAPEO_LLM_FORMATO || (/anthropic/i.test(url) ? 'anthropic' : /google|generativelanguage|v1beta/i.test(url) ? 'google' : 'openai');
-  return { url, model, key: process.env.MAPEO_LLM_KEY || '', effort: process.env.MAPEO_LLM_ESFUERZO || '', format };
+  const raw = process.env.MAPEO_LLM_KEY || '';
+  const key = raw === 'opencode' ? opencodeKey(url) : raw;
+  if (raw === 'opencode' && !key) return null; // no hay clave de OpenCode guardada
+  return { url, model, key, effort: process.env.MAPEO_LLM_ESFUERZO || '', format };
 }
 
 /** Una llamada de texto → texto. Lanza un error si falla o tarda más de timeoutMs. */
-export async function callLLM(prompt, { maxTokens = 1800, timeoutMs = 25000, cfg = llmConfig() } = {}) {
+export async function callLLM(prompt, { maxTokens = 1800, timeoutMs = 25000, cfg = llmConfig(), session = convSession } = {}) {
   if (!cfg) throw new Error('sin modelo configurado');
-  const auth = cfg.key ? { Authorization: `Bearer ${cfg.key}` } : {};
+  const auth = { 'User-Agent': USER_AGENT, ...(cfg.key ? { Authorization: `Bearer ${cfg.key}` } : {}), ...(/^https:\/\/opencode\.ai\//.test(cfg.url) ? { 'x-opencode-session': session } : {}) };
   const signal = AbortSignal.timeout(timeoutMs);
   let r;
   let pick;

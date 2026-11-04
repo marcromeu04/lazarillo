@@ -60,7 +60,7 @@ export async function interpret(map, brain, { timeoutMs = 25000 } = {}) {
   if (!cfg) return { ficha: basicFicha(map), via: 'sin modelo', ms: 0 };
   const t0 = Date.now();
   try {
-    const text = await callLLM(promptFor(brain), { maxTokens: 1800, timeoutMs, cfg });
+    const text = await callLLM(promptFor(brain), { maxTokens: 1800, timeoutMs, cfg, session: `mapeo-${map.app?.host || 'web'}` });
     const ficha = sanitize(parseJson(text), ids);
     if (!ficha || !ficha.que_es) throw new Error('respuesta sin JSON válido');
     return { ficha, via: cfg.model, ms: Date.now() - t0 };

@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { crawl, normUrl, hostOf } from './crawl.mjs';
 import { deepPage, resetDeep } from './deep.mjs';
 import { interpret, fichaText } from './interpret.mjs';
-import { llmConfig, callLLM, parseJson } from './llm.mjs';
+import { llmConfig, callLLM, parseJson, newLlmSession } from './llm.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -314,6 +314,7 @@ export function resetSession() {
   convo = new Map();
   interestNow = {};
   llmTurns = [];
+  newLlmSession(); // cada llamada de voz es una conversación nueva para el modelo
 }
 
 /** Para ir_a cuando el destino no es un botón visible: id, título o ruta de una página del grafo. */
