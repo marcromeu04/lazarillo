@@ -213,6 +213,18 @@ async function handleToolCall(msg) {
       reply(JSON.stringify(data), false); // inofensivo si expects_response=false
       return;
     }
+    if (tool_name === 'ir_a') {
+      const destino = parameters && parameters.destino;
+      const r = await fetch('/api/navigate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ destino }),
+      });
+      const data = await r.json().catch(() => ({}));
+      log('info', 'ir_a', `«${destino}» → ${data && data.ok ? (data.pantalla && data.pantalla.title) || 'ok' : data.error || 'error'}`);
+      reply(JSON.stringify(data), !data.ok);
+      return;
+    }
     // herramienta desconocida
     reply(JSON.stringify({ error: 'unknown tool: ' + tool_name }), true);
     log('err', 'tool', 'desconocida: ' + tool_name);

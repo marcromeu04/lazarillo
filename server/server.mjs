@@ -72,6 +72,11 @@ const server = http.createServer(async (req, res) => {
       const { text } = await body(req);
       return sendJson(res, 200, await watcher.highlight(text));
     }
+    if (url === '/api/navigate' && req.method === 'POST') {
+      if (watcher.__missing || !watcher.navigate) return sendJson(res, 503, { error: 'watcher.navigate no disponible', detail: watcher.__err });
+      const { destino } = await body(req);
+      return sendJson(res, 200, await watcher.navigate(destino));
+    }
     if (req.method === 'GET') return serveStatic(req, res);
     res.writeHead(404); res.end('not found');
   } catch (e) {

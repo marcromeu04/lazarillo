@@ -7,7 +7,11 @@
     "execution_mode": "sync",
     "expects_response": true,
     "response_timeout_secs": 5,
-    "parameters": { "type": "object", "properties": {}, "required": [] }
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
   },
   {
     "type": "client",
@@ -19,9 +23,35 @@
     "parameters": {
       "type": "object",
       "properties": {
-        "texto": { "type": "string", "description": "Texto exacto del botón o enlace a resaltar." }
+        "texto": {
+          "type": "string",
+          "description": "Texto exacto del botón o enlace a resaltar."
+        }
       },
-      "required": ["texto"]
+      "required": [
+        "texto"
+      ]
+    }
+  },
+  {
+    "type": "client",
+    "name": "ir_a",
+    "description": "Lleva tú al visitante a otra pantalla: pulsa el botón o enlace por él y espera a que cargue. Pasa el texto exacto de un botón visible (de pantalla_actual) o el id/nombre de una pantalla del mapa. Devuelve la pantalla de llegada. Mientras se ejecuta, di en una frase qué vas a enseñar.",
+    "pre_tool_speech": "auto",
+    "execution_mode": "sync",
+    "expects_response": true,
+    "response_timeout_secs": 12,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "destino": {
+          "type": "string",
+          "description": "Texto exacto del botón o enlace, o id/nombre de la pantalla del mapa."
+        }
+      },
+      "required": [
+        "destino"
+      ]
     }
   }
 ]

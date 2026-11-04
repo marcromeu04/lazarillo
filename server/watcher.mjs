@@ -281,3 +281,52 @@ export async function close() {
   try { if (browser) await browser.close(); } catch {}
   browser = null; context = null; page = null; launching = null;
 }
+
+// ---------------------------------------------------------------------------
+// ir_a (agente de Javier, 13:55): el agente conduce. `destino` puede ser el id de
+// una pantalla del mapa (s03), su nombre ("Equipos que crean con Karumi") o el texto
+// de un botón/enlace visible ("Clientes"). Si es un botón: lo resalta, espera 1,2 s
+// para que el visitante lo vea y lo pulsa. Si es una pantalla: va a su URL.
+// Devuelve current() de la pantalla de llegada.
+export async function navigate(destino) {
+  if (!page) return { ok: false, error: 'No hay navegador del visitante abierto.' };
+  const want = String(destino || '').trim();
+  if (!want) return { ok: false, error: 'Falta el destino.' };
+  const low = want.toLowerCase();
+  let map = null;
+  try { map = (await import('../explorer/routes.mjs')).loadMap(); } catch {}
+  const screen = map?.screens.find((s) => s.id.toLowerCase() === low)
+    || map?.screens.find((s) => (s.title || '').toLowerCase() === low)
+    || map?.screens.find((s) => (s.title || '').toLowerCase().includes(low));
+  let clicked = false;
+  try {
+    clicked = await page.evaluate((t) => {
+      const lab = (e) => (e.innerText || e.getAttribute('aria-label') || e.value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+      const els = [...document.querySelectorAll('a, button, [role=button], [role=tab]')].filter((e) => e.getBoundingClientRect().width > 0);
+      const el = els.find((e) => lab(e) === t) || els.find((e) => lab(e).startsWith(t)) || els.find((e) => lab(e).includes(t));
+      if (!el) return false;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.style.outline = '4px solid #ff3b30';
+      el.style.boxShadow = '0 0 0 10px rgba(255,59,48,.35)';
+      el.setAttribute('data-lazarillo-go', '1');
+      return true;
+    }, low);
+  } catch {}
+  try {
+    if (clicked) {
+      await page.waitForTimeout(1200);
+      await Promise.all([
+        page.waitForLoadState('domcontentloaded', { timeout: 8000 }).catch(() => {}),
+        page.click('[data-lazarillo-go="1"]', { timeout: 4000 }),
+      ]);
+    } else if (screen) {
+      await page.goto(screen.url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    } else {
+      return { ok: false, error: `No encuentro «${want}» ni en pantalla ni en el mapa.` };
+    }
+    await page.waitForTimeout(500);
+  } catch (e) {
+    if (screen) await page.goto(screen.url, { waitUntil: 'domcontentloaded', timeout: 15000 }).catch(() => {});
+  }
+  return { ok: true, via: clicked ? 'click' : 'url', ...(await current()) };
+}
