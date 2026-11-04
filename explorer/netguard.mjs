@@ -98,29 +98,53 @@ const agent = new Agent({
  * Argumentos para lanzar Chrome con el dominio de la web FIJADO a sus IP ya validadas: Chrome no
  * vuelve a resolver el DNS, así que un cambio de DNS a última hora no le lleva a tu red.
  */
-export async function pinnedChromeArgs(url) {
+export async function pinnedChrome(url) {
   const host = new URL(url).hostname.replace(/^\[|\]$/g, '');
   if (!(await isPublicUrl(url))) throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
-  if (net.isIP(host)) return [];
+  const hardening = ['--force-webrtc-ip-handling-policy=disable_non_proxied_udp', '--webrtc-ip-handling-policy=disable_non_proxied_udp', '--dns-prefetch-disable', '--disable-features=NetworkPrediction'];
+  if (net.isIP(host)) return { args: [`--host-resolver-rules=MAP * ~NOTFOUND`, ...hardening], hosts: new Set([host]) };
   const addrs = await dns.promises.lookup(host, { all: true });
   const ip = addrs.find((a) => a.family === 4) || addrs[0];
   if (!ip || addrs.some((a) => isBlockedIp(a.address))) throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
   const target = ip.family === 6 ? `[${ip.address}]` : ip.address;
   const bare = host.replace(/^www\./, '');
-  return [`--host-resolver-rules=MAP ${bare} ${target}, MAP www.${bare} ${target}`];
+  // Solo el dominio de la web resuelve (a su IP validada); cualquier otro nombre, «no encontrado».
+  return { args: [`--host-resolver-rules=MAP ${bare} ${target}, MAP www.${bare} ${target}, MAP * ~NOTFOUND`, ...hardening], hosts: new Set([bare, `www.${bare}`]) };
 }
 
-/** Contexto de Chrome sin service workers ni WebSockets y con cada petición filtrada. */
-export async function hardenedContext(browser, options = {}) {
+/**
+ * Contexto de Chrome endurecido: sin service workers, WebSockets ni WebRTC. Las peticiones al
+ * dominio fijado salen de Chrome (a la IP validada); las de otros dominios (CDN de scripts o CSS)
+ * las descarga safeFetch, que valida la IP al conectar, y se las entrega a Chrome.
+ */
+export async function hardenedContext(browser, options = {}, pinnedHosts = new Set()) {
   const ctx = await browser.newContext({ ...options, serviceWorkers: 'block' });
-  try {
-    await ctx.routeWebSocket(/.*/, (ws) => ws.close());
-  } catch {}
+  await ctx.routeWebSocket(/.*/, (ws) => ws.close()); // si esto falla, mejor parar que seguir sin filtro
+  await ctx.addInitScript(() => {
+    try {
+      delete window.RTCPeerConnection;
+      delete window.webkitRTCPeerConnection;
+    } catch {}
+  });
   await ctx.route('**/*', async (route) => {
     const rq = route.request();
     if (['image', 'media', 'font'].includes(rq.resourceType())) return route.abort();
+    let host;
+    try {
+      host = new URL(rq.url()).hostname;
+    } catch {
+      return route.abort();
+    }
     if (!(await isPublicUrl(rq.url()))) return route.abort('blockedbyclient');
-    return route.continue();
+    if (pinnedHosts.has(host)) return route.continue();
+    if (rq.method() !== 'GET') return route.abort();
+    try {
+      const { res } = await safeFetch(rq.url(), { timeoutMs: 8000, headers: { 'User-Agent': rq.headers()['user-agent'] || 'Mozilla/5.0', Accept: rq.headers()['accept'] || '*/*' } });
+      const headers = Object.fromEntries([...res.headers].filter(([k]) => !['content-encoding', 'content-length', 'transfer-encoding', 'connection'].includes(k)));
+      return route.fulfill({ status: res.status, headers, body: Buffer.from(await res.arrayBuffer()) });
+    } catch {
+      return route.abort();
+    }
   });
   return ctx;
 }

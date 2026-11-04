@@ -4,7 +4,7 @@
 // casi vacía, la abre con Chrome. Cada página se investiga una sola vez.
 import * as cheerio from 'cheerio';
 import { chromium } from 'playwright-core';
-import { isPublicUrl, safeFetch, pinnedChromeArgs, hardenedContext } from './netguard.mjs';
+import { isPublicUrl, safeFetch, pinnedChrome, hardenedContext } from './netguard.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -30,8 +30,15 @@ function extract(html) {
 
 async function renderWithChrome(url) {
   // Un Chrome por página (es el caso raro): con su dominio fijado a la IP ya validada.
-  const browser = await chromium.launch({ channel: 'chrome', headless: true, args: await pinnedChromeArgs(url) });
-  const ctx = await hardenedContext(browser, { locale: 'es-ES' });
+  const pin = await pinnedChrome(url);
+  const browser = await chromium.launch({ channel: 'chrome', headless: true, args: pin.args });
+  let ctx;
+  try {
+    ctx = await hardenedContext(browser, { locale: 'es-ES' }, pin.hosts);
+  } catch (e) {
+    await browser.close().catch(() => {});
+    throw e;
+  }
   const page = await ctx.newPage();
   // Solo webs públicas en cada petición, y sin imágenes, vídeos ni fuentes.
   await page.route('**/*', async (route) => {

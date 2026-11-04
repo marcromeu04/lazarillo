@@ -11,7 +11,7 @@
 // No envía formularios, no pulsa nada destructivo, no sale del dominio y solo va a webs públicas.
 import * as cheerio from 'cheerio';
 import { chromium } from 'playwright-core';
-import { isPublicUrl, safeFetch, pinnedChromeArgs, hardenedContext } from './netguard.mjs';
+import { isPublicUrl, safeFetch, pinnedChrome, hardenedContext } from './netguard.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 const SKIP = /\/meet\/|logout|log-out|signout|sign-out|delete|borrar|eliminar|salir|unsubscribe|cart\/add|checkout|\/wp-admin|\/cdn-cgi\//i;
@@ -244,9 +244,13 @@ async function crawlChrome(startUrl, opts) {
   const host = hostOf(startUrl);
   const sameSite = (u) => hostOf(u) === host;
   const t0 = Date.now();
-  const browser = await chromium.launch({ channel: 'chrome', headless: true, args: await pinnedChromeArgs(startUrl) });
+  const pin = await pinnedChrome(startUrl);
+  const browser = await chromium.launch({ channel: 'chrome', headless: true, args: pin.args });
   // Sin service workers ni WebSockets, cada petición filtrada y sin imágenes, vídeos ni fuentes.
-  const ctx = await hardenedContext(browser, { viewport: { width: 1280, height: 800 }, locale, extraHTTPHeaders: { 'Accept-Language': `${locale},es;q=0.9,en;q=0.8` } });
+  const ctx = await hardenedContext(browser, { viewport: { width: 1280, height: 800 }, locale, extraHTTPHeaders: { 'Accept-Language': `${locale},es;q=0.9,en;q=0.8` } }, pin.hosts).catch(async (e) => {
+    await browser.close().catch(() => {});
+    throw e;
+  });
   const page = await ctx.newPage();
 
   const queue = [{ url: normUrl(startUrl), depth: 0, from: null, via: null }];
