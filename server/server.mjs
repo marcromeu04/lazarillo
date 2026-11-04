@@ -330,6 +330,7 @@ const server = http.createServer(async (req, res) => {
       const r = role === 'assistant' ? 'assistant' : 'user';
       tracker.addTurn(r, String(text || ''));
       graph.setInterestScores(tracker.liveInterest()); // por detrás: solo para predecir
+      graph.noteTurn(r, String(text || '')); // y el modelo de mapeo afina la predicción en segundo plano
       return sendJson(res, 200, { probables: graph.predict(String(text || '').slice(0, 600), r) });
     }
     if (url === '/api/session-end' && req.method === 'POST') {

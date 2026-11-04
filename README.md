@@ -52,6 +52,33 @@ Medido en local el 2026-11-04 con karumi.ai/es (40 páginas en 6,8 s) y books.to
    recibe su detalle ampliado (`pantalla_actual` / `ir_a`), pulsa por su cuenta y, si algo falla, pasa a
    otra cosa.
 
+### El modelo del agente de mapeo (opcional, el que tú quieras)
+
+El agente de mapeo funciona sin modelo: hace el mapa en segundos, una ficha básica de la web y predice por
+palabras. Con un modelo, además **interpreta qué es la web y sus funcionalidades** (la ficha va al principio de
+lo que sabe la voz) y **analiza la conversación en tiempo real** para predecir a qué páginas querrá ir el
+visitante, y las prepara antes. Se configura en `.env` con cualquier proveedor en formato OpenAI, Anthropic o
+Google (ver `.env.example`):
+
+```
+MAPEO_LLM_URL=https://opencode.ai/inference/go/google/v1beta
+MAPEO_LLM_MODEL=gemini-4-argon
+MAPEO_LLM_KEY=<tu clave>
+```
+
+Compruébalo con `npm run probar-modelo`.
+
+**Qué modelo usamos y por qué** (medido el 2026-11-04): pedimos al menos **35 en el Artificial Analysis
+Intelligence Index** y, de los que pasan, el más rápido. Ninguno de los gratuitos de OpenCode llega (GLM-5.3-Flash
+28, MiMo Flash 27, Beam 18, Nemotron Super VL 14), y además solo funcionan dentro del programa OpenCode, no por
+API. Con OpenCode Go:
+
+| Modelo | Índice AA | 1.ª respuesta (AA) | Nota |
+|---|---|---|---|
+| **Gemini 4 Argon** | **50** | 39,5 s | el más inteligente de los rápidos: **recomendado** |
+| Claude Haiku 5.5 (xhigh) | 35 | 49 s | el más barato de los que pasan |
+| Grok 4.7 (high) | 35 | 32 s | |
+
 ### Trazabilidad del interés (`insights/`)
 
 Cada llamada se parte en tramos, uno por página. En cada tramo se mide el tiempo, las preguntas, las señales
