@@ -7,6 +7,7 @@
 // No envía formularios, no pulsa nada destructivo y no sale del dominio.
 import { chromium } from 'playwright-core';
 import { mkdirSync } from 'node:fs';
+import { isPublicUrl } from './netguard.mjs';
 
 const SKIP = /\/meet\/|logout|log-out|signout|sign-out|delete|borrar|eliminar|salir|unsubscribe|cart\/add|checkout/i;
 const FILES = /\.(pdf|jpe?g|png|gif|svg|zip|rar|mp4|mp3|webp|ico|xml|json|csv|docx?|xlsx?)(\?|$)/i;
@@ -38,6 +39,7 @@ function summarize(info) {
 export async function crawl(startUrl, opts = {}) {
   const { max = 30, maxDepth = 3, locale = 'es-ES', shotsDir = null, onNode = () => {}, onEdge = () => {}, onLog = () => {} } = opts;
   if (!/^https?:\/\//i.test(startUrl)) throw new Error('La URL tiene que empezar por http:// o https://');
+  if (!(await isPublicUrl(startUrl))) throw new Error('Solo se pueden explorar webs públicas');
   const host = hostOf(startUrl);
   const sameSite = (u) => hostOf(u) === host;
   if (shotsDir) mkdirSync(shotsDir, { recursive: true });
@@ -46,6 +48,12 @@ export async function crawl(startUrl, opts = {}) {
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, locale, extraHTTPHeaders: { 'Accept-Language': `${locale},es;q=0.9,en;q=0.8` } });
   const page = await ctx.newPage();
+  // Cada navegación y redirección del explorador, solo a webs públicas.
+  await page.route('**/*', async (route) => {
+    const rq = route.request();
+    if (rq.isNavigationRequest() && !(await isPublicUrl(rq.url()))) return route.abort('blockedbyclient');
+    return route.continue();
+  });
 
   const queue = [{ url: normUrl(startUrl), depth: 0, from: null, via: null }];
   const seen = new Set([normUrl(startUrl)]);
@@ -77,7 +85,7 @@ export async function crawl(startUrl, opts = {}) {
       } catch {
         continue;
       }
-      if (!sameSite(finalUrl)) continue;
+      if (!sameSite(finalUrl) || !(await isPublicUrl(finalUrl))) continue;
       if (byUrl.has(finalUrl)) {
         addEdge(item.from, byUrl.get(finalUrl), item.via);
         continue;

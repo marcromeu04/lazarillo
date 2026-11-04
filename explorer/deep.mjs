@@ -4,6 +4,7 @@
 // casi vacía, la abre con Chrome. Cada página se investiga una sola vez.
 import * as cheerio from 'cheerio';
 import { chromium } from 'playwright-core';
+import { isPublicUrl } from './netguard.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -49,11 +50,13 @@ export function cachedHtml(url) {
 
 async function investigate(url) {
   let html = '';
+  if (!(await isPublicUrl(url))) return { url, via: 'bloqueada', at: new Date().toISOString(), heads: [], text: '', items: [], buttons: [], forms: [], figures: [] };
   try {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 10000);
     const r = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: { 'User-Agent': UA, 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' } });
     clearTimeout(t);
+    if (r.url && r.url !== url && !(await isPublicUrl(r.url))) throw new Error('redirección a una dirección interna');
     html = await r.text();
     if ((r.headers.get('content-type') || '').includes('html')) {
       const hit = { html, url: r.url || url, at: Date.now() };

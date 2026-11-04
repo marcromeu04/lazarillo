@@ -8,6 +8,7 @@ import * as cheerio from 'cheerio';
 import * as graph from '../explorer/graph.mjs';
 import { cachedHtml } from '../explorer/deep.mjs';
 import * as tracker from '../insights/tracker.mjs';
+import { isPublicUrl } from '../explorer/netguard.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -106,7 +107,8 @@ async function proxyHandler(req, res, target) {
   if (!/^https?:\/\//i.test(target)) { res.writeHead(400); return res.end('solo http(s)'); }
   const site = graph.getMap().app.host;
   const h = (() => { try { return new URL(target).hostname.replace(/^www\./, ''); } catch { return ''; } })();
-  if (site && h !== site && !h.endsWith('.' + site)) { res.writeHead(302, { Location: target }); return res.end(); }
+  if (!site || !(await isPublicUrl(target))) { res.writeHead(403); return res.end('solo webs públicas'); }
+  if (h !== site && !h.endsWith('.' + site)) { res.writeHead(302, { Location: target }); return res.end(); } // enlace a otra web: se abre fuera del proxy
   let html;
   const hit = cachedHtml(target) || cachedHtml(target.replace(/\/$/, ''));
   if (hit) { html = hit.html; r = { url: hit.url }; }
@@ -115,6 +117,7 @@ async function proxyHandler(req, res, target) {
     catch (e) { res.writeHead(502); return res.end('proxy fetch failed: ' + e.message); }
     const ct = r.headers.get('content-type') || '';
     if (!ct.includes('html')) { res.writeHead(302, { Location: r.url || target }); return res.end(); }
+    if (r.url && r.url !== target && !(await isPublicUrl(r.url))) { res.writeHead(403); return res.end('solo webs públicas'); }
     html = await r.text();
   }
   const $ = cheerio.load(html);
@@ -126,7 +129,12 @@ async function proxyHandler(req, res, target) {
   const base = `<base href="${r.url || target}">`;
   if ($('head').length) $('head').prepend(base); else $.root().prepend(`<head>${base}</head>`);
   $('body').append(`<script>${bridge(r.url || target, proxyOrigin)}</script>`);
-  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.writeHead(200, {
+    'Content-Type': 'text/html; charset=utf-8',
+    // Sin allow-same-origin: los scripts de la web explorada no pueden tocar /api ni leer esta app.
+    'Content-Security-Policy': 'sandbox allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox',
+    'X-Content-Type-Options': 'nosniff',
+  });
   res.end($.html());
 }
 
@@ -171,7 +179,8 @@ const server = http.createServer(async (req, res) => {
   if (url.startsWith('/api/') || url === '/proxy') {
     const allowed = [`localhost:${PORT}`, `127.0.0.1:${PORT}`];
     const origin = req.headers.origin;
-    if (!allowed.includes(req.headers.host || '') || (origin && !allowed.some((h) => origin === `http://${h}`)) || req.headers['sec-fetch-site'] === 'cross-site') return sendJson(res, 403, { error: 'origen no permitido' });
+    const fetchSite = req.headers['sec-fetch-site'];
+    if (!allowed.includes(req.headers.host || '') || (origin && !allowed.some((h) => origin === `http://${h}`)) || (fetchSite && fetchSite !== 'same-origin' && fetchSite !== 'none' && url !== '/proxy')) return sendJson(res, 403, { error: 'origen no permitido' });
   }
   try {
     if (url === '/proxy') return proxyHandler(req, res, q.get('url') || TARGET_URL());
@@ -196,6 +205,7 @@ const server = http.createServer(async (req, res) => {
     if (url === '/api/explore' && req.method === 'POST') {
       const { url: u, max } = await body(req);
       if (!/^https?:\/\//i.test(u || '')) return sendJson(res, 400, { error: 'La URL tiene que empezar por http:// o https://' });
+      if (!(await isPublicUrl(u))) return sendJson(res, 400, { error: 'Solo se pueden explorar webs públicas (nada de localhost ni de tu red)' });
       if (graph.isExploring()) return sendJson(res, 409, { error: 'Ya hay una exploración en marcha' });
       graph.explore(u, { max: Math.min(Number(max) || 30, 60) })
         .then(async ({ brain }) => broadcast({ type: 'pushed', ...(await pushToAgent(brain)) }))
