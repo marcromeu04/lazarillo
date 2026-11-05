@@ -32,7 +32,7 @@ Chrome instalado (el agente de mapeo usa tu Chrome; no descarga navegadores).
 | Webs | karumi.ai | **cualquier web**: escribe la URL arriba y pulsa «Explorar». Cada web se abre en **su propio origen local** (`server/server.mjs`, proxy inverso), así que también cargan las SPA (React, Vite, Next.js) y las direcciones que redirigen a otro dominio. Con 14 webs reales, antes 4 salían en blanco (simplehost.es, YouTube, Holded, Factorial); ahora ninguna |
 | Contexto de la voz | cerebro de 37 KB (~9.300 tokens) en cada turno | **grafo compacto: ~1.300 tokens** para las 25 páginas de karumi.ai (7× menos) |
 | Detalle de cada página | todo de golpe en las instrucciones | **solo al entrar en ella y una vez por llamada** (~1 KB por herramienta) |
-| Mapeo | Chrome página a página: ~60 s para 30 páginas | **dos fases**: primero el mapa mental con HTML en paralelo y sitemap (**40 páginas de karumi.ai en ~7 s**), y el detalle después, según la probabilidad |
+| Mapeo | Chrome página a página: ~60 s para 30 páginas | **dos fases**: primero el mapa mental con HTML en paralelo y sitemap (**40 páginas de karumi.ai en ~7 s**), y el detalle después, según la probabilidad. En webs pintadas con JavaScript, **la propia pantalla de la demo hace de navegador**: el puente lee la página ya pintada y de ahí salen su detalle y las páginas nuevas, sin abrir otro Chrome (simplehost.es: de 1 página y detalle vacío a 2 páginas con su texto real) |
 | Velocidad | descarga cada página al navegar | **el agente de mapeo se adelanta**: investiga las vecinas y las que predice la conversación; la página prevista se abre en ~1,2 s (0,55 s son el resaltado, a propósito) |
 | Si algo falla | — | responde en **17 ms** con alternativas y la IA sigue sin darle importancia |
 | Tono | instrucciones básicas | prompt de **persona de producto con experiencia**: natural, segura, va al grano |
@@ -108,8 +108,6 @@ Lo que hemos visto al probarlo con webs reales y que lo mejoraría todavía más
 | Mejora | Por qué (lo que hemos visto) | Esfuerzo |
 |---|---|---|
 | **Medir la voz en llamadas reales** (tiempo de cada turno, preguntas antes de enseñar, tiempo hasta la página que resuelve su problema) | Hoy el cuello de botella es el turno de voz (modelo + síntesis), no la pantalla ni la predicción. Sin medirlo no sabemos qué tocar | bajo |
-| **El navegador del visitante como renderizador del mapa**: el puente manda al agente de mapeo el texto ya pintado de cada página que se abre | En webs que se pintan con JavaScript, el HTML llega vacío y el detalle de la página sale pobre. El iframe ya la tiene pintada: es gratis y sin un Chrome aparte | bajo |
-| **Añadir al grafo las páginas nuevas** que aparecen al navegar dentro de una SPA (`pushState`) | El puente ya avisa de esos cambios, pero si la página no estaba en el mapa, la voz no sabe de qué va | bajo |
 | **Fuentes e imágenes de CDN de terceros** también por el proxy local | Algunas CDN solo dejan usar sus fuentes desde la web real (p. ej. `b.stripecdn.com` en Stripe): la página se ve, pero con otra tipografía | medio |
 | **Webs con Cloudflare**: abrirlas directas en el iframe cuando no lo prohíben (sin puente) en vez del aviso | Cloudflare frena las peticiones del servidor; hoy se ofrece abrirlas en otra pestaña | medio |
 | **HTTPS local** (certificado de desarrollo) para webs que montan sus direcciones con `https://` + el host actual | Allbirds (Shopify) pide `https://www-allbirds-com.localhost:3001` y esa petición falla; la página carga, pero sin esa parte | medio |

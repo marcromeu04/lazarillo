@@ -28,7 +28,86 @@ function prox(h) {
 }
 function post(m) { try { parent.postMessage(m, '*'); } catch (e) {} }
 var LAST = ''; try { LAST = sessionStorage.getItem('lz_via') || ''; sessionStorage.removeItem('lz_via'); } catch (e) {}
-window.addEventListener('load', function () { post({ type: 'page', url: realUrl(), title: document.title, via: LAST }); });
+window.addEventListener('load', function () { post({ type: 'page', url: realUrl(), title: document.title, via: LAST }); sendSnapshot(700, true); });
+
+// ---------- lo que se ve, para el agente de mapeo ----------
+// En webs que se pintan con JavaScript el HTML llega casi vacío. Aquí la página ya está pintada: se leen
+// sus titulares, texto, listas, botones, cifras y enlaces y se mandan al agente de mapeo. Gratis: sin
+// otro Chrome ni descargas. Nunca se lee lo que el visitante escribe en un formulario.
+function txt(e) { return (e.innerText || e.textContent || '').replace(/\s+/g, ' ').trim(); }
+function shown(e) {
+  if (e.closest('script,style,noscript,template,[aria-hidden=true],[hidden]')) return false;
+  var r = e.getBoundingClientRect();
+  if (!r.width && !r.height) return false;
+  var cs = getComputedStyle(e);
+  return cs.visibility !== 'hidden' && cs.display !== 'none';
+}
+function pick(sel, scope, max, len, keep) {
+  var out = [], seen = {}, els = scope.querySelectorAll(sel);
+  for (var i = 0; i < els.length && i < 600 && out.length < max; i++) {
+    if (!shown(els[i])) continue;
+    var t = txt(els[i]) || els[i].getAttribute('aria-label') || '';
+    t = t.slice(0, len);
+    if (!t || seen[t] || (keep && !keep(t))) continue;
+    seen[t] = 1; out.push(t);
+  }
+  return out;
+}
+function realOf(href) { // dirección real de un enlace (en la demo apunta al origen local)
+  try {
+    var u = new URL(href, location.href);
+    if (isLocal(u)) return 'https://' + decH(u.hostname.slice(0, -'.localhost'.length)) + u.pathname + u.search;
+    return u.href;
+  } catch (e) { return ''; }
+}
+function sameSite(h) {
+  if (FRAME) return inSite(h);
+  try { return h.replace(/^www\./, '') === new URL(ORIGINAL_URL).hostname.replace(/^www\./, ''); } catch (e) { return false; }
+}
+function snapshot() {
+  var body = document.body;
+  if (!body) return null;
+  var root = document.querySelector('main') || body;
+  var paras = pick('p', root, 40, 400, function (t) { return t.length > 40; }), text = '';
+  for (var i = 0; i < paras.length && text.length + paras[i].length <= 1600; i++) text += (text ? ' ' : '') + paras[i];
+  var forms = [], inputs = body.querySelectorAll('input:not([type=hidden]),textarea,select');
+  for (var j = 0; j < inputs.length && forms.length < 10; j++) { // la etiqueta del campo, nunca su valor
+    var f = inputs[j].getAttribute('aria-label') || inputs[j].getAttribute('placeholder') || inputs[j].getAttribute('name') || '';
+    if (f && forms.indexOf(f) < 0) forms.push(f.slice(0, 40));
+  }
+  var figures = (txt(root).slice(0, 20000).match(/(?:\d[\d.,]*\s?(?:%|€|\$|x|k|M)(?![a-z])|(?:€|\$)\s?\d[\d.,]*)/g) || []).filter(function (x, k, a) { return a.indexOf(x) === k; }).slice(0, 10);
+  var links = [], seenL = {}, as = body.querySelectorAll('a[href]');
+  for (var k = 0; k < as.length && links.length < 60; k++) {
+    var href = as[k].getAttribute('href') || '';
+    if (/^(#|mailto:|tel:|javascript:)/i.test(href)) continue;
+    var real = realOf(href);
+    if (!real || seenL[real]) continue;
+    try { if (!sameSite(new URL(real).hostname)) continue; } catch (e2) { continue; }
+    seenL[real] = 1;
+    links.push({ href: real, label: (txt(as[k]) || as[k].getAttribute('aria-label') || '').slice(0, 40) });
+  }
+  return {
+    title: (document.title || '').slice(0, 120),
+    heads: pick('h1,h2,h3', root, 12, 90),
+    text: text,
+    items: pick('li', root, 15, 90, function (t) { return t.length > 8 && t.length < 90; }),
+    buttons: pick('a,button,[role=button]', body, 30, 40),
+    forms: forms,
+    figures: figures,
+    links: links,
+  };
+}
+var snapTimer = 0;
+function sendSnapshot(delay, retry) {
+  clearTimeout(snapTimer);
+  snapTimer = setTimeout(function () {
+    var d = null;
+    try { d = snapshot(); } catch (e) {}
+    if (!d) return;
+    if (retry && d.text.length < 200 && d.heads.length < 2) { sendSnapshot(1800, false); return; } // aún pintándose
+    post({ type: 'contenido', url: realUrl(), data: d });
+  }, delay);
+}
 document.addEventListener('click', function (e) {
   var a = e.target.closest ? e.target.closest('a[href]') : null;
   if (!a) return;
@@ -81,6 +160,7 @@ if (FRAME) {
       try { FOLLOW.idx = null; CURSOR.y = null; } catch (e) {}
       post({ type: 'page', url: realUrl(), title: document.title, via: LAST });
       LAST = '';
+      sendSnapshot(900, true);
     }, 400);
   };
   ['pushState', 'replaceState'].forEach(function (k) {

@@ -62,7 +62,37 @@ export function cachedHtml(url) {
   return c && Date.now() - c.at < 5 * 60 * 1000 ? c : null;
 }
 
-async function investigate(url) {
+// ---------- lo que se ve en la pantalla de la demo ----------
+// El puente lee la página ya pintada en el iframe (también si se pinta con JavaScript) y la manda aquí.
+// Es gratis: la página ya está cargada para el visitante y no hace falta abrir otro Chrome.
+const rendered = new Map(); // url → detalle leído de la pantalla
+const done = new Map(); // url → detalle ya terminado de la investigación por HTML/Chrome
+const waiting = new Map(); // url → [resolve] de quien espera la pantalla antes de abrir Chrome
+const richness = (d) => (d ? (d.text || '').length + 60 * (d.heads || []).length + 10 * (d.items || []).length : 0);
+// El HTML manda cuando trae contenido (es más limpio: sin textos animados ni menús abiertos); la pantalla
+// cubre lo que el HTML no trae (webs pintadas con JavaScript).
+const thin = (d) => !d || ((d.text || '').length < 200 && (d.heads || []).length < 2);
+
+/** Detalle leído de la pantalla. Devuelve true si es el que se va a usar para esa página. */
+export function setRenderedDetail(url, d) {
+  const prev = rendered.get(url);
+  if (prev && richness(prev) >= richness(d)) return false;
+  const v = { url, via: 'pantalla', at: new Date().toISOString(), ...d };
+  rendered.set(url, v);
+  for (const r of waiting.get(url) || []) r(v);
+  waiting.delete(url);
+  const h = done.get(url);
+  return !h || h.via === 'pantalla' || thin(h);
+}
+function waitRendered(url, ms) {
+  if (rendered.has(url)) return Promise.resolve(rendered.get(url));
+  return new Promise((resolve) => {
+    waiting.set(url, [...(waiting.get(url) || []), resolve]);
+    setTimeout(() => resolve(null), ms);
+  });
+}
+
+async function investigate(url, onScreen = false) {
   let html = '';
   const blockedResult = { url, via: 'bloqueada', at: new Date().toISOString(), heads: [], text: '', items: [], buttons: [], forms: [], figures: [] };
   if (!(await isPublicUrl(url))) return blockedResult;
@@ -81,6 +111,11 @@ async function investigate(url) {
   let d = extract(html);
   let via = 'fetch';
   if (d.text.length < 200 && d.heads.length < 2) { // descarga buena pero casi vacía: web pintada con JavaScript
+    // Si es la página que se está viendo, el puente la manda pintada en un momento: sin Chrome aparte.
+    if (onScreen || rendered.has(url)) {
+      const r = await waitRendered(url, 2500);
+      if (r) return r;
+    }
     try {
       d = extract(await renderWithChrome(url));
       via = 'chrome';
@@ -91,10 +126,18 @@ async function investigate(url) {
 
 const cache = new Map(); // url → Promise<detalle>
 
-/** Detalle de una página. La primera vez la investiga; después sale de la caché. */
-export function deepPage(url) {
-  if (!cache.has(url)) cache.set(url, investigate(url));
-  return cache.get(url);
+/**
+ * Detalle de una página: el del HTML si trae contenido; si no, lo que se ha visto en pantalla. La primera
+ * vez la investiga; después sale de la caché. onScreen: es la que se está viendo (puede llegar pintada).
+ */
+export function deepPage(url, { onScreen = false } = {}) {
+  if (!cache.has(url)) cache.set(url, investigate(url, onScreen).then((d) => { done.set(url, d); return d; }));
+  const r = rendered.get(url);
+  if (!r) return cache.get(url);
+  const h = done.get(url);
+  if (h) return Promise.resolve(thin(h) ? r : h);
+  // El HTML aún no ha llegado: se espera un poco y, si tarda o llega vacío, vale lo de la pantalla.
+  return Promise.race([cache.get(url).then((x) => (thin(x) ? r : x), () => r), new Promise((res) => setTimeout(() => res(r), 1200))]);
 }
 
 export function deepState(url) {
@@ -103,4 +146,7 @@ export function deepState(url) {
 
 export function resetDeep() {
   cache.clear();
+  rendered.clear();
+  done.clear();
+  waiting.clear();
 }

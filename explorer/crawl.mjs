@@ -14,8 +14,8 @@ import { chromium } from 'playwright-core';
 import { isPublicUrl, safeFetch, pinnedChrome, hardenedContext } from './netguard.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
-const SKIP = /\/meet\/|logout|log-out|signout|sign-out|delete|borrar|eliminar|salir|unsubscribe|cart\/add|checkout|\/wp-admin|\/cdn-cgi\//i;
-const FILES = /\.(pdf|jpe?g|png|gif|svg|zip|rar|mp4|mp3|webp|avif|ico|xml|json|csv|txt|docx?|xlsx?|pptx?|css|js)(\?|$)/i;
+export const SKIP = /\/meet\/|logout|log-out|signout|sign-out|delete|borrar|eliminar|salir|unsubscribe|cart\/add|checkout|\/wp-admin|\/cdn-cgi\//i;
+export const FILES = /\.(pdf|jpe?g|png|gif|svg|zip|rar|mp4|mp3|webp|avif|ico|xml|json|csv|txt|docx?|xlsx?|pptx?|css|js)(\?|$)/i;
 
 export const hostOf = (u) => {
   try {

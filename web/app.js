@@ -517,6 +517,13 @@ window.addEventListener('message', (ev) => {
   const d = ev.data || {};
   wake(d);
   if (d.type === 'tour_result') { tourEnded = !!d.end; return; }
+  // Lo que se ve en pantalla, para el agente de mapeo (sirve sobre todo en webs pintadas con JavaScript).
+  if (d.type === 'contenido' && d.data && typeof d.url === 'string') {
+    fetch('/api/rendered', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: d.url, data: d.data }) })
+      .then((r) => r.json()).then((j) => { if (j && j.ok) log('map', 'pantalla', `${j.id}: ${j.detalle === 'pantalla' ? 'detalle leído de la pantalla' : 'el HTML ya era más completo'}${j.nuevas ? ` · ${j.nuevas} páginas nuevas` : ''}`); })
+      .catch(() => {});
+    return;
+  }
   if (d.type === 'cookies') { log('info', 'cookies', d.how === 'rechazadas' ? 'aviso de cookies rechazado' : 'aviso de cookies ocultado'); return; }
   if (d.type === 'show_result') { if (!d.ok) log('info', 'mostrar', 'no está en esta página'); return; }
   if (d.type === 'page' && d.url) {

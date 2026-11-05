@@ -9,8 +9,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { crawl, normUrl, hostOf } from './crawl.mjs';
-import { deepPage, resetDeep } from './deep.mjs';
+import { crawl, normUrl, hostOf, SKIP, FILES } from './crawl.mjs';
+import { deepPage, resetDeep, setRenderedDetail } from './deep.mjs';
 import { interpret, fichaText } from './interpret.mjs';
 import { llmConfig, callLLM, parseJson, newLlmSession } from './llm.mjs';
 import { safeFetch } from './netguard.mjs';
@@ -231,25 +231,33 @@ function matchScreen(url) {
   return bestN > 0 && bestN === t.length ? best : null;
 }
 
+const DISCOVERED = '(descubierta durante la demo)';
+const MAX_SCREENS = 80;
+function newScreen(url, title) {
+  const m = getMap();
+  const s = {
+    id: 's' + String(m.screens.length + 1).padStart(2, '0'),
+    url: safeUrl(url),
+    path: new URL(url).pathname || '/',
+    title: clean(title || new URL(url).pathname, 70),
+    summary: DISCOVERED,
+    purpose: '',
+    headings: [],
+    actions: [],
+    live: true,
+  };
+  m.screens.push(s);
+  emit({ type: 'node', node: nodeView(s) });
+  return s;
+}
+
 /** El iframe avisa de que la IA (o el visitante) está en `url`. Si es una página nueva, el grafo crece. */
 export function setVisitor(url, { title = '', via = '' } = {}) {
   const m = getMap();
   if (!url || hostOf(url) !== m.app.host) return null;
   let s = matchScreen(url);
   if (!s) {
-    s = {
-      id: 's' + String(m.screens.length + 1).padStart(2, '0'),
-      url: safeUrl(url),
-      path: new URL(url).pathname || '/',
-      title: clean(title || new URL(url).pathname, 70),
-      summary: '(descubierta durante la demo)',
-      purpose: '',
-      headings: [],
-      actions: [],
-      live: true,
-    };
-    m.screens.push(s);
-    emit({ type: 'node', node: nodeView(s) });
+    s = newScreen(url, title);
     if (current) {
       const e = { from: current, to: s.id, via: clean(via, 40) };
       m.edges.push(e);
@@ -261,6 +269,60 @@ export function setVisitor(url, { title = '', via = '' } = {}) {
   emit({ type: 'current', id: s.id, url: s.url, title: s.title });
   investigateAround(s.id);
   return s;
+}
+
+const strs = (a, max, len) => (Array.isArray(a) ? a : []).filter((x) => typeof x === 'string').map((x) => clean(x, len)).filter(Boolean).slice(0, max);
+
+/**
+ * El puente manda lo que se ve en pantalla (la página ya pintada, también si es de JavaScript): pasa a
+ * ser el detalle de esa página si es más rico que el del HTML, completa su ficha si estaba vacía y sus
+ * enlaces añaden al grafo las páginas que no estaban.
+ */
+export function setRendered(url, raw = {}) {
+  const m = getMap();
+  if (!url || typeof url !== 'string' || !/^https?:\/\//i.test(url) || hostOf(url) !== m.app.host) return null;
+  const d = {
+    heads: strs(raw.heads, 12, 90),
+    text: clean(typeof raw.text === 'string' ? raw.text : '', 1600),
+    items: strs(raw.items, 15, 90),
+    buttons: strs(raw.buttons, 30, 40),
+    forms: strs(raw.forms, 10, 40),
+    figures: strs(raw.figures, 10, 24),
+  };
+  let s = matchScreen(url);
+  if (!s) s = newScreen(url, typeof raw.title === 'string' ? raw.title : '');
+  const used = setRenderedDetail(s.url, d);
+  if (used) { deepStatus.set(s.id, 'listo'); emit({ type: 'deep', id: s.id, state: 'listo' }); }
+  // Ficha del nodo: si venía vacía (web pintada con JavaScript o página nueva), con lo que se ve.
+  let touched = false;
+  if (!(s.headings || []).length && d.heads.length) { s.headings = d.heads.slice(0, 8); touched = true; }
+  if ((!s.summary || s.summary === DISCOVERED) && (d.text || d.heads.length)) { s.summary = firstSentence(d.text || d.heads.join('. '), 140); touched = true; }
+  if (touched) emit({ type: 'node', node: nodeView(s) });
+  // Enlaces ya pintados → aristas y páginas nuevas. Páginas nuevas solo si el HTML no las dio (página
+  // pintada con JavaScript, sin enlaces conocidos) o el mapa es pequeño; si no, el mapa ya está hecho.
+  const fillActions = !(s.actions || []).length;
+  const canGrow = fillActions || m.screens.length < 10;
+  let nuevas = 0;
+  for (const l of Array.isArray(raw.links) ? raw.links.slice(0, 60) : []) {
+    if (!l || typeof l.href !== 'string') continue;
+    const label = clean(typeof l.label === 'string' ? l.label : '', 40);
+    let href;
+    try { href = safeUrl(l.href); new URL(href); } catch { continue; }
+    if (hostOf(href) !== m.app.host || FILES.test(href) || SKIP.test(href) || SKIP.test(label)) continue;
+    let t = m.screens.find((x) => x.url === href);
+    if (!t) {
+      if (!canGrow || m.screens.length >= MAX_SCREENS) continue;
+      t = newScreen(href, label);
+      nuevas++;
+    }
+    if (t.id !== s.id && !m.edges.some((e) => e.from === s.id && e.to === t.id)) {
+      const e = { from: s.id, to: t.id, via: label };
+      m.edges.push(e);
+      emit({ type: 'edge', edge: e });
+    }
+    if (fillActions && label && !s.actions.some((a) => a.href === href)) s.actions.push({ label, kind: 'link', href, to: t.id });
+  }
+  return { id: s.id, detalle: used ? 'pantalla' : 'html', nuevas };
 }
 
 // El mapeo se adelanta: la página actual primero, después sus vecinas (máx. 4, de 2 en 2).
@@ -275,7 +337,7 @@ function investigateAround(id) {
       if (!s || deepStatus.get(nid) === 'listo') continue;
       deepStatus.set(nid, 'investigando');
       emit({ type: 'deep', id: nid, state: 'investigando' });
-      await deepPage(s.url).catch(() => null);
+      await deepPage(s.url, { onScreen: nid === id }).catch(() => null);
       deepStatus.set(nid, 'listo');
       emit({ type: 'deep', id: nid, state: 'listo' });
     }

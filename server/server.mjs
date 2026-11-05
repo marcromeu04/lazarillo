@@ -260,7 +260,7 @@ async function proxyHandler(req, res, target) {
 // ---------- utilidades HTTP ----------
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.ico': 'image/x-icon' };
 function sendJson(res, code, obj) { res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(obj)); }
-function body(req) { return new Promise((r) => { let b = ''; req.on('data', (c) => (b += c)); req.on('end', () => { try { r(b ? JSON.parse(b) : {}); } catch { r({}); } }); }); }
+function body(req) { return new Promise((r) => { let b = ''; req.on('data', (c) => { b += c; if (b.length > 1e6) { req.destroy(); r({}); } }); req.on('end', () => { try { r(b ? JSON.parse(b) : {}); } catch { r({}); } }); }); }
 function serveStatic(req, res) {
   let rel = decodeURIComponent(req.url.split('?')[0]);
   if (rel === '/') rel = '/index.html';
@@ -339,6 +339,12 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, { ok: true, id: s && s.id });
     }
     if (url === '/api/current' && req.method === 'GET') return sendJson(res, 200, await graph.context());
+    // Lo que se ve en la pantalla de la demo (la página ya pintada): detalle de la página y enlaces nuevos.
+    if (url === '/api/rendered' && req.method === 'POST') {
+      const { url: u, data } = await body(req);
+      const r = graph.setRendered(typeof u === 'string' ? u : '', data && typeof data === 'object' ? data : {});
+      return sendJson(res, 200, r ? { ok: true, ...r } : { ok: false });
+    }
     if (url === '/api/hint' && req.method === 'POST') {
       const { text, role } = await body(req);
       const r = role === 'assistant' ? 'assistant' : 'user';
