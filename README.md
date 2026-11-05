@@ -101,6 +101,39 @@ su propio origen local (`www-capcut-com.localhost:3001`), distinto del de la app
 la app ni usar `/api`, y ese origen solo sirve el dominio que se está explorando, sin pasarle cookies. Las
 claves van en `.env`, que nunca se sube.
 
+### Futuras mejoras
+
+Lo que hemos visto al probarlo con webs reales y que lo mejoraría todavía más, de más a menos valor:
+
+| Mejora | Por qué (lo que hemos visto) | Esfuerzo |
+|---|---|---|
+| **Medir la voz en llamadas reales** (tiempo de cada turno, preguntas antes de enseñar, tiempo hasta la página que resuelve su problema) | Hoy el cuello de botella es el turno de voz (modelo + síntesis), no la pantalla ni la predicción. Sin medirlo no sabemos qué tocar | bajo |
+| **El navegador del visitante como renderizador del mapa**: el puente manda al agente de mapeo el texto ya pintado de cada página que se abre | En webs que se pintan con JavaScript, el HTML llega vacío y el detalle de la página sale pobre. El iframe ya la tiene pintada: es gratis y sin un Chrome aparte | bajo |
+| **Añadir al grafo las páginas nuevas** que aparecen al navegar dentro de una SPA (`pushState`) | El puente ya avisa de esos cambios, pero si la página no estaba en el mapa, la voz no sabe de qué va | bajo |
+| **Fuentes e imágenes de CDN de terceros** también por el proxy local | Algunas CDN solo dejan usar sus fuentes desde la web real (p. ej. `b.stripecdn.com` en Stripe): la página se ve, pero con otra tipografía | medio |
+| **Webs con Cloudflare**: abrirlas directas en el iframe cuando no lo prohíben (sin puente) en vez del aviso | Cloudflare frena las peticiones del servidor; hoy se ofrece abrirlas en otra pestaña | medio |
+| **HTTPS local** (certificado de desarrollo) para webs que montan sus direcciones con `https://` + el host actual | Allbirds (Shopify) pide `https://www-allbirds-com.localhost:3001` y esa petición falla; la página carga, pero sin esa parte | medio |
+| **Exportar el informe de interés** (PDF/CSV) o mandarlo al CRM | Las señales de compra y el problema del visitante son para el comercial: que no se queden en el panel | medio |
+| **Predicción con un modelo de decisión** (p. ej. Jev) solo si gana en local | En nuestras demos, 7 de 8 cambios de página iban a una página enlazada que ya se prepara al entrar; el predictor por palabras acierta 4 de 7 en su top 3. Con ≥ 50 cambios grabados se compara en local antes de integrarlo (otra clave, y las frases del visitante saldrían a EE. UU.) | bajo para medir |
+| **Chromium de Playwright como respaldo** si no hay Chrome instalado | Para montarlo en un servidor o en Docker. Ver la medición de abajo | bajo |
+
+**¿Renta un navegador (Chromium) para el mapeo?** Como mapeo principal, **no**. Medido el 2026-11-05 con 20 páginas
+por web, el HTML y el navegador sacan las mismas páginas, los mismos titulares por página y casi los mismos
+enlaces, pero el navegador tarda de 7 a 10 veces más:
+
+| Web | HTML | Navegador |
+|---|---|---|
+| karumi.ai/es | 20 págs en 5,1 s | 20 págs en 39,4 s |
+| holded.com/es | 20 págs en 2,9 s | 20 págs en 23,4 s |
+| factorial.es | 20 págs en 1,8 s | 20 págs en 15,7 s |
+| linear.app | 20 págs en 2,9 s | 20 págs en 27,6 s |
+| notion.com/es | 20 págs en 8,1 s | 20 págs en 58 s |
+| simplehost.es (se pinta con JavaScript) | sin enlaces | 2 págs en 2,6 s (todas las que tiene) |
+
+Ya se usa donde sí renta: cuando el HTML llega sin enlaces (web pintada con JavaScript), el mapeo pasa solo a
+Chrome. Cambiar el Chrome instalado por el Chromium de Playwright no cambia los resultados (es el mismo motor);
+solo ayuda en máquinas sin Chrome, a cambio de descargar el navegador (más de 100 MB) en cada instalación.
+
 ---
 
 ## Arrancar la entrega (rama `main`) en cualquier ordenador (30 s)
