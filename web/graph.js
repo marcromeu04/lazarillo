@@ -15,6 +15,8 @@ export function createGraph(svg, info, head) {
   let app = {};
   let tokens = 0;
   let raf = 0;
+  let big = false; // vista «Grafo» a pantalla grande: todas las etiquetas y más aire
+  let pinned = null; // página fijada con un clic (su ficha se queda abajo)
 
   const gTree = el('g');
   const gExtra = el('g');
@@ -63,7 +65,7 @@ export function createGraph(svg, info, head) {
   function layout() {
     const { w, h } = size();
     const { parent, rows } = tree();
-    const perRow = Math.max(4, Math.floor((w - 24) / 30)); // cuántas caben por fila sin pisarse
+    const perRow = Math.max(4, Math.floor((w - 24) / (big ? 118 : 30))); // cuántas caben por fila sin pisarse (en grande, con su etiqueta)
     const lines = []; // filas visuales (un nivel largo se parte en varias)
     const pos = new Map();
     for (const row of rows) {
@@ -76,8 +78,8 @@ export function createGraph(svg, info, head) {
         chunk.forEach((id, k) => pos.set(id, { x: ((k + 1) * w) / (chunk.length + 1), line: lines.length - 1, k, n: chunk.length }));
       }
     }
-    const top = 20;
-    const step = lines.length > 1 ? Math.min(52, (h - top - 18) / (lines.length - 1)) : 0;
+    const top = big ? 36 : 20;
+    const step = lines.length > 1 ? Math.min(big ? 120 : 52, (h - top - (big ? 30 : 18)) / (lines.length - 1)) : 0;
     for (const [id, p] of pos) {
       const n = nodes.get(id);
       const zig = p.n > 6 ? ((p.k % 2) * 0.36 - 0.18) * step : 0; // filas llenas en zigzag para que se lean las etiquetas
@@ -99,7 +101,8 @@ export function createGraph(svg, info, head) {
     node.g = el('g', { class: 'gnode' });
     node.g.append(node.ring, node.dot, node.label);
     node.g.addEventListener('mouseenter', () => showInfo(node));
-    node.g.addEventListener('mouseleave', () => showInfo(nodes.get(current)));
+    node.g.addEventListener('mouseleave', () => showInfo(pinned || nodes.get(current)));
+    node.g.addEventListener('click', () => { pinned = pinned === node ? null : node; paint(); showInfo(pinned || nodes.get(current)); });
     gNodes.append(node.g);
     nodes.set(n.id, node);
     layout();
@@ -133,8 +136,9 @@ export function createGraph(svg, info, head) {
       const isVis = visited.includes(n.id);
       const d = deep.get(n.id);
       const isRoot = n === root;
-      n.g.setAttribute('class', 'gnode' + (isRoot ? ' root' : '') + (isCur ? ' cur' : '') + (isVis ? ' vis' : '') + (d === 'investigando' ? ' inv' : '') + (d === 'listo' ? ' ready' : '') + (outs.has(n.id) ? ' next' : '') + (prob.has(n.id) && !isCur ? ' prob' : '') + (n.live ? ' live' : '') + ((interest[n.id] || 0) >= 50 ? ' hot' : ''));
-      n.label.style.display = isCur || isVis || isRoot || prob.has(n.id) || nodes.size <= 12 ? '' : 'none';
+      n.g.setAttribute('class', 'gnode' + (isRoot ? ' root' : '') + (isCur ? ' cur' : '') + (isVis ? ' vis' : '') + (d === 'investigando' ? ' inv' : '') + (d === 'listo' ? ' ready' : '') + (outs.has(n.id) ? ' next' : '') + (prob.has(n.id) && !isCur ? ' prob' : '') + (n.live ? ' live' : '') + ((interest[n.id] || 0) >= 50 ? ' hot' : '') + (n === pinned ? ' pin' : ''));
+      n.label.textContent = short(n.title, big ? 22 : 18);
+      n.label.style.display = big || isCur || isVis || isRoot || n === pinned || prob.has(n.id) || nodes.size <= 12 ? '' : 'none';
     }
     // rutas del árbol (padre → hijo)
     gTree.textContent = '';
@@ -195,7 +199,7 @@ export function createGraph(svg, info, head) {
   }
 
   function reset(view = {}) {
-    nodes.clear(); visited.length = 0; deep.clear(); prob = new Set(); interest = {}; current = null;
+    nodes.clear(); visited.length = 0; deep.clear(); prob = new Set(); interest = {}; current = null; pinned = null;
     gTree.textContent = ''; gExtra.textContent = ''; gTrail.textContent = ''; gNodes.textContent = '';
     app = view.app || {};
     tokens = view.brainTokens || 0;
@@ -209,9 +213,13 @@ export function createGraph(svg, info, head) {
     showInfo(nodes.get(current));
   }
 
-  window.addEventListener('resize', () => layout());
+  // Se recoloca cuando cambia su tamaño (ventana o vista), no solo al redimensionar la ventana.
+  let lastSize = '';
+  const relayout = () => { const { w, h } = size(); const k = `${w}x${h}`; if (k !== lastSize && w > 0 && h > 0) { lastSize = k; layout(); } };
+  if (window.ResizeObserver) new ResizeObserver(relayout).observe(svg); else window.addEventListener('resize', relayout);
   return {
     reset, addNode, addEdge, setCurrent, setDeep,
+    setBig: (on) => { big = !!on; svg.classList.toggle('big', big); layout(); paint(); },
     setTokens: (t) => { tokens = t; paint(); },
     setProbable: (ids) => { prob = new Set(ids); paint(); },
     setInterest: (scores) => { interest = scores || {}; paint(); },

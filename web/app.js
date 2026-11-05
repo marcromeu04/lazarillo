@@ -3,7 +3,7 @@
 // micro (AudioWorklet) → audio_input; audio_output → altavoz; client tools.
 
 import { createGraph } from './graph.js';
-import { showDashboard } from './dashboard.js';
+import { createDashboard } from './dashboard.js';
 
 const SR = 16000;
 const CARTESIA_VERSION = '2026-08-14';
@@ -21,12 +21,56 @@ const locEl = $('loc');
 let visitorUrl = '';
 const graphUi = createGraph($('graph'), $('ginfo'), $('ghead'));
 const predictEl = $('predict');
+const chatEl = $('chat');
+const stage = $('stage');
+const pillDot = $('pillDot');
+const pillText = $('pillText');
+const dashboard = createDashboard($('dashPane'), { isLive: () => running });
 
 let statusKind = 'idle';
 function setStatus(kind, text) {
   statusKind = kind;
   dot.className = 'dot ' + kind;
   statusText.textContent = text;
+  pillDot.className = 'dot sm ' + kind;
+  renderPill();
+}
+// Píldora de la llamada (vistas Web y Panel): estado y lo último que ha dicho Lazarillo.
+let pillLine = '';
+function renderPill() {
+  const s = document.createElement('small');
+  s.textContent = statusText.textContent;
+  pillText.replaceChildren(s, document.createTextNode(pillLine));
+}
+
+// ---------- conversación (burbujas) ----------
+function chatStick() { return chatEl.scrollHeight - chatEl.scrollTop - chatEl.clientHeight < 90; }
+function chatAppend(node) {
+  const stick = chatStick();
+  $('chatEmpty')?.remove();
+  chatEl.appendChild(node);
+  if (stick) chatEl.scrollTop = chatEl.scrollHeight;
+}
+function addMsg(role, text) {
+  const m = document.createElement('div');
+  m.className = 'msg ' + role;
+  m.innerHTML = '<div class="av"></div><div class="body"><div class="meta"></div><div class="bub"></div></div>';
+  m.querySelector('.av').textContent = role === 'you' ? 'TÚ' : 'L';
+  m.querySelector('.meta').textContent = `${role === 'you' ? 'Visitante' : 'Lazarillo'} · ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
+  m.querySelector('.bub').textContent = text;
+  chatAppend(m);
+  if (role === 'ia') { pillLine = text; renderPill(); }
+}
+let lastNote = '';
+function addNote(text, cls = '') {
+  if (text === lastNote) return;
+  lastNote = text;
+  const n = document.createElement('div');
+  n.className = 'note ' + cls;
+  const s = document.createElement('span');
+  s.textContent = text;
+  n.appendChild(s);
+  chatAppend(n);
 }
 
 function log(kind, key, msg) {
@@ -388,6 +432,8 @@ async function start() {
   ensurePlayCtx(); // crear/resumir dentro del gesto de usuario
   running = true;
   btnStop.disabled = false;
+  lastNote = '';
+  addNote('Llamada iniciada');
 
   ws.onopen = () => {
     log('evt', 'ws_open', 'conectado a Cartesia');
@@ -424,6 +470,9 @@ function stop() {
   workletNode = scriptNode = micSource = micStream = micCtx = null;
 
   log('info', 'fin', 'demo colgada');
+  addNote('Llamada terminada');
+  pillLine = '';
+  renderPill();
   api('/api/session-end', {});
 }
 
@@ -477,6 +526,7 @@ window.addEventListener('message', (ev) => {
     holdByBargeIn = false;
     visitorUrl = d.url;
     locEl.textContent = '📍 Estás en: '; const b = document.createElement('b'); b.textContent = d.title || d.url; locEl.appendChild(b);
+    if (running) addNote('📍 ' + (d.title || d.url), 'nav');
     fetch('/api/visitor-url', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: d.url, title: d.title, via: d.via }) }).catch(() => {});
   } else if (d.type === 'highlight_result') {
     log('info', 'resaltar', d.ok ? 'resaltado ✓' : 'no encontrado en pantalla');
@@ -532,9 +582,57 @@ setInterval(() => {
 
 // ---------- transcripción ----------
 function say(kind, who, text) {
-  log(kind, who, text);
-  logEl.lastChild.classList.add('say');
+  log(kind, who, text); // también en «Actividad», con todo lo técnico
+  addMsg(kind === 'you' ? 'you' : 'ia', text);
 }
+
+// ---------- vistas: Demo · Web · Grafo · Conversación · Panel ----------
+const VIEWS = ['demo', 'web', 'graph', 'chat', 'panel'];
+function setView(v) {
+  if (!VIEWS.includes(v)) v = 'demo';
+  stage.dataset.view = v;
+  document.querySelectorAll('button[data-view]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.view === v)));
+  graphUi.setBig(v === 'graph');
+  dashboard.activate(v === 'panel');
+  if (v === 'chat') chatEl.scrollTop = chatEl.scrollHeight;
+  try { localStorage.setItem('lz_view', v); } catch {}
+}
+document.querySelectorAll('button[data-view]').forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+document.querySelectorAll('[data-goto]').forEach((b) => b.addEventListener('click', () => setView(b.dataset.goto)));
+// Conversación o actividad técnica en la tarjeta del lateral
+function setFeed(f) {
+  document.querySelectorAll('[data-feed]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.feed === f)));
+  chatEl.hidden = f !== 'chat';
+  logEl.hidden = f !== 'log';
+  if (f === 'log') logEl.scrollTop = logEl.scrollHeight;
+}
+document.querySelectorAll('[data-feed]').forEach((b) => b.addEventListener('click', () => setFeed(b.dataset.feed)));
+
+// Pantalla completa: la vista que esté activa ocupa toda la pantalla (la web, el grafo, el panel…).
+const fsbar = $('fsbar');
+let fsTimer = 0;
+function toggleFs() {
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  else if (stage.requestFullscreen) stage.requestFullscreen().catch(() => {});
+}
+function peekFsBar() { fsbar.classList.add('show'); clearTimeout(fsTimer); fsTimer = setTimeout(() => fsbar.classList.remove('show'), 2500); }
+$('fsBtn').addEventListener('click', toggleFs);
+$('fsExit').addEventListener('click', () => document.exitFullscreen().catch(() => {}));
+$('fshot').addEventListener('mouseenter', peekFsBar); // franja de arriba: también encima de la web
+stage.addEventListener('mousemove', (e) => { if (document.fullscreenElement && e.clientY < 70) peekFsBar(); });
+document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement) peekFsBar(); });
+// Atajos: 1-5 cambian de vista, F pantalla completa (Esc la quita).
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+  const i = '12345'.indexOf(e.key);
+  if (i >= 0) { e.preventDefault(); setView(VIEWS[i]); return; }
+  if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFs(); }
+});
+let savedView = 'demo';
+try { savedView = localStorage.getItem('lz_view') || 'demo'; } catch {}
+setView(savedView);
 
 // ---------- grafo en vivo (agente de mapeo) ----------
 function onGraphEvent(ev) {
@@ -567,13 +665,14 @@ function onGraphEvent(ev) {
       if (tops) log('map', 'páginas', tops);
       if ((r.pain || []).length) log('map', 'pain', r.pain.slice(0, 2).join(' | '));
       if (r.perfil && Object.keys(r.perfil).length) log('map', 'perfil', Object.entries(r.perfil).map(([k, v]) => `${k}: ${v.join(', ')}`).join(' · '));
-      showDashboard(r); // al colgar, el panel de KPIs
+      dashboard.show(r); // al colgar, el informe en la vista Panel
+      setView('panel');
       break;
     }
     case 'deep': graphUi.setDeep(ev.id, ev.state); break;
     case 'predict':
       graphUi.setProbable(ev.items.map((i) => i.id));
-      predictEl.textContent = ev.items.length ? 'probable: ' + ev.items.map((i) => `${graphUi.title(i.id).slice(0, 18)} ${i.p}%`).join(' · ') : '';
+      predictEl.textContent = ev.items.length ? 'Probable: ' + ev.items.map((i) => `${graphUi.title(i.id).slice(0, 18)} ${i.p}%`).join(' · ') : '';
       break;
   }
 }
@@ -581,7 +680,7 @@ const events = new EventSource('/api/events');
 events.onmessage = (m) => { try { onGraphEvent(JSON.parse(m.data)); } catch {} };
 
 const btnExplore = $('btnExplore');
-$('btnReport').addEventListener('click', (e) => { e.preventDefault(); showDashboard(); });
+$('btnReport').addEventListener('click', (e) => { e.preventDefault(); setView('panel'); });
 $('siteForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const url = $('siteUrl').value.trim();
