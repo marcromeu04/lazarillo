@@ -11,6 +11,18 @@ mejoras de la rama `mejoras`: mejoran muchísimo la experiencia de usuario.** El
 esto» y la IA va ella misma a esa página, se la explica con datos concretos y propone el siguiente paso, con
 una conversación natural y sin esperas. Y funciona con cualquier web, no solo con karumi.ai.
 
+**Lo nuevo, en 30 segundos:**
+- **Empieza por el problema del visitante**: le pregunta qué quiere resolver y le lleva directo a la página que lo resuelve.
+- **La IA navega sola** (`ir_a`) y **la pantalla sigue a la voz** en el orden de la página, sin saltos locos.
+- **Cualquier web**: escribe la URL y pulsa «Explorar»; 40 páginas mapeadas en segundos, también webs hechas con React, Vite o Next.js.
+- **Cinco vistas** (teclas 1-5, pantalla completa con F): la demo, la web sola, el grafo en grande, la conversación y un **panel de interés en directo** para ventas.
+
+| Demo: la web y la llamada | Grafo de la web, en vivo |
+|---|---|
+| ![Vista Demo: la web con el lateral de la llamada](docs/img/demo.png) | ![Vista Grafo: todas las páginas, dónde está la IA y lo probable](docs/img/grafo.png) |
+| **Panel de interés en directo** (sesión de ejemplo) | **Conversación** (sesión de ejemplo) |
+| ![Vista Panel: KPIs, problema del visitante y señales de compra](docs/img/panel.png) | ![Vista Conversación: burbujas y cambios de página](docs/img/conversacion.png) |
+
 ### Arrancar con tu propia cuenta de Cartesia (2 minutos)
 
 ```bash
