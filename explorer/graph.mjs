@@ -14,6 +14,31 @@ import { deepPage, resetDeep, setRenderedDetail } from './deep.mjs';
 import { interpret, fichaText } from './interpret.mjs';
 import { llmConfig, callLLM, parseJson, newLlmSession } from './llm.mjs';
 import { safeFetch } from './netguard.mjs';
+import { buildKnowledge, reportMarkdown, brainSection, conceptHits } from './concepts.mjs';
+
+// ---------- capa de conceptos (encima de las páginas) ----------
+// Se recalcula si cambia el mapa (otra web, páginas nuevas o fichas completadas desde la pantalla).
+const kCache = new WeakMap(); // mapa → { n, v, k }
+let kVersion = 0;
+function knowledgeOf(m) {
+  const hit = kCache.get(m);
+  if (hit && hit.n === m.screens.length && hit.v === kVersion) return hit.k;
+  const k = buildKnowledge(m);
+  kCache.set(m, { n: m.screens.length, v: kVersion, k });
+  return k;
+}
+export function getKnowledge() {
+  return knowledgeOf(getMap());
+}
+export function getInforme() {
+  return getKnowledge().informe;
+}
+let kTimer = null;
+function knowledgeChanged() {
+  kVersion++;
+  clearTimeout(kTimer);
+  kTimer = setTimeout(() => emit({ type: 'knowledge', knowledge: getKnowledge() }), 1200);
+}
 
 // La dirección que se escribe a veces redirige a otro dominio (factorialhr.es → factorial.es): se
 // explora el de destino; si no, el mapa sale vacío y la pantalla en blanco.
@@ -143,6 +168,11 @@ export function compactBrain(m = getMap()) {
     if (adj.get(e.from).length < 10) adj.get(e.from).push(e.to);
   }
   out.push('Enlaces (desde→destinos): ' + [...adj].map(([f, t]) => `${f}→${t.join(',')}`).join(' | '));
+  // Capa de conceptos: de qué problema y de qué equipo habla cada página (para ir del problema a la página)
+  try {
+    const extra = brainSection(knowledgeOf(m));
+    if (extra) out.push(extra);
+  } catch {}
   return out.join('\n');
 }
 
@@ -190,8 +220,10 @@ export async function explore(url, { max = 40 } = {}) {
     const it = await interpret(result, compactBrain(result));
     result.ficha = it.ficha;
     fs.writeFileSync(path.join(dir, 'app-map.json'), JSON.stringify(result, null, 2));
+    knowledgeChanged(); // con la ficha, el informe ya sabe qué es la web
     const brain = compactBrain(result);
     fs.writeFileSync(path.join(dir, 'brain.md'), brain);
+    try { fs.writeFileSync(path.join(dir, 'informe.md'), reportMarkdown(knowledgeOf(result).informe)); } catch {}
     emit({ type: 'ficha', ficha: it.ficha, via: it.via, ms: it.ms, brainTokens: Math.round(brain.length / 4) });
     return { map: result, brain };
   } catch (e) {
@@ -248,6 +280,7 @@ function newScreen(url, title) {
   };
   m.screens.push(s);
   emit({ type: 'node', node: nodeView(s) });
+  knowledgeChanged();
   return s;
 }
 
@@ -297,7 +330,7 @@ export function setRendered(url, raw = {}) {
   let touched = false;
   if (!(s.headings || []).length && d.heads.length) { s.headings = d.heads.slice(0, 8); touched = true; }
   if ((!s.summary || s.summary === DISCOVERED) && (d.text || d.heads.length)) { s.summary = firstSentence(d.text || d.heads.join('. '), 140); touched = true; }
-  if (touched) emit({ type: 'node', node: nodeView(s) });
+  if (touched) { emit({ type: 'node', node: nodeView(s) }); knowledgeChanged(); }
   // Enlaces ya pintados → aristas y páginas nuevas. Páginas nuevas solo si el HTML no las dio (página
   // pintada con JavaScript, sin enlaces conocidos) o el mapa es pequeño; si no, el mapa ya está hecho.
   const fillActions = !(s.actions || []).length;
@@ -421,6 +454,7 @@ export function graphView() {
     deep: Object.fromEntries(deepStatus),
     exploring: !!exploring,
     brainTokens: Math.round(compactBrain(m).length / 4),
+    knowledge: knowledgeOf(m),
   };
 }
 
@@ -487,9 +521,15 @@ export function predict(text, role = 'user') {
   const m = getMap();
   const near = new Set(m.edges.filter((e) => e.from === current).map((e) => e.to));
   for (const [id, v] of convo) convo.set(id, v * 0.35); // lo dicho antes pesa menos que lo último
+  // Conceptos que nombra la frase (p. ej. «comerciales» → Ventas, «cuánto cuesta» → Precios): sus páginas
+  // suman aunque no compartan palabras con la página.
+  const boost = new Map();
+  try {
+    for (const c of conceptHits(text, getKnowledge())) for (const pid of c.pages) boost.set(pid, (boost.get(pid) || 0) + (pid === c.best ? 2.5 : 1));
+  } catch {}
   for (const { id, bag } of buildIndex()) {
     if (id === current) continue;
-    let sc = 0;
+    let sc = boost.get(id) || 0;
     for (const st of q) sc += (bag.get(st) || 0) * (idf.get(st) || 0);
     if (!sc) continue;
     if (role === 'assistant') sc *= 1.5;

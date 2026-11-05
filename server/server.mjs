@@ -315,6 +315,7 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, await token.createToken());
     }
     if (url === '/api/graph' && req.method === 'GET') return sendJson(res, 200, graph.graphView());
+    if (url === '/api/informe' && req.method === 'GET') return sendJson(res, 200, graph.getInforme());
     if (url === '/api/events' && req.method === 'GET') {
       res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' });
       res.write(`data: ${JSON.stringify({ type: 'hello', graph: graph.graphView() })}\n\n`);

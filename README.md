@@ -15,11 +15,14 @@ una conversación natural y sin esperas. Y funciona con cualquier web, no solo c
 - **Empieza por el problema del visitante**: le pregunta qué quiere resolver y le lleva directo a la página que lo resuelve.
 - **La IA navega sola** (`ir_a`) y **la pantalla sigue a la voz** en el orden de la página, sin saltos locos.
 - **Cualquier web**: escribe la URL y pulsa «Explorar»; 40 páginas mapeadas en segundos, también webs hechas con React, Vite o Next.js.
+- **Grafo de conocimiento en dos capas**: las páginas (dónde ir) y los conceptos (qué problemas resuelve, para quién, funciones, clientes…), con un informe de la web.
 - **Cinco vistas** (teclas 1-5, pantalla completa con F): la demo, la web sola, el grafo en grande, la conversación y un **panel de interés en directo** para ventas.
 
-| Demo: la web y la llamada | Grafo de la web, en vivo |
+| Demo: la web y la llamada | Grafo en dos capas: páginas y conceptos |
 |---|---|
-| ![Vista Demo: la web con el lateral de la llamada](docs/img/demo.png) | ![Vista Grafo: todas las páginas, dónde está la IA y lo probable](docs/img/grafo.png) |
+| ![Vista Demo: la web con el lateral de la llamada](docs/img/demo.png) | ![Vista Grafo: el árbol de páginas por grupos y, debajo, los conceptos por tipo](docs/img/grafo.png) |
+| **Informe de la web** (pestaña «La web») | |
+| ![Informe de la web: el mayor problema que resuelve, problemas y preguntas para descubrirlo](docs/img/informe.png) | |
 | **Panel de interés en directo** (sesión de ejemplo) | **Conversación** (sesión de ejemplo) |
 | ![Vista Panel: KPIs, problema del visitante y señales de compra](docs/img/panel.png) | ![Vista Conversación: burbujas y cambios de página](docs/img/conversacion.png) |
 
@@ -50,6 +53,7 @@ Chrome instalado (el agente de mapeo usa tu Chrome; no descarga navegadores).
 | Tono | instrucciones básicas | prompt de **persona de producto con experiencia**: natural, segura, va al grano |
 | Cómo empieza | pregunta qué le trae | **descubre el problema del visitante** (qué le duele, cómo lo hace hoy, qué quiere ver) y va directo a la página que más valor le aporta; si no lo tiene claro, le enseña el mayor problema que resuelve el software |
 | Pantalla | `scrollIntoView` a la primera coincidencia | **la pantalla sigue a la voz en el orden de la página** (`server/bridge.js`): un solo movimiento a la vez, encuadra la sección bajo la cabecera fija, fundido en los saltos largos, no toca carruseles, respeta scroll-snap y Lenis, y si el visitante mueve la página o dice «párate aquí», se queda quieta. En karumi.ai, la misma narración de 10 frases antes saltaba a las preguntas frecuentes y volvía; ahora avanza siempre en el orden de la página |
+| Grafo | páginas y enlaces | **grafo de conocimiento en dos capas** (la idea de [Graphify](https://github.com/Graphify-Labs/graphify), llevada a las demos): **páginas** (dónde ir y qué pulsar, coloreadas por grupo: Producto, Soluciones, Casos de éxito…) y **conceptos** (de qué habla la web: problemas que resuelve, funciones, para quién, integraciones, clientes y precios), cada uno unido a sus páginas; las conexiones dicen si se han leído en la página o se han deducido. Buscador, ficha al hacer clic e **informe de la web** (`sites/<web>/informe.md` y pestaña «La web» del panel): qué vende, el mayor problema que resuelve, para quién, recorridos de demo y preguntas para descubrir su problema. La voz recibe «problema → página» y la predicción entiende sinónimos («equipo comercial» → la página de ventas). Sin modelo: `explorer/concepts.mjs` |
 | Panel | log | **cinco vistas** (teclas 1-5, pantalla completa con F): **Demo** (web + llamada), **Web** sola, **Grafo** en grande y en vivo (principal → secundarias, con dónde está la IA, su recorrido, lo que se investiga y lo probable), **Conversación** en burbujas y **Panel** de interés que se actualiza en directo durante la llamada |
 | Ventas | — | **trazabilidad del interés**: tiempo y preguntas por página, problema (pain), señales de compra y perfil de cada visitante |
 
@@ -119,6 +123,7 @@ Lo que hemos visto al probarlo con webs reales y que lo mejoraría todavía más
 
 | Mejora | Por qué (lo que hemos visto) | Esfuerzo |
 |---|---|---|
+| **La voz consulta el grafo** (fase 2 del grafo de conocimiento): herramientas para buscar el concepto que nombra el visitante, explicar uno o ver el camino desde la página actual, en vez de llevar el mapa entero en el prompt | Es lo que hace Graphify con el código: preguntar al grafo en lugar de leerlo todo. Menos tokens por turno y respuestas más certeras; hay que medir la latencia de cada consulta | medio |
 | **Medir la voz en llamadas reales** (tiempo de cada turno, preguntas antes de enseñar, tiempo hasta la página que resuelve su problema) | Hoy el cuello de botella es el turno de voz (modelo + síntesis), no la pantalla ni la predicción. Sin medirlo no sabemos qué tocar | bajo |
 | **Fuentes e imágenes de CDN de terceros** también por el proxy local | Algunas CDN solo dejan usar sus fuentes desde la web real (p. ej. `b.stripecdn.com` en Stripe): la página se ve, pero con otra tipografía | medio |
 | **Webs con Cloudflare**: abrirlas directas en el iframe cuando no lo prohíben (sin puente) en vez del aviso | Cloudflare frena las peticiones del servidor; hoy se ofrece abrirlas en otra pestaña | medio |

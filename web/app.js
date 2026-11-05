@@ -19,7 +19,7 @@ const logEl = $('log');
 const siteFrame = $('site');
 const locEl = $('loc');
 let visitorUrl = '';
-const graphUi = createGraph($('graph'), $('ginfo'), $('ghead'));
+const graphUi = createGraph($('graph'), $('ginfo'), $('ghead'), $('glegend'));
 const predictEl = $('predict');
 const chatEl = $('chat');
 const stage = $('stage');
@@ -614,6 +614,21 @@ function setFeed(f) {
   if (f === 'log') logEl.scrollTop = logEl.scrollHeight;
 }
 document.querySelectorAll('[data-feed]').forEach((b) => b.addEventListener('click', () => setFeed(b.dataset.feed)));
+// Capas del grafo: Páginas (dónde ir) · Conceptos (de qué habla la web) · Ambos
+function setGraphMode(m) {
+  graphUi.setMode(m);
+  document.querySelectorAll('[data-gmode]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.gmode === graphUi.getMode())));
+  try { localStorage.setItem('lz_gmode', graphUi.getMode()); } catch {}
+}
+document.querySelectorAll('[data-gmode]').forEach((b) => b.addEventListener('click', () => setGraphMode(b.dataset.gmode)));
+try { setGraphMode(localStorage.getItem('lz_gmode') || 'pages'); } catch { setGraphMode('pages'); }
+// Buscador: resalta lo que coincide; Intro fija la ficha del primero
+const gsearch = $('gsearch');
+gsearch.addEventListener('input', () => graphUi.setQuery(gsearch.value));
+gsearch.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { const f = graphUi.setQuery(gsearch.value); if (f) graphUi.pin(f); }
+  if (e.key === 'Escape') { gsearch.value = ''; graphUi.setQuery(''); }
+});
 
 // Pantalla completa: la vista que esté activa ocupa toda la pantalla (la web, el grafo, el panel…).
 const fsbar = $('fsbar');
@@ -645,6 +660,7 @@ setView(savedView);
 function onGraphEvent(ev) {
   switch (ev.type) {
     case 'hello': graphUi.reset(ev.graph); break;
+    case 'knowledge': graphUi.setKnowledge(ev.knowledge); break;
     case 'explore_start': graphUi.reset({ app: { host: ev.host } }); predictEl.textContent = ''; FRAME.site = ev.host || FRAME.site; log('map', 'mapeo', `explorando ${ev.url}…`); break;
     case 'node': graphUi.addNode(ev.node); break;
     case 'edge': graphUi.addEdge(ev.edge); break;

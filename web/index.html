@@ -132,7 +132,31 @@
   .ge{fill:none;stroke:#3b4360;stroke-width:1.2;opacity:.75} .ge.out{stroke:#6366f1;opacity:.9;stroke-width:1.6} .ge.extra{stroke:#6366f1;opacity:.35;stroke-dasharray:3 3}
   .gtrail{fill:none;stroke:var(--acc);stroke-width:2.6;opacity:.95;stroke-linecap:round}
   .gnode.root .gn{fill:#e7e9f0} .gnode.root .gl{fill:var(--txt);font-weight:700}
-  .gn{fill:#475569;stroke:#0b0d12;stroke-width:1.5;transition:fill .2s}
+  .gn{fill:var(--gc,#475569);stroke:#0b0d12;stroke-width:1.5;transition:fill .2s}
+  /* buscador y capas */
+  .gsearch{width:190px;min-width:0;background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:4px 9px;font:inherit;font-size:12px}
+  .gsearch:focus{outline:2px solid var(--acc2);outline-offset:0}
+  .stage[data-view=demo] .gsearch{display:none}
+  .stage[data-view=demo] .graphcard .seg button{padding:4px 7px;font-size:11px}
+  /* capa de conceptos */
+  .cnode{cursor:pointer}
+  .cnode rect{stroke:#0b0d12;stroke-width:1.5}
+  .cl{fill:#a3a9bd;font-size:10.5px;paint-order:stroke;stroke:#0d1018;stroke-width:3px}
+  #graph.big .cl{font-size:12.5px}
+  .cnode.on .cl,.cnode.focus .cl,.cnode.pin .cl{fill:#fff;font-weight:600}
+  .cnode.focus rect,.cnode.pin rect{stroke:#fff;stroke-width:2}
+  .chead{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+  #graph.big .chead{font-size:11.5px}
+  .ce{fill:none;stroke:#8b93ad;stroke-width:1;stroke-dasharray:3 3;opacity:.16}
+  .ce.on{opacity:.85;stroke:#e2e8f0;stroke-width:1.4}
+  .pc{fill:none;stroke:#94a3b8;stroke-width:1;opacity:.45}
+  .pc.strong{opacity:.8;stroke:#cbd5e1}
+  .gnode.dim,.cnode.dim{opacity:.15}
+  .gnode.match .gring,.cnode.match rect{stroke:#fff;stroke-width:2.5}
+  .gnode.pin .gring{stroke:#fff;stroke-dasharray:none}
+  .ctype,.ggroup{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-left:6px}
+  .glegend i.sq{border-radius:2px}
+  .glegend i.ln{width:14px;height:0;border-radius:0;border-top:1.5px dashed #8b93ad}
   .gring{fill:none;stroke:transparent;stroke-width:2}
   .gl{fill:#8a90a6;font-size:10px;pointer-events:none;paint-order:stroke;stroke:#0d1018;stroke-width:3px}
   #graph.big .gl{font-size:12.5px;stroke-width:4px}
@@ -258,13 +282,19 @@
     <section class="card graphcard">
       <div class="cardhead">
         <div class="ghead" id="ghead"><b>Grafo</b></div>
+        <input class="gsearch" id="gsearch" type="search" placeholder="Buscar página o concepto…" aria-label="Buscar en el grafo" autocomplete="off">
+        <div class="seg" role="tablist" aria-label="Capas del grafo">
+          <button role="tab" data-gmode="pages" aria-selected="true" title="Páginas: dónde ir y qué pulsar">Páginas</button>
+          <button role="tab" data-gmode="concepts" aria-selected="false" title="Conceptos: de qué habla la web">Conceptos</button>
+          <button role="tab" data-gmode="both" aria-selected="false" title="Las dos capas a la vez">Ambos</button>
+        </div>
         <button class="icon sm" type="button" data-goto="graph" title="El grafo en grande (3)" aria-label="Ver el grafo en grande">⤢</button>
       </div>
       <svg id="graph" aria-label="Grafo de la web"></svg>
       <div class="gfoot">
         <div id="predict" class="gprob"></div>
         <div id="ginfo"></div>
-        <div class="glegend"><span><i style="background:#a855f7"></i>IA aquí</span><span><i style="background:#6366f1"></i>visitada</span><span><i style="background:#f59e0b"></i>interés alto</span><span><i style="border:2px dashed #fbbf24"></i>investigando</span><span><i style="border:2px solid rgba(52,211,153,.7)"></i>detalle listo</span><span><i style="border:2px dashed #60a5fa"></i>probable</span></div>
+        <div class="glegend" id="glegend"></div>
       </div>
     </section>
   </aside>
