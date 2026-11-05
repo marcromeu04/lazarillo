@@ -29,7 +29,7 @@ Chrome instalado (el agente de mapeo usa tu Chrome; no descarga navegadores).
 | | Entrega (`main`) | Mejoras (`mejoras`) |
 |---|---|---|
 | Quién navega | el visitante, la IA solo señala | **la IA pulsa y navega ella misma** (`ir_a`) y narra mientras carga |
-| Webs | karumi.ai | **cualquier web**: escribe la URL arriba y pulsa «Explorar» |
+| Webs | karumi.ai | **cualquier web**: escribe la URL arriba y pulsa «Explorar». Cada web se abre en **su propio origen local** (`server/server.mjs`, proxy inverso), así que también cargan las SPA (React, Vite, Next.js) y las direcciones que redirigen a otro dominio. Con 14 webs reales, antes 4 salían en blanco (simplehost.es, YouTube, Holded, Factorial); ahora ninguna |
 | Contexto de la voz | cerebro de 37 KB (~9.300 tokens) en cada turno | **grafo compacto: ~1.300 tokens** para las 25 páginas de karumi.ai (7× menos) |
 | Detalle de cada página | todo de golpe en las instrucciones | **solo al entrar en ella y una vez por llamada** (~1 KB por herramienta) |
 | Mapeo | Chrome página a página: ~60 s para 30 páginas | **dos fases**: primero el mapa mental con HTML en paralelo y sitemap (**40 páginas de karumi.ai en ~7 s**), y el detalle después, según la probabilidad |
@@ -96,9 +96,10 @@ sesiones: qué páginas interesan más y qué problemas se repiten, para afinar 
 
 ### Seguridad
 
-El servidor solo escucha en `127.0.0.1` y rechaza llamadas de otras webs. El proxy que muestra la web
-dentro de la página solo carga el dominio que se está explorando. Las claves van en `.env`, que nunca se
-sube.
+El servidor solo escucha en `127.0.0.1` y rechaza llamadas de otras webs. La web explorada se muestra desde
+su propio origen local (`www-capcut-com.localhost:3001`), distinto del de la app: sus scripts no pueden leer
+la app ni usar `/api`, y ese origen solo sirve el dominio que se está explorando, sin pasarle cookies. Las
+claves van en `.env`, que nunca se sube.
 
 ---
 

@@ -92,6 +92,7 @@ const agent = new Agent({
   },
   connections: 16,
   keepAliveTimeout: 10_000,
+  maxHeaderSize: 128 * 1024, // webs como YouTube responden con cabeceras de más de 16 KB (el límite por defecto)
 });
 
 /**
@@ -146,10 +147,10 @@ export async function hardenedContext(browser, options = {}, pinnedHosts = new S
 }
 
 /** Una sola petición, sin seguir redirecciones (quien llama decide si seguirlas). */
-export async function fetchOnce(url, { headers = {}, timeoutMs = 10_000, method = 'GET' } = {}) {
+export async function fetchOnce(url, { headers = {}, timeoutMs = 10_000, method = 'GET', body } = {}) {
   if (!(await isPublicUrl(url))) throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
   try {
-    return await ufetch(url, { method, headers, redirect: 'manual', dispatcher: agent, signal: AbortSignal.timeout(timeoutMs) });
+    return await ufetch(url, { method, headers, body, redirect: 'manual', dispatcher: agent, signal: AbortSignal.timeout(timeoutMs) });
   } catch (e) {
     if (e?.code === 'EBLOCKED' || e?.cause?.code === 'EBLOCKED') throw Object.assign(new Error('solo webs públicas'), { code: 'EBLOCKED' });
     throw e;

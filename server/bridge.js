@@ -1,28 +1,95 @@
 // Puente que se inyecta en cada página del proxy (dentro del iframe) y habla con la app por postMessage.
-// El servidor lo envuelve así:  (function(ORIGINAL_URL, PROXY){ …este fichero… })(url, origen)
+// El servidor lo envuelve así:  (function(ORIGINAL_URL, PROXY, FRAME){ …este fichero… })(url, origen, frame)
+//  - FRAME = { port, site }: la página se sirve desde su origen local (www.x.com → www-x-com.localhost:port)
+//    y navega de forma normal dentro de él; los enlaces a otras webs se abren en una pestaña aparte.
+//  - FRAME = null: la página va por /proxy?url= (origen «null», <base> a la web real).
 // No escribas aquí la etiqueta de cierre de script: este código va dentro de un <script> en línea.
 'use strict';
+if (window.parent !== window.top) return; // un iframe de la propia web dentro de la página: no es la pantalla
 
-function prox(h) { try { return PROXY + '/proxy?url=' + encodeURIComponent(new URL(h, ORIGINAL_URL).href); } catch (e) { return null; } }
+function encH(h) { return h.replace(/-/g, '--').replace(/\./g, '-'); }
+function decH(l) { return l.replace(/--|-/g, function (m) { return m === '--' ? '-' : '.'; }); }
+function isLocal(u) { return !!FRAME && /^[a-z0-9-]+\.localhost$/i.test(u.hostname) && String(u.port) === String(FRAME.port); }
+function inSite(h) { h = (h || '').toLowerCase(); return !!FRAME && (h === FRAME.site || h.slice(-FRAME.site.length - 1) === '.' + FRAME.site); }
+// URL de la web real de lo que se ve ahora (para la app y el grafo).
+function realUrl() {
+  if (!FRAME) return ORIGINAL_URL;
+  try { var u = new URL(location.href); return isLocal(u) ? 'https://' + decH(u.hostname.slice(0, -'.localhost'.length)) + u.pathname + u.search : ORIGINAL_URL; } catch (e) { return ORIGINAL_URL; }
+}
+// Adónde navegar para abrir h dentro de la demo; null si es de otra web.
+function prox(h) {
+  try {
+    if (!FRAME) return PROXY + '/proxy?url=' + encodeURIComponent(new URL(h, ORIGINAL_URL).href);
+    var u = new URL(h, location.href);
+    if (isLocal(u)) return u.href;
+    if (u.protocol === 'https:' && !u.port && inSite(u.hostname)) return 'http://' + encH(u.hostname.toLowerCase()) + '.localhost:' + FRAME.port + u.pathname + u.search + u.hash;
+    return null;
+  } catch (e) { return null; }
+}
 function post(m) { try { parent.postMessage(m, '*'); } catch (e) {} }
 var LAST = ''; try { LAST = sessionStorage.getItem('lz_via') || ''; sessionStorage.removeItem('lz_via'); } catch (e) {}
-window.addEventListener('load', function () { post({ type: 'page', url: ORIGINAL_URL, title: document.title, via: LAST }); });
+window.addEventListener('load', function () { post({ type: 'page', url: realUrl(), title: document.title, via: LAST }); });
 document.addEventListener('click', function (e) {
   var a = e.target.closest ? e.target.closest('a[href]') : null;
-  if (a) {
-    var h = a.getAttribute('href');
-    if (h && !/^(mailto:|tel:|javascript:|#)/i.test(h)) {
-      var p = prox(h);
-      if (p) {
-        e.preventDefault(); e.stopPropagation();
-        var tx = (a.innerText || '').trim().slice(0, 80);
-        try { sessionStorage.setItem('lz_via', tx.slice(0, 40)); } catch (e2) {}
-        post({ type: 'click', text: tx });
-        location.href = p;
-      }
-    }
+  if (!a) return;
+  var h = a.getAttribute('href');
+  if (!h || /^(mailto:|tel:|javascript:|#)/i.test(h)) return;
+  var p = prox(h), tx = (a.innerText || '').trim().slice(0, 80);
+  if (FRAME && !p) { // otra web: aparte, sin perder la demo
+    e.preventDefault(); e.stopPropagation();
+    try { window.open(new URL(h, location.href).href, '_blank', 'noopener'); } catch (e3) {}
+    post({ type: 'click', text: tx, fuera: true });
+    return;
   }
+  if (!p) return;
+  LAST = tx.slice(0, 40);
+  try { sessionStorage.setItem('lz_via', LAST); } catch (e2) {}
+  post({ type: 'click', text: tx });
+  // En su origen local la web navega sola (y una SPA usa su propio router); solo se fuerza si abría otra
+  // pestaña o si el enlace apunta a la web real (p. ej. desde datos de React que no se reescriben).
+  if (FRAME && !(a.target && a.target !== '_self') && p === new URL(h, location.href).href) return;
+  e.preventDefault(); e.stopPropagation();
+  location.href = p;
 }, true);
+// Red de seguridad: cualquier salto a la web real (location.href = …, formularios, redirecciones por JS)
+// se reconduce a su origen local; a otra web, en una pestaña aparte. Sin esto la pantalla se queda en blanco
+// (la web real no deja que la metan en un iframe).
+if (FRAME && window.navigation && navigation.addEventListener) {
+  var jumps = [];
+  navigation.addEventListener('navigate', function (e) {
+    try {
+      if (!e.cancelable || e.downloadRequest || e.hashChange) return;
+      var url = e.destination.url, u = new URL(url);
+      if (isLocal(u) || !/^https?:$/.test(u.protocol)) return;
+      e.preventDefault();
+      var p = prox(url);
+      if (!p) { window.open(url, '_blank', 'noopener'); post({ type: 'click', text: '', fuera: true }); return; }
+      if (p.split('#')[0] === location.href.split('#')[0]) return; // la web quería «salir» a sí misma: se queda
+      var now = Date.now(); jumps = jumps.filter(function (t) { return now - t < 4000; }); jumps.push(now);
+      if (jumps.length > 3) return; // nada de bucles de recarga
+      location.href = p;
+    } catch (err) {}
+  });
+}
+// SPA: cambia de página sin recargar (pushState). Se avisa a la app y la pantalla vuelve a empezar.
+if (FRAME) {
+  var lastPath = location.pathname;
+  var navChanged = function () {
+    setTimeout(function () {
+      if (location.pathname === lastPath) return;
+      lastPath = location.pathname;
+      try { FOLLOW.idx = null; CURSOR.y = null; } catch (e) {}
+      post({ type: 'page', url: realUrl(), title: document.title, via: LAST });
+      LAST = '';
+    }, 400);
+  };
+  ['pushState', 'replaceState'].forEach(function (k) {
+    var orig = history[k];
+    if (typeof orig !== 'function') return;
+    history[k] = function () { var r = orig.apply(this, arguments); navChanged(); return r; };
+  });
+  window.addEventListener('popstate', navChanged);
+}
 
 function norm(s) { return (s || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
 function fold(s) { return norm(s).normalize('NFD').replace(/[̀-ͯ]/g, ''); }

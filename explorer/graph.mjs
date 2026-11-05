@@ -13,6 +13,19 @@ import { crawl, normUrl, hostOf } from './crawl.mjs';
 import { deepPage, resetDeep } from './deep.mjs';
 import { interpret, fichaText } from './interpret.mjs';
 import { llmConfig, callLLM, parseJson, newLlmSession } from './llm.mjs';
+import { safeFetch } from './netguard.mjs';
+
+// La dirección que se escribe a veces redirige a otro dominio (factorialhr.es → factorial.es): se
+// explora el de destino; si no, el mapa sale vacío y la pantalla en blanco.
+async function resolveStart(url) {
+  try {
+    const { res, url: fin } = await safeFetch(url, { timeoutMs: 8000, headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', Accept: 'text/html,application/xhtml+xml' } });
+    try { await res.body?.cancel(); } catch {}
+    return /^https?:\/\//i.test(fin) ? new URL(fin).href : url;
+  } catch {
+    return url;
+  }
+}
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const clean = (t, n) => String(t ?? '').replace(/[\r\n\t]+/g, ' ').replace(/[`*_#>\[\]{}<|«»]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -136,6 +149,8 @@ export function compactBrain(m = getMap()) {
 // ---------- explorar una web nueva ----------
 export async function explore(url, { max = 40 } = {}) {
   if (exploring) throw new Error('Ya hay una exploración en marcha.');
+  exploring = resolveStart(url); // reservada: nadie más empieza mientras se resuelve la dirección
+  url = await exploring;
   const host = hostOf(url);
   const dir = siteDir(host);
   emit({ type: 'explore_start', url, host });

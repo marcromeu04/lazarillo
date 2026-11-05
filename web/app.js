@@ -223,7 +223,7 @@ async function irA(destino) {
     const t = await api('/api/resolve', { destino });
     if (!t.ok) return fail('no encuentro ese botón ni esa página');
     const pageP = waitFor('page', 5000);
-    siteFrame.src = '/proxy?url=' + encodeURIComponent(t.url);
+    showSite(t.url);
     if (!(await pageP)) return fail('la página no ha cargado a tiempo');
   }
   const ctx = await api('/api/current');
@@ -431,13 +431,40 @@ btnStart.addEventListener('click', start);
 btnStop.addEventListener('click', stop);
 
 // ---------- iframe del sitio (todo en una sola ventana) ----------
+// Cada host de la web va en su propio origen local (www.x.com → http://www-x-com.localhost:3001), igual
+// que en el servidor; si no se puede (http, puerto raro), por /proxy?url=.
+const FRAME = { port: 0, site: '' };
+function frameSrc(u) {
+  try {
+    const x = new URL(u);
+    const h = x.hostname.toLowerCase();
+    const enc = h.replace(/-/g, '--').replace(/\./g, '-');
+    const inSite = FRAME.site && (h === FRAME.site || h.endsWith('.' + FRAME.site));
+    if (FRAME.port && inSite && x.protocol === 'https:' && !x.port && enc.length <= 63) return `http://${enc}.localhost:${FRAME.port}${x.pathname}${x.search}${x.hash}`;
+  } catch {}
+  return '/proxy?url=' + encodeURIComponent(u);
+}
+// allow-same-origin solo para el origen local de la web (otro origen que esta app). Lo que va por
+// /proxy?url= se sirve desde el mismo origen que la app y tiene que quedarse con origen opaco.
+const SANDBOX = 'allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation';
+function showSite(u) {
+  const src = frameSrc(u);
+  siteFrame.setAttribute('sandbox', src.startsWith('http://') ? SANDBOX + ' allow-same-origin' : SANDBOX);
+  siteFrame.src = src;
+}
 async function initSite() {
   let target = 'https://books.toscrape.com/';
-  try { const r = await fetch('/api/config'); const c = await r.json(); if (c && c.targetUrl) target = c.targetUrl; } catch {}
+  try {
+    const r = await fetch('/api/config');
+    const c = await r.json();
+    if (c && c.targetUrl) target = c.targetUrl;
+    if (c && c.framePort) { FRAME.port = c.framePort; FRAME.site = c.site || ''; }
+  } catch {}
   visitorUrl = target;
-  siteFrame.src = '/proxy?url=' + encodeURIComponent(target);
+  showSite(target);
 }
 window.addEventListener('message', (ev) => {
+  if (ev.source !== siteFrame.contentWindow) return; // solo la pantalla de la web (no sus iframes ni ventanas)
   const d = ev.data || {};
   wake(d);
   if (d.type === 'tour_result') { tourEnded = !!d.end; return; }
@@ -513,14 +540,15 @@ function say(kind, who, text) {
 function onGraphEvent(ev) {
   switch (ev.type) {
     case 'hello': graphUi.reset(ev.graph); break;
-    case 'explore_start': graphUi.reset({ app: { host: ev.host } }); predictEl.textContent = ''; log('map', 'mapeo', `explorando ${ev.url}…`); break;
+    case 'explore_start': graphUi.reset({ app: { host: ev.host } }); predictEl.textContent = ''; FRAME.site = ev.host || FRAME.site; log('map', 'mapeo', `explorando ${ev.url}…`); break;
     case 'node': graphUi.addNode(ev.node); break;
     case 'edge': graphUi.addEdge(ev.edge); break;
     case 'log': break;
     case 'explore_done':
       graphUi.setTokens(ev.brainTokens);
       log('map', 'mapeo', `${ev.app.pages} páginas en ${ev.app.seconds} s · grafo para la voz: ~${ev.brainTokens} tokens`);
-      siteFrame.src = '/proxy?url=' + encodeURIComponent(ev.app.startUrl);
+      FRAME.site = ev.app.host || FRAME.site;
+      showSite(ev.app.startUrl);
       btnExplore.disabled = false;
       break;
     case 'ficha': {

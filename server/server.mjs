@@ -8,7 +8,8 @@ import * as cheerio from 'cheerio';
 import * as graph from '../explorer/graph.mjs';
 import { cachedHtml } from '../explorer/deep.mjs';
 import * as tracker from '../insights/tracker.mjs';
-import { isPublicUrl, safeFetch } from '../explorer/netguard.mjs';
+import { Readable } from 'node:stream';
+import { isPublicUrl, safeFetch, fetchOnce } from '../explorer/netguard.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -54,9 +55,171 @@ function bridgeSrc() {
   return bridgeCache.src;
 }
 const jsLit = (v) => JSON.stringify(String(v)).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
-function bridge(originalUrl, proxyOrigin) {
-  return `(function(ORIGINAL_URL, PROXY){\n${bridgeSrc()}\n})(${jsLit(originalUrl)}, ${jsLit(proxyOrigin)});`;
+function bridge(originalUrl, proxyOrigin, frame = null) {
+  return `(function(ORIGINAL_URL, PROXY, FRAME){\n${bridgeSrc()}\n})(${jsLit(originalUrl)}, ${jsLit(proxyOrigin)}, ${frame ? JSON.stringify(frame).replace(/</g, '\\u003c') : 'null'});`;
 }
+
+// ---------- cada web en su propio origen (proxy inverso) ----------
+// Cada host de la web explorada se sirve desde un origen local propio:
+//   https://www.capcut.com/es-es  →  http://www-capcut-com.localhost:3001/es-es
+// (Chrome resuelve *.localhost a este ordenador sin DNS). Así la página y sus scripts, estilos,
+// fuentes y llamadas a su API son del mismo origen, como en la web real; las cookies y el
+// localStorage funcionan, y el router de una SPA ve su ruta de verdad. Antes la página vivía en un
+// origen «null» con <base> a la web real: el navegador bloqueaba por CORS sus módulos, CSS y fuentes,
+// y las webs que leen document.cookie se caían (pantalla en blanco). Es otro origen distinto de la
+// app (localhost:3000), así que sus scripts no pueden leer la app ni usar /api.
+const FRAME_PORT = Number(process.env.FRAME_PORT) || Number(PORT) + 1;
+const encHost = (h) => h.replace(/-/g, '--').replace(/\./g, '-'); // www.cap-cut.com → www-cap--cut-com
+const decHost = (l) => l.replace(/--|-/g, (m) => (m === '--' ? '-' : '.'));
+const siteHost = () => graph.getMap().app.host || '';
+const inSite = (h, site = siteHost()) => !!site && !!h && (h === site || h.endsWith('.' + site));
+const frameHost = (h) => `${encHost(h)}.localhost:${FRAME_PORT}`;
+/** URL real → URL en su origen local, o null si no se puede (otra web, http, puerto raro). */
+function frameUrl(u) {
+  try {
+    const x = new URL(u);
+    if (x.protocol !== 'https:' || x.port || !inSite(x.hostname) || encHost(x.hostname).length > 63) return null;
+    return `http://${frameHost(x.hostname)}${x.pathname}${x.search}${x.hash}`;
+  } catch { return null; }
+}
+/** Host local (www-capcut-com.localhost:3001) → host real, solo si es de la web cargada. */
+function upstreamHost(hostHeader) {
+  const m = /^([a-z0-9-]+)\.localhost:(\d+)$/i.exec(hostHeader || '');
+  if (!m || Number(m[2]) !== FRAME_PORT) return null;
+  const h = decHost(m[1].toLowerCase());
+  return inSite(h) ? h : null;
+}
+/** En el texto de la web, sus direcciones absolutas (https://, //, https:\/\/) pasan a su origen local. */
+function rewriteSite(text, site = siteHost()) {
+  if (!site || !text.includes(site)) return text;
+  const rx = new RegExp(String.raw`(https?:)?(\/\/|\\\/\\\/)((?:[a-z0-9-]+\.)*` + site.replace(/[.]/g, '\\.') + String.raw`)(?![a-z0-9.:-])`, 'gi');
+  return text.replace(rx, (all, scheme, sl, host) => {
+    host = host.toLowerCase();
+    if (encHost(host).length > 63) return all;
+    return (scheme ? 'http:' : '') + sl + frameHost(host);
+  });
+}
+function decodeHtml(buf, ct) {
+  const cs = (/charset=["']?([\w-]+)/i.exec(ct || '') || [])[1] || (/<meta[^>]+charset=["']?([\w-]+)/i.exec(buf.subarray(0, 4096).toString('latin1')) || [])[1] || 'utf-8';
+  try { return new TextDecoder(cs).decode(buf); } catch { return buf.toString('utf8'); }
+}
+// Sin service workers: se quedarían en el origen local y servirían páginas viejas de esta web.
+const NO_SW = '<script>(function(){try{var s=navigator.serviceWorker;if(!s)return;s.register=function(){return Promise.reject(new Error("Lazarillo: sin service workers"))};s.getRegistrations().then(function(r){r.forEach(function(x){x.unregister()})}).catch(function(){})}catch(e){}})();</script>';
+const FRAME_CSP = 'sandbox allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation';
+// Los datos de React Server Components (self.__next_f) llevan la longitud de cada texto delante: si se
+// reescriben, React no los puede leer («Connection closed») y la página se queda a medias. Se dejan tal cual;
+// sus enlaces a la web real los reconduce el puente al navegar.
+function rewriteHtml(html) {
+  const keep = [];
+  const masked = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (m) => (m.includes('__next_f') ? `\u0000LZ${keep.push(m) - 1}\u0000` : m));
+  return rewriteSite(masked).replace(/\u0000LZ(\d+)\u0000/g, (_, i) => keep[+i]);
+}
+function framePage(html, realUrl) {
+  const $ = cheerio.load(rewriteHtml(html));
+  $('meta[http-equiv]').each((_, el) => {
+    const v = ($(el).attr('http-equiv') || '').toLowerCase();
+    if (v.includes('content-security-policy') || v.includes('x-frame-options') || v === 'content-type') $(el).remove();
+  });
+  $('meta[charset]').remove();
+  $('[integrity]').removeAttr('integrity'); // el texto se ha reescrito: su huella ya no coincide
+  if (!$('head').length) $.root().prepend('<head></head>');
+  $('head').prepend(`<meta charset="utf-8">${NO_SW}`);
+  $('body').append(`<script>${bridge(realUrl, `http://localhost:${PORT}`, { port: FRAME_PORT, site: siteHost() })}</script>`);
+  return $.html();
+}
+const DROP_REQ = new Set(['host', 'cookie', 'connection', 'content-length', 'accept-encoding', 'origin', 'referer', 'keep-alive', 'transfer-encoding', 'upgrade', 'te', 'trailer', 'service-worker']);
+const DROP_RES = new Set(['content-encoding', 'content-length', 'transfer-encoding', 'connection', 'keep-alive', 'set-cookie', 'content-security-policy', 'content-security-policy-report-only', 'x-frame-options', 'strict-transport-security', 'cross-origin-opener-policy', 'cross-origin-embedder-policy', 'cross-origin-resource-policy', 'report-to', 'reporting-endpoints', 'nel', 'link', 'clear-site-data', 'alt-svc', 'permissions-policy', 'origin-agent-cluster', 'location']);
+/** URL u origen local → el real (para Origin y Referer hacia la web). */
+function toUpstream(v, originOnly) {
+  try { const x = new URL(v); const h = upstreamHost(x.host); return h ? (originOnly ? `https://${h}` : `https://${h}${x.pathname}${x.search}`) : null; } catch { return null; }
+}
+
+/** Página en lugar de una pantalla en blanco cuando algo no se puede abrir dentro de la demo. */
+function outside(res, url, why) {
+  const safe = String(url).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': FRAME_CSP, 'Cache-Control': 'no-store' });
+  res.end(`<!doctype html><meta charset="utf-8"><body style="font:16px system-ui;padding:40px;color:#333">${why} <a href="${safe}" target="_blank" rel="noopener">Abrirla en una pestaña nueva ↗</a></body>`);
+}
+
+async function frameHandler(req, res) {
+  const host = upstreamHost(req.headers.host);
+  if (!host) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); return res.end('Esta web no es la que está cargada en Lazarillo.'); }
+  if (req.headers['service-worker']) { res.writeHead(404); return res.end(); }
+  const target = `https://${host}${req.url}`;
+  const dest = req.headers['sec-fetch-dest'] || '';
+  const isDoc = dest === 'iframe' || dest === 'document';
+  const method = req.method || 'GET';
+  let body;
+  if (method !== 'GET' && method !== 'HEAD') {
+    const chunks = [];
+    let n = 0;
+    for await (const c of req) { n += c.length; if (n > 5e6) { res.writeHead(413); return res.end(); } chunks.push(c); }
+    body = Buffer.concat(chunks);
+  }
+  const headers = {};
+  for (const [k, v] of Object.entries(req.headers)) if (!DROP_REQ.has(k) && !k.startsWith('proxy-')) headers[k] = v;
+  const o = req.headers.origin && toUpstream(req.headers.origin, true);
+  if (o) headers.origin = o;
+  const ref = req.headers.referer && toUpstream(req.headers.referer);
+  if (ref) headers.referer = ref;
+
+  // La página que el agente de mapeo ya ha descargado se sirve al momento.
+  const hit = isDoc && method === 'GET' ? cachedHtml(target) : null;
+  if (hit && hit.url === target) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': FRAME_CSP, 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store' });
+    return res.end(framePage(hit.html, target));
+  }
+  let r;
+  try { r = await fetchOnce(target, { method, headers, body, timeoutMs: isDoc ? 15000 : 60000 }); }
+  catch (e) {
+    const blocked = e && e.code === 'EBLOCKED';
+    if (!blocked) console.error(`  [pantalla] ${target.slice(0, 100)}: ${(e && e.cause && e.cause.message) || (e && e.message)}`);
+    res.writeHead(blocked ? 403 : 502, { 'Content-Type': 'text/plain; charset=utf-8' });
+    return res.end(blocked ? 'solo webs públicas' : 'No se ha podido cargar esta página.');
+  }
+  // Cloudflare a veces frena las peticiones del servidor (no las de un navegador). Un recurso frenado lo
+  // pide el navegador directamente a la web, como antes; una página frenada se ofrece en una pestaña aparte.
+  if (r.headers.get('cf-mitigated')) {
+    try { await r.body?.cancel(); } catch {}
+    if (!isDoc) { res.writeHead(307, { Location: target }); return res.end(); }
+    return outside(res, target, 'Esta web no deja que se abra dentro de la demo.');
+  }
+  const out = {};
+  for (const [k, v] of r.headers) if (!DROP_RES.has(k)) out[k] = v;
+  const acao = r.headers.get('access-control-allow-origin');
+  if (acao && acao !== '*') { try { const h = new URL(acao).hostname; if (inSite(h)) out['access-control-allow-origin'] = `http://${frameHost(h)}`; } catch {} }
+  const loc = r.status >= 300 && r.status < 400 ? r.headers.get('location') : null;
+  if (loc) {
+    try { await r.body?.cancel(); } catch {}
+    const abs = new URL(loc, target).href;
+    const f = frameUrl(abs);
+    if (!f && isDoc) return outside(res, abs, 'Esta página está en otra web.'); // en vez de dejar la pantalla en blanco
+    res.writeHead(r.status, { ...out, Location: f || abs });
+    return res.end();
+  }
+  const ct = r.headers.get('content-type') || '';
+  if (isDoc && /text\/html|application\/xhtml/i.test(ct)) {
+    const html = decodeHtml(Buffer.from(await r.arrayBuffer()), ct);
+    res.writeHead(r.status, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': FRAME_CSP, 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store' });
+    return res.end(framePage(html, target));
+  }
+  // Scripts, estilos y JSON: sus direcciones a la web, al origen local (no las de React Server
+  // Components, text/x-component: van con longitudes y se romperían).
+  if (method !== 'HEAD' && r.body && /javascript|ecmascript|text\/css|json|text\/html/i.test(ct) && !/charset=(?!utf-?8)/i.test(ct)) {
+    const text = rewriteSite(Buffer.from(await r.arrayBuffer()).toString('utf8'));
+    res.writeHead(r.status, out);
+    return res.end(text);
+  }
+  res.writeHead(r.status, out);
+  if (method === 'HEAD' || !r.body) return res.end();
+  Readable.fromWeb(r.body).on('error', () => res.destroy()).pipe(res);
+}
+const frameServer = http.createServer((req, res) => {
+  frameHandler(req, res).catch((e) => {
+    console.error(`  [pantalla] ${req.headers.host}${req.url.slice(0, 80)}: ${e && e.message}`);
+    try { if (!res.headersSent) res.writeHead(502); res.end(); } catch {}
+  });
+});
 
 async function proxyHandler(req, res, target) {
   let r;
@@ -104,7 +267,9 @@ function serveStatic(req, res) {
   if (rel === '/') rel = '/index.html';
   const file = path.join(WEB, path.normalize(rel).replace(/^(\.\.[/\\])+/, ''));
   if (!file.startsWith(WEB) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end('not found'); }
-  res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
+  // Las páginas de la app no se pueden meter en un iframe (ni en el de la web explorada).
+  const noFrame = path.extname(file) === '.html' ? { 'X-Frame-Options': 'DENY', 'Content-Security-Policy': "frame-ancestors 'none'" } : {};
+  res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream', ...noFrame });
   fs.createReadStream(file).pipe(res);
 }
 
@@ -141,7 +306,7 @@ const server = http.createServer(async (req, res) => {
   }
   try {
     if (url === '/proxy') return proxyHandler(req, res, q.get('url') || TARGET_URL());
-    if (url === '/api/config' && req.method === 'GET') return sendJson(res, 200, { targetUrl: TARGET_URL(), agenteMejoras: !!AGENT_MEJORAS });
+    if (url === '/api/config' && req.method === 'GET') return sendJson(res, 200, { targetUrl: TARGET_URL(), agenteMejoras: !!AGENT_MEJORAS, framePort: frameOk ? FRAME_PORT : 0, site: siteHost() });
     if (url === '/api/token' && req.method === 'POST') {
       if (token.__missing || !token.createToken) return sendJson(res, 503, { error: 'token.mjs no disponible' });
       graph.resetSession();
@@ -203,6 +368,11 @@ const server = http.createServer(async (req, res) => {
   } catch (e) { sendJson(res, 500, { error: String(e.message || e) }); }
 });
 
+// Si el puerto de la pantalla está ocupado, la app sigue con /proxy?url= (framePort 0 en /api/config).
+let frameOk = false;
+frameServer.on('listening', () => { frameOk = true; });
+frameServer.on('error', (e) => console.error(`  ⚠  Pantalla: no se puede usar el puerto ${FRAME_PORT} (${e.code || e.message}); las webs irán por /proxy.`));
+frameServer.listen(FRAME_PORT, '127.0.0.1');
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`\n  Lazarillo v2 → http://localhost:${PORT}  (Chrome)`);
   console.log(`  web: ${TARGET_URL()}   token.mjs: ${token.__missing ? '✗' : '✓'}   agente de mejoras: ${AGENT_MEJORAS ? '✓' : '✗ (los mapas no se cargan en la voz)'}`);
