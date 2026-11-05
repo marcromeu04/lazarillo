@@ -33,6 +33,7 @@ const AGENT_MEJORAS = process.env.CARTESIA_AGENT_ID_MEJORAS || '';
 if (AGENT_MEJORAS) process.env.CARTESIA_AGENT_ID = AGENT_MEJORAS;
 graph.loadInitial();
 graph.ensureFicha().catch(() => {}); // si la web cargada no tiene ficha, se interpreta en segundo plano
+setTimeout(() => graph.prefetchAll(), 3000); // el detalle de todas sus páginas, para buscar_en_la_web
 const TARGET_URL = () => graph.targetUrl() || process.env.TARGET_URL || 'https://books.toscrape.com/';
 const CHROME_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 
@@ -316,6 +317,14 @@ const server = http.createServer(async (req, res) => {
     }
     if (url === '/api/graph' && req.method === 'GET') return sendJson(res, 200, graph.graphView());
     if (url === '/api/informe' && req.method === 'GET') return sendJson(res, 200, graph.getInforme());
+    // buscar_en_la_web: datos de cualquier página (solo frases literales de la web, con su página)
+    if (url === '/api/buscar' && req.method === 'POST') {
+      const { pregunta } = await body(req);
+      const t0 = Date.now();
+      const r = graph.searchSite(typeof pregunta === 'string' ? pregunta.slice(0, 300) : '');
+      if (!r.length) return sendJson(res, 200, { ok: false, motivo: 'no aparece en la web', siguientes: graph.suggest(), ms: Date.now() - t0 });
+      return sendJson(res, 200, { ok: true, resultados: r, nota: 'Solo lo que pone la web. Para enseñarlo, ir_a con el id de la página.', ms: Date.now() - t0 });
+    }
     if (url === '/api/events' && req.method === 'GET') {
       res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' });
       res.write(`data: ${JSON.stringify({ type: 'hello', graph: graph.graphView() })}\n\n`);

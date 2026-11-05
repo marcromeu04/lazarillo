@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { crawl, normUrl, hostOf, SKIP, FILES } from './crawl.mjs';
-import { deepPage, resetDeep, setRenderedDetail } from './deep.mjs';
+import { deepPage, resetDeep, setRenderedDetail, knownDetail } from './deep.mjs';
 import { interpret, fichaText } from './interpret.mjs';
 import { llmConfig, callLLM, parseJson, newLlmSession } from './llm.mjs';
 import { safeFetch } from './netguard.mjs';
@@ -224,6 +224,7 @@ export async function explore(url, { max = 40 } = {}) {
     const brain = compactBrain(result);
     fs.writeFileSync(path.join(dir, 'brain.md'), brain);
     try { fs.writeFileSync(path.join(dir, 'informe.md'), reportMarkdown(knowledgeOf(result).informe)); } catch {}
+    prefetchAll(); // el detalle de todas las páginas, para buscar_en_la_web
     emit({ type: 'ficha', ficha: it.ficha, via: it.via, ms: it.ms, brainTokens: Math.round(brain.length / 4) });
     return { map: result, brain };
   } catch (e) {
@@ -377,6 +378,107 @@ function investigateAround(id) {
   };
   run();
   run();
+}
+
+// ---------- el detalle de todas las páginas, en segundo plano ----------
+// Para que buscar_en_la_web encuentre datos de cualquier página (integraciones, cifras, clientes…), no solo
+// de la actual y sus vecinas. Tres a la vez, sin abrir Chrome (las pintadas con JavaScript las cubre la pantalla).
+let prefetchedFor = null;
+export function prefetchAll() {
+  const m = getMap();
+  if (prefetchedFor === m || !m.screens.length) return;
+  prefetchedFor = m;
+  const queue = m.screens.map((s) => s);
+  const worker = async () => {
+    while (queue.length && prefetchedFor === m) {
+      const s = queue.shift();
+      if (deepStatus.get(s.id) === 'listo') continue;
+      await deepPage(s.url, { background: true }).catch(() => null);
+      if (prefetchedFor !== m) return;
+      if (deepStatus.get(s.id) !== 'listo') { deepStatus.set(s.id, 'listo'); emit({ type: 'deep', id: s.id, state: 'listo' }); }
+    }
+  };
+  for (let i = 0; i < 3; i++) worker();
+}
+
+// ---------- buscar en toda la web (para la voz) ----------
+// Busca lo que pregunta el visitante en las frases de todas las páginas (titulares, texto, listas y cifras)
+// y en la capa de conceptos (sinónimos: «comercial» → ventas, «cuánto cuesta» → precios). Devuelve solo
+// frases literales de la web con la página donde aparecen: nada deducido.
+const splitSentences = (t) => String(t || '').split(/(?<=[.!?])\s+/).map((x) => x.trim()).filter((x) => x.length >= 12);
+// Unos pocos equivalentes español ↔ inglés (las webs mezclan: «in-app», «founders», «pricing»…)
+const SYN = { aplic: ['app'], app: ['aplic'], funda: ['found'], found: ['funda'], preci: ['prici', 'plane', 'tarif'], clien: ['custo'], segur: ['secur'], empre: ['enter', 'compa'] };
+const PRICE_Q = /cuesta|cuanto vale|precio|tarifa|\bplan(es)?\b|pricing|suscripci|gratis|\bcoste\b|€/;
+const PRICE_EVIDENCE = /€|\$|\/mes|\bal mes\b|precio|tarifa|pricing|\bplan(es)?\b|gratis|prueba gratuita|free trial|por usuario/i;
+export function searchSite(question, { max = 3 } = {}) {
+  const m = getMap();
+  const k = getKnowledge();
+  const q = [...new Set(stems(question).flatMap((st) => [st, ...(SYN[st] || [])]))];
+  const priceQ = PRICE_Q.test(deacc(question));
+  const boost = new Map();
+  if (!priceQ) {
+    try {
+      for (const c of conceptHits(question, k)) for (const pid of c.pages) boost.set(pid, Math.max(boost.get(pid) || 0, pid === c.best ? 2 : 1));
+    } catch {}
+  }
+  if (!q.length && !boost.size) return [];
+  const pages = m.screens.filter((s) => k.groups[s.id] !== 'Otros idiomas');
+  // de precio solo habla lo que da un precio
+  const frag = (t, w) => {
+    const c = clean(t, 240);
+    return c.length >= 8 && (!priceQ || PRICE_EVIDENCE.test(c)) ? { t: c, w, st: new Set(stems(c)) } : null;
+  };
+  const uniqF = (list) => {
+    const seen = new Set();
+    return list.filter((f) => f && !seen.has(f.t) && seen.add(f.t));
+  };
+  // Lo que dice de qué va cada página (para elegirla) y lo que trae los datos (para responder).
+  const structural = (s) => uniqF([frag(s.title, 2), ...(s.headings || []).map((h) => frag(h, 1.5)), ...splitSentences(s.summary).map((x) => frag(x, 1))]);
+  const body = (s) => {
+    const d = knownDetail(s.url);
+    if (!d) return [];
+    return uniqF([...(d.heads || []).map((h) => frag(h, 1.2)), ...splitSentences(d.text).map((x) => frag(x, 1)), ...(d.items || []).map((x) => frag(x, 1)), d.figures && d.figures.length ? frag(`Cifras: ${d.figures.join(', ')}`, 0.6) : null]);
+  };
+  function rank(fragsOf, useBoost) {
+    const docs = pages.map((s) => ({ s, frags: fragsOf(s) }));
+    const df = new Map();
+    let n = 0;
+    for (const d of docs) for (const f of d.frags) { n++; for (const st of f.st) df.set(st, (df.get(st) || 0) + 1); }
+    const rare = (st) => Math.log(1 + n / (df.get(st) || n));
+    const out = [];
+    for (const { s, frags } of docs) {
+      const scored = frags
+        .map((f) => {
+          const hit = q.filter((st) => f.st.has(st));
+          return { t: f.t, hit, sc: f.w * hit.reduce((a, st) => a + rare(st), 0) };
+        })
+        .filter((x) => x.sc > 0)
+        .sort((a, b) => b.sc - a.sc);
+      const best = scored[0];
+      // Pruebas suficientes: dos palabras de la pregunta en una frase, o una poco común (≤ 3 frases de la web)
+      const enough = best && (best.hit.length >= 2 || best.hit.some((st) => (df.get(st) || 0) <= 3));
+      const b = useBoost ? boost.get(s.id) || 0 : 0;
+      if (!enough && !b) continue;
+      out.push({ s, sc: (enough ? best.sc + 0.25 * (scored[1]?.sc || 0) : 0) + 1.5 * b, best: enough ? best.t : null });
+    }
+    out.sort((a, b) => b.sc - a.sc);
+    return out.length ? out.filter((r) => r.sc >= out[0].sc * 0.4).slice(0, max) : [];
+  }
+  // 1) La página, por su título, titulares y resumen (es lo que mejor dice de qué va).
+  // 2) Si así no sale nada, por el texto de todas las páginas (datos que solo están en el cuerpo).
+  let found = rank(structural, true);
+  if (!found.length) found = rank(body, false);
+  // La frase con el dato: la del texto de esa página que más palabras de la pregunta tiene.
+  return found.map(({ s, best }) => {
+    const ev = body(s)
+      .map((f) => ({ t: f.t, n: q.filter((st) => f.st.has(st)).length }))
+      .filter((x) => x.n > 0)
+      .sort((a, b) => b.n - a.n)
+      .map((x) => x.t);
+    const frases = [...new Set([best, ...ev].filter(Boolean))].slice(0, 2);
+    if (!frases.length) frases.push(...structural(s).slice(0, 2).map((f) => f.t));
+    return { pagina: s.id, titulo: clean(s.title, 80), ruta: s.path, frases };
+  });
 }
 
 function linksOf(s) {

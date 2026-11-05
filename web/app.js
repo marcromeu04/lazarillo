@@ -320,6 +320,13 @@ async function handleToolCall(msg) {
       log('info', 'pantalla_actual', data && data.pantalla ? data.pantalla.title : 'ok');
       return;
     }
+    if (tool_name === 'buscar_en_la_web') {
+      const pregunta = (parameters && parameters.pregunta) || '';
+      const data = await api('/api/buscar', { pregunta });
+      reply(JSON.stringify(data), false);
+      log('tool', 'buscar', `«${pregunta}» → ${data.ok ? data.resultados.map((r) => r.pagina).join(', ') : 'no aparece'}${data.ms != null ? ` (${data.ms} ms)` : ''}`);
+      return;
+    }
     if (tool_name === 'resaltar') {
       const texto = parameters && parameters.texto;
       // El resaltado ocurre DENTRO del iframe (visible en la misma ventana).

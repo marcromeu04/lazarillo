@@ -92,7 +92,7 @@ function waitRendered(url, ms) {
   });
 }
 
-async function investigate(url, onScreen = false) {
+async function investigate(url, onScreen = false, noChrome = false) {
   let html = '';
   const blockedResult = { url, via: 'bloqueada', at: new Date().toISOString(), heads: [], text: '', items: [], buttons: [], forms: [], figures: [] };
   if (!(await isPublicUrl(url))) return blockedResult;
@@ -116,6 +116,7 @@ async function investigate(url, onScreen = false) {
       const r = await waitRendered(url, 2500);
       if (r) return r;
     }
+    if (noChrome) return { url, via, at: new Date().toISOString(), ...d }; // en segundo plano no se abre Chrome
     try {
       d = extract(await renderWithChrome(url));
       via = 'chrome';
@@ -130,14 +131,22 @@ const cache = new Map(); // url → Promise<detalle>
  * Detalle de una página: el del HTML si trae contenido; si no, lo que se ha visto en pantalla. La primera
  * vez la investiga; después sale de la caché. onScreen: es la que se está viendo (puede llegar pintada).
  */
-export function deepPage(url, { onScreen = false } = {}) {
-  if (!cache.has(url)) cache.set(url, investigate(url, onScreen).then((d) => { done.set(url, d); return d; }));
+export function deepPage(url, { onScreen = false, background = false } = {}) {
+  if (!cache.has(url)) cache.set(url, investigate(url, onScreen, background).then((d) => { done.set(url, d); return d; }));
   const r = rendered.get(url);
   if (!r) return cache.get(url);
   const h = done.get(url);
   if (h) return Promise.resolve(thin(h) ? r : h);
   // El HTML aún no ha llegado: se espera un poco y, si tarda o llega vacío, vale lo de la pantalla.
   return Promise.race([cache.get(url).then((x) => (thin(x) ? r : x), () => r), new Promise((res) => setTimeout(() => res(r), 1200))]);
+}
+
+/** Detalle ya disponible de una página (sin esperar ni descargar): el del HTML o, si llegó vacío, el de pantalla. */
+export function knownDetail(url) {
+  const h = done.get(url);
+  const r = rendered.get(url);
+  if (h && !thin(h)) return h;
+  return r || h || null;
 }
 
 export function deepState(url) {

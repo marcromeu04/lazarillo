@@ -36,6 +36,27 @@
   },
   {
     "type": "client",
+    "name": "buscar_en_la_web",
+    "description": "Busca en TODAS las páginas de la web un dato que no está en la página actual: si se integra con algo, precios, cifras, clientes, cómo funciona una parte. Devuelve las páginas donde aparece (id) con frases literales de la web. Responde solo con eso y, si encaja, ofrece llevarle con ir_a. Si devuelve ok:false, no está en la web: dilo con naturalidad.",
+    "pre_tool_speech": "auto",
+    "execution_mode": "sync",
+    "expects_response": true,
+    "response_timeout_secs": 3,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "pregunta": {
+          "type": "string",
+          "description": "Lo que quiere saber el visitante, con las palabras clave (p. ej. «integración con HubSpot», «precio por usuario», «resultados de Workday»)."
+        }
+      },
+      "required": [
+        "pregunta"
+      ]
+    }
+  },
+  {
+    "type": "client",
     "name": "resaltar",
     "description": "Señala en la pantalla un botón o texto sin pulsarlo, para que el visitante lo vea. Pasa el texto exacto.",
     "pre_tool_speech": "auto",
