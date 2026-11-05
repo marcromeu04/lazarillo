@@ -24,8 +24,7 @@ function loadEnv(file) {
     }
   } catch {}
 }
-loadEnv('.env');
-loadEnv('.env.demo');
+loadEnv('.env'); // cada uno con su clave de Cartesia: la de la demo del hackathon es privada y no va en esta rama
 
 const PORT = process.env.PORT || 3000;
 // Mejoras: la voz usa un agente propio si existe (CARTESIA_AGENT_ID_MEJORAS). El de la
@@ -376,5 +375,5 @@ frameServer.listen(FRAME_PORT, '127.0.0.1');
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`\n  Lazarillo v2 → http://localhost:${PORT}  (Chrome)`);
   console.log(`  web: ${TARGET_URL()}   token.mjs: ${token.__missing ? '✗' : '✓'}   agente de mejoras: ${AGENT_MEJORAS ? '✓' : '✗ (los mapas no se cargan en la voz)'}`);
-  if (!process.env.CARTESIA_API_KEY) console.log('  ⚠  Falta CARTESIA_API_KEY (está en .env.demo).');
+  if (!process.env.CARTESIA_API_KEY) console.log('  ⚠  Falta CARTESIA_API_KEY: copia .env.example a .env y pon tu clave (https://play.cartesia.ai/keys), luego npm run setup.');
 });

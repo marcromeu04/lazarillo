@@ -16,7 +16,7 @@ una conversación natural y sin esperas. Y funciona con cualquier web, no solo c
 ```bash
 git clone https://github.com/marcromeu04/lazarillo && cd lazarillo && git checkout mejoras
 npm i
-cp .env.example .env      # pon tu CARTESIA_API_KEY (https://play.cartesia.ai/keys)
+cp .env.example .env      # pon TU CARTESIA_API_KEY (https://play.cartesia.ai/keys): en el repo no va ninguna
 npm run setup             # crea tu agente de voz, registra las herramientas y le carga el grafo
 npm start                 # http://localhost:3000 en Chrome
 ```
@@ -108,7 +108,8 @@ claves van en `.env`, que nunca se sube.
 npm i
 npm start          # http://localhost:3000  (ábrelo en Chrome)
 ```
-La clave de Cartesia va incluida en `.env.demo` (demo del hackathon), así que **no hay que configurar nada**.
+En `main` va la configuración de la demo del hackathon. En `mejoras` no hay ninguna clave en el repo: cada uno pone
+la suya de Cartesia en `.env` (ver «Arrancar con tu propia cuenta de Cartesia» arriba).
 
 ### Probar la demo de voz
 1. Abre **http://localhost:3000** en Chrome y pulsa **«Empezar demo»** (permite el micrófono; usa **cascos**).

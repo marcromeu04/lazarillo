@@ -2,3 +2,4 @@
 node_modules/
 cache/*.json
 sites/
+.env.demo
